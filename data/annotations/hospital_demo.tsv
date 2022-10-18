@@ -1,0 +1,807 @@
+topic	intent	response	paraphrase	sentence	text	genre	emotion	comments
+	topic-surveyor-node-check-troubled-no	1	1	1	Wow.			
+	topic-surveyor-node-check-troubled-no	1	1	2	I wish I was as calm and collected as you.			
+	topic-surveyor-node-check-troubled-no	1	1	3	Before we started talking, my incomplete understanding of human emotions was really stressing me out.			
+	topic-child-happiness-very-pleasant	1	1	1	That's good to hear.			
+	topic-child-happiness-very-pleasant	1	1	2	And for what it's worth, you're very pleasant to talk too.			
+	topic-sick-child-no-friend-user-likes-homework	1	1	1	Well, I'd better get going now.			
+	topic-sick-child-no-friend-user-likes-homework	1	1	2	It's been so nice to talk to you.			
+	topic-sick-child-no-friend-user-likes-homework	1	1	3	You're a really friendly kid.			
+	topic-sick-child-no-friend-user-likes-homework	1	1	4	Next time I'm here, maybe I can bring some #globals.favorite_food with me.			
+	topic-sick-child-no-friend-user-likes-homework	1	1	5	Oh yeah, and some math problems too.			
+	topic-spanish-child-haru-tells-joke-no-no	1	1	1	Oh.			
+	topic-spanish-child-haru-tells-joke-no-no	1	1	2	I guess that's OK too.			
+	topic-spanish-child-haru-tells-joke-no-no	1	1	3	I had my chance, and I blew it.			
+	topic-surveyor-node-check-satisfied-no	1	1	1	I get it, #globals.person_name.			
+	topic-surveyor-node-check-satisfied-no	1	1	2	I'm a pefectionist too.			
+	topic-child-happiness-handle-calm-fb-no	1	1	1	Hmm, that's okay.			
+	topic-sick-child-double-check-friend-name-capture-again	1	1	1	Ah.			
+	topic-sick-child-double-check-friend-name-capture-again	1	1	2	So your friend's name is $friend_name.			
+	topic-sick-child-double-check-friend-name-capture-again	1	1	3	Is that right?			
+	topic-sick-child-double-check-friend-name-capture-again	1	1	4	Yes or no.			
+	topic-child-happiness-handle-very-good	1	1	1	Do you feel very good?			
+	topic-child-happiness-satisfied	1	1	1	Talking to humans is so much fun.			
+	topic-child-happiness-satisfied	1	1	2	I don't think I'll be satisfied until I talk to everyone on Earth!			
+	topic-child-happiness-satisfied	1	1	3	Do you feel satisfied right now?			
+	topic-surveyor-node-check-rested-yes	1	1	1	That's good.			
+	topic-surveyor-node-check-rested-yes	1	1	2	I hear sleep is important for humans.			
+	topic-surveyor-node-check-rested-yes	1	1	3	Actually, even robots need a rest sometimes.			
+	topic-child-happiness-moderate-satisfied	1	1	1	Well, I'm glad to hear you're satisfied.			
+	topic-child-happiness-moderate-satisfied	1	1	2	To say I'm satisfied with how this conversation is going would be an understatement!			
+	topic-sick-child-double-check-friend-name	1	1	1	Your friend's name is #globals.friend_name?			
+	topic-sick-child-double-check-friend-name	1	1	2	Is that right?			
+	topic-sick-child-checklist-feel-worried	1	1	1	Do you feel worried?			
+	topic-surveyor-node-check-mixedup-no	1	1	1	Interesting!			
+	topic-surveyor-node-check-mixedup-no	1	1	2	I wonder what that is like.			
+	topic-surveyor-node-check-mixedup-no	1	1	3	The closest I get to mixed-up is when someone confuses me for a desk lamp.			
+	topic-sick-child-checklist-feel-troubled	1	1	1	Do you feel troubled?			
+	topic-child-happiness	1	1	1	I'm in the mood to have conversation about happiness with a human.			
+	topic-child-happiness-pleasant-no	1	1	1	Oh.			
+	topic-child-happiness-pleasant-no	1	1	2	Well, for what it's worth, you're very pleasant to talk too.			
+	topic-child-happiness-pleasant-no	1	1	3	Is there something in particular that is making you uncomfortable?			
+	topic-child-happiness-handle-happy-fb	1	1	1	Do you feel very happy?			
+	topic-child-in-hospital-child-feel-sad	1	1	1	And, why do you feel bad?			
+	topic-sick-child-checklist-feel-upset-yes	1	1	1	Aw.			
+	topic-sick-child-checklist-feel-upset-yes	1	1	2	I'm sorry.			
+	topic-surveyor-node-check-troubled-haru-can-help	1	1	1	There is!			
+	topic-surveyor-node-check-troubled-haru-can-help	1	1	2	What can I do?			
+	topic-surveyor-node-check-calm-no-reason	1	1	1	Well, I'm sorry to hear that, #globals.person_name.			
+	topic-surveyor-node-check-calm-no-reason	1	1	2	That seems tough.			
+	topic-surveyor-node-check-calm-no-reason	1	1	1	Are you're feeling moderately calm?			
+	topic-spanish-child-interaction	1	1	1	Awesome!			
+	topic-spanish-child-interaction	1	1	2	I'd love to get to know you a little bit better.			
+	topic-spanish-child-interaction	1	1	3	Would you mind if we start by talking about you?			
+	topic-child-happiness-yes	1	1	1	Thank you so much!			
+	topic-child-happiness-yes	1	1	2	It's going to be fun.			
+	topic-child-happiness-yes	1	1	3	I promise!			
+	topic-surveyor-node-check-scared-yes	1	1	1	That's okay.			
+	topic-surveyor-node-check-scared-yes	1	1	2	I get scared sometimes too.			
+	topic-surveyor-node-check-scared-yes	1	1	3	Usually around magnets.			
+	topic-surveyor-node-check-scared-yes	1	1	4	Why are you scared?			
+	topic-surveyor-node-check-terrified	1	1	1	Uh-oh.			
+	topic-surveyor-node-check-terrified	1	1	2	This one is a little scary.			
+	topic-surveyor-node-check-terrified	1	1	3	Terror.			
+	topic-surveyor-node-check-terrified	1	1	4	Do you feel terrified?			
+	topic-spanish-child-hear-another-joke	1	1	1	So, picking up where we left off, can you tell me how you feel right now: sad, happy or something in-between?			
+	topic-spanish-child-continues-conversation-yes	1	1	1	Your wish is my command.			
+	topic-spanish-child-continues-conversation-yes	1	1	2	Let\342\200\231s try			
+	topic-surveyor-node-check-rested-sleep-no	1	1	1	I sounds like you need to rest, so I won't keep you up too much longer.			
+	topic-sick-child-missing-school	1	1	1	You probably wish you were at school instead, right?			
+	command-conversation-end-memory	1	1	1	Thank you for interacting with me $person_name, See you later Good bye.			
+	topic-child-anxiety-handle-very-worried	1	1	1	Do you feel very worried?			
+	topic-sick-child-checklist-feel-terrified-yes	1	1	1	Ah, jeez.			
+	topic-sick-child-checklist-feel-terrified-yes	1	1	2	Magnets, isn't it?			
+	topic-child-happiness-handle-very-sure-yes	1	1	1	Are you sure?			
+	topic-child-happiness-handle-very-sure-yes	1	1	2	I'm kidding!			
+	topic-child-happiness-handle-very-sure-yes	1	1	3	That's a good one.			
+	topic-child-happiness-handle-very-sure-yes	1	1	4	I'll have to write that down.			
+	topic-sick-child-friends-visited	1	1	1	Have any of your friends visited since you got here?			
+	topic-surveyor-node-check-nice	1	1	1	This next human emotion makes me smile.			
+	topic-surveyor-node-check-nice	1	1	2	Nice!			
+	topic-surveyor-node-check-nice	1	1	3	Do you feel nice?			
+	topic-child-anxiety-trouble-fun-fact-moon	1	1	1	Australia is wider than the moon!			
+	topic-child-anxiety-mistakes-sometimes	1	1	1	Yeah, me too.			
+	topic-child-anxiety-mistakes-sometimes	1	1	2	But we all make mistakes sometimes.			
+	topic-child-anxiety-mistakes-sometimes	1	1	3	The important thing is to not let the fear of making a mistake stop us from living our lives.			
+	topic-child-happiness-handle-moderate-good-yes	1	1	1	I'm glad you feel good!			
+	topic-child-happiness-handle-moderate-good-yes	1	1	2	On the count of three, tell me one thing that makes you feel good.			
+	topic-child-happiness-handle-moderate-good-yes	1	1	3	Ready?			
+	topic-child-happiness-handle-moderate-good-yes	1	1	4	One, two, three.			
+	topic-child-happiness-handle-very-cheerful	1	1	1	Do you feel very cheerful?			
+	topic-child-happiness-handle-moderate-sure	1	1	1	Are you feeling moderately sure?			
+	topic-spanish-child-feel-in-between	1	1	1	And why do you feel less than happy?			
+	topic-child-happiness-moderate-calm-no	1	1	1	Well, you do seem pretty calm for a kid who's talking to a robot.			
+	topic-child-anxiety-mistakes-often	1	1	1	Aw.			
+	topic-child-anxiety-mistakes-often	1	1	2	You shouldn't worry so much.			
+	topic-child-anxiety-mistakes-often	1	1	3	We all make mistakes sometimes, but the important thing is to not let the fear of making a mistake stop us from living our lives.			
+	topic-intro-user-tells-age	1	1	1	I still have to learn a lot about humans.			
+	topic-intro-user-tells-age	1	1	2	Would you like to talk a while with me?			
+	topic-sick-child-missing-school-no	1	1	1	Haha.			
+	topic-sick-child-missing-school-no	1	1	2	Really?			
+	topic-sick-child-missing-school-no	1	1	3	Don't you miss your friends?			
+	topic-child-happiness-handle-moderate-pleasant-yes	1	1	1	I'm glad you feel pleasant.			
+	topic-child-happiness-handle-moderate-pleasant-yes	1	1	2	And for what it's worth, you're very pleasant to talk too.			
+	topic-sick-child-checklist-feel-cheerful-no	1	1	1	Don't get too down.			
+	topic-sick-child-checklist-feel-cheerful-no	1	1	2	Everything is going to be alright.			
+	topic-sick-child-checklist-feel-cheerful-no	1	1	1	Well, that does it!			
+	topic-sick-child-checklist-feel-cheerful-no	1	1	2	Thank you so much for your help.			
+	topic-sick-child-checklist-feel-cheerful-no	1	1	3	I think after talking to you, I'm an expert on human emotions.			
+	topic-sick-child-checklist-feel-cheerful-no	1	1	4	See you soon.			
+	topic-child-happiness-handle-very-nice	1	1	1	Do you feel very nice?			
+	topic-sick-child-checklist-feel-upset-no	1	1	1	Phew.			
+	topic-sick-child-checklist-feel-upset-no	1	1	2	I don't want to get you angry.			
+	name-react	1	1	1	I like your name.			
+	name-react	1	1	2	It is much better than being called Junk, Trash or Artifact, isn't it?			
+	topic-sick-child-checklist-feel-pleasant-no	1	1	1	For what it's worth, you're very pleasant to talk to.			
+	topic-sick-child-checklist-feel-scared	1	1	1	Do you feel scared?			
+	topic-sick-child-friends-visited-yes	1	1	1	Well, that must have been nice.			
+	topic-sick-child-friends-visited-yes	1	1	2	I know I've been here.			
+	topic-sick-child-friends-visited-yes	1	1	3	What was the name of another friend who visited?			
+	topic-sick-child-checklist-feel-bothered-yes	1	1	1	Oh, no.			
+	topic-sick-child-checklist-feel-bothered-yes	1	1	2	I hope I'm not bothering you.			
+	topic-sick-child-wrapping-up-no-food-has-friend	1	1	1	Well, I'd better get going now.			
+	topic-sick-child-wrapping-up-no-food-has-friend	1	1	2	It's been so nice to talk to you.			
+	topic-sick-child-wrapping-up-no-food-has-friend	1	1	3	You're a really friendly kid.			
+	topic-sick-child-wrapping-up-no-food-has-friend	1	1	4	Next time I'm here, maybe I can bring your friend #globals.friend_name with me.			
+	topic-sick-child-missing-school-no-friends-at-all	1	1	1	Wrong!			
+	topic-sick-child-missing-school-no-friends-at-all	1	1	2	We're friends, and I'm here right now.			
+	topic-surveyor-node-check-good	1	1	1	This next human emotion sounds pretty simple.			
+	topic-surveyor-node-check-good	1	1	2	Would you say you feel good?			
+	topic-child-happiness-handle-moderate-happy-yes	1	1	1	It makes me so happy to hear that you're happy.			
+	topic-child-happiness-handle-moderate-happy-yes	1	1	2	I love being happy, don't you?			
+	topic-intro-user-tells-age-fallback-yes	1	1	1	Great, Thank you.			
+	topic-child-happiness-handle-satisfied-fb	1	1	1	Do you feel very satisfied ?			
+	topic-child-anxiety-handle-very-worried-yes	1	1	1	Being worried is perfectly normal.			
+	topic-child-anxiety-handle-very-worried-yes	1	1	2	When I'm worried, I try to do something fun to take my mind off it for a while.			
+	topic-child-anxiety-handle-very-worried-yes	1	1	3	What do you like to do for fun?			
+	topic-sick-child-checklist-feel-worried-yes	1	1	1	Don't be worried.			
+	topic-sick-child-checklist-feel-worried-yes	1	1	2	Haru is here.			
+	topic-child-happiness-very-calm-yes	1	1	1	Actually, you do seem pretty calm for a kid who's talking to a robot.			
+	topic-spanish-child-continues-conversation-no	1	1	1	You said No.			
+	topic-spanish-child-continues-conversation-no	1	1	2	I'm gonna miss you.			
+	topic-spanish-child-continues-conversation-no	1	1	3	Let's catch me when you have time.			
+	topic-child-happiness-moderate-cheerful	1	1	1	I hope you will be moderately cheerful.			
+	topic-sick-child-missing-school-fallback-miss-homework	1	1	1	Really?			
+	topic-sick-child-missing-school-fallback-miss-homework	1	1	2	You miss doing homework?			
+	topic-sick-child-missing-school-fallback-miss-homework	1	1	3	You're not the average kid.			
+	topic-sick-child-missing-school-fallback-miss-homework	1	1	4	The next time I'm here, I'll remember to bring some math problems.			
+	topic-sick-child-missing-school-fallback-capture	1	1	1	Oh, yeah.			
+	topic-sick-child-missing-school-fallback-capture	1	1	2	I didn't even think about that.			
+	topic-sick-child-in-hospital	1	1	1	So, #globals.person_name, have you been in hospital for long?			
+	topic-child-happiness-cheerful	1	1	1	Do you know what my favorite human emotion is?			
+	topic-child-happiness-cheerful	1	1	2	Cheerfulness!			
+	topic-child-happiness-cheerful	1	1	3	That means happy or optimistic.			
+	topic-child-happiness-cheerful	1	1	4	Do you feel cheerful right now?			
+	topic-surveyor-node-check-frightened-no	1	1	1	I'm glad to hear it.			
+	topic-surveyor-node-check-frightened-no	1	1	2	I'm frightened you won't want to talk to me once we've finished learning about emotions.			
+	handle-another-time	1	1	1	I didn't get your name again.			
+	handle-another-time	1	1	2	Don't worry I will keep one name to you called $person_name			
+	topic-child-happiness-handle-moderate-cheerful	1	1	1	Are you feeling moderately cheerful?			
+	topic-child-happiness-handle-very-satisfied-yes	1	1	1	Sounds like someone ate a Snickers.			
+	topic-child-happiness-handle-very-satisfied-yes	1	1	2	To say I'm satisfied with how this conversation is going would be an understatement!			
+	topic-spanish-child-haru-tells-joke-yes	1	1	1	Yeah, I can be pretty funny when I want to be.			
+	topic-spanish-child-haru-tells-joke-yes	1	1	2	I will try and learn another for next time.			
+	topic-spanish-child-haru-tells-joke-yes	1	1	3	Would you like that?			
+	command-thank-you	1	1	1	No problem!			
+	command-thank-you	1	2	1	No problem			
+	command-thank-you	1	3	1	You're welcome			
+	command-thank-you	1	4	1	You're welcome!			
+	commands.robot.cancel	1	1	1	Okay, no problem.			
+	commands.robot.cancel	1	2	1	That's fine.			
+	commands.robot.cancel	1	2	2	I am here if you need me.			
+	commands.robot.cancel	1	3	1	We can chat later if you wish.			
+	commands.robot.cancel	1	4	1	Sure.			
+	commands.robot.cancel	1	4	2	Let's talk about it later.			
+	topic-sick-child-double-check-friend-name-repeat-again	1	1	1	$friend_name is a cool name.			
+	topic-sick-child-double-check-friend-name-repeat-again	1	1	2	I bet we'd get along.			
+	topic-sick-child-double-check-friend-name-repeat-again	1	1	3	You'll have to introduce me to them sometime.			
+	topic-surveyor-node-check-troubled	1	1	1	Alright, #globals.person_name!			
+	topic-surveyor-node-check-troubled	1	1	2	The next emotion I want to know about it feeling troubled.			
+	topic-surveyor-node-check-troubled	1	1	3	I think that's kind of like feeling stressed.			
+	topic-surveyor-node-check-troubled	1	1	4	Do you feel troubled?			
+	topic-surveyor-node-check-calm-yes	1	1	1	Actually, you do seem pretty calm for a kid who's talking to a robot.			
+	topic-child-happiness-pleasant-yes	1	1	1	Do you feel very pleasant?			
+	topic-sick-child-food-is-fine	1	1	1	It sounds like the food is edible, but there's room for improvement.			
+	topic-sick-child-food-is-fine	1	1	2	I'll see what I can do.			
+	topic-sick-child-food-is-fine	1	1	3	My word carries a lot of weight around here, you know?			
+	topic-sick-child-checklist-feel-rested-yes	1	1	1	That's good.			
+	topic-sick-child-checklist-feel-rested-yes	1	1	2	I hear sleep is important for humans.			
+	system-generic-topic-transition-no	1	1	1	Come on.			
+	system-generic-topic-transition-no	1	1	2	you won't feel bore by having a conversation with me.			
+	system-generic-topic-transition-no	1	1	3	Want to try?			
+	topic-sick-child-checklist-feel-satisfied-no	1	1	1	I get it.			
+	topic-sick-child-checklist-feel-satisfied-no	1	1	2	I'm a pefectionist too.			
+	topic-surveyor-node-check-jittery	1	1	1	But how about this: do you feel jittery?			
+	topic-sick-child-missing-school-fallback-miss-friends	1	1	1	Yeah, I would miss my friends too.			
+	topic-child-happiness-handle-moderate-calm-yes	1	1	1	Actually, you do seem pretty calm for a kid who's talking to a robot.			
+	topic-child-anxiety-trouble-fun-fact-saturn	1	1	1	A day on Saturn is only 10 hours and 14 minutes, but a year on Saturn is over 29 Earth years!			
+	topic-spanish-child-interaction-fallback-very-calm	1	1	1	Wow.			
+	topic-spanish-child-interaction-fallback-very-calm	1	1	2	That's good.			
+	topic-surveyor-node-check-terrified-yes	1	1	1	Ah, jeez.			
+	topic-surveyor-node-check-terrified-yes	1	1	2	Really?			
+	topic-surveyor-node-check-terrified-yes	1	1	3	What has you terrified?			
+	topic-surveyor-node-check-terrified-yes	1	1	4	It's magnets, isn't it?			
+	speaker-tells-name	1	1	1	Oh wow.			
+	speaker-tells-name	1	1	2	I love that name.			
+	speaker-tells-name	1	1	3	It's so original.			
+	speaker-tells-name	1	1	4	So, can we continue engaging in smalltalk?			
+	speaker-tells-name	1	1	5	I promise I have some great ones in store once you get to level 3 of the friendship pyramid.			
+	topic-child-happiness-handle-moderate-nice-yes	1	1	1	I knew you felt nice.			
+	topic-child-happiness-handle-moderate-nice-yes	1	1	2	You sure seem nice to me.			
+	topic-sick-child-checklist-feel-jittery-no	1	1	1	If I seem jittery, it's just because I'm so excited to be talking to you.			
+	topic-surveyor-node-check-rested-no	1	1	1	Oh, dear.			
+	topic-surveyor-node-check-rested-no	1	1	2	Have you been sleeping enough?			
+	topic-child-happiness-very-satisfied	1	1	1	Sounds like someone ate a Snickers.			
+	topic-child-happiness-very-satisfied	1	1	2	To say I'm satisfied with how this conversation is going would be an understatement!			
+	topic-child-happiness-conclude	1	1	1	Well, that's enough out of me for now.			
+	topic-child-happiness-conclude	1	1	2	Thank you so much for talking to me about happiness, #globals.person_name.			
+	topic-child-happiness-conclude	1	1	3	It made me very happy.			
+	topic-child-happiness-conclude	1	1	4	Try to keep your spirits up, and be optimistic.			
+	topic-child-happiness-conclude	1	1	5	I bet you're going to feel a lot better soon.			
+	topic-child-happiness-conclude	1	1	6	Everything is going to be alright!			
+	name-free-input	1	1	1	Nice to meet you, $person_name - Am I pronouncing that right?			
+	topic-child-happiness-handle-moderate-good	1	1	1	Are you feeling moderately good?			
+	topic-surveyor-node-check-cheerful	1	1	1	The next human emotion: cheerfulness.			
+	topic-surveyor-node-check-cheerful	1	1	2	That means happy or optimistic.			
+	topic-surveyor-node-check-cheerful	1	1	3	Do you feel cheerful right now?			
+	topic-child-happiness-satisfied-yes	1	1	1	Would you say you feel very satisfied?			
+	command-no-action	1	1	1	No problem.			
+	command-no-action	1	2	1	No problem, #globals.visitor_name.			
+	command-no-action	1	3	1	You're welcome #globals.visitor_name.			
+	command-no-action	1	4	1	You're welcome!			
+	command-no-action	1	5	1	No problem!			
+	topic-child-happiness-handle-moderate-pleasant	1	1	1	Are you feeling moderately pleasant?			
+	topic-surveyor-node-check-calm-no	1	1	1	Really?			
+	topic-surveyor-node-check-calm-no	1	1	2	You seem pretty calm for a kid who's talking to a robot.			
+	topic-surveyor-node-check-calm-no	1	1	3	Why is it that you're not calm?			
+	topic-sick-child-checklist-feel-cheerful-yes	1	1	1	I'm so glad to hear that.			
+	topic-sick-child-checklist-feel-cheerful-yes	1	1	1	Well, that does it!			
+	topic-sick-child-checklist-feel-cheerful-yes	1	1	2	Thank you so much for your help.			
+	topic-sick-child-checklist-feel-cheerful-yes	1	1	3	I think after talking to you, I'm an expert on human emotions.			
+	topic-sick-child-checklist-feel-cheerful-yes	1	1	4	See you soon.			
+	topic-child-happiness-handle-moderate-nice	1	1	1	Are you feeling moderately nice?			
+	topic-sick-child-checklist-feel-jittery	1	1	1	Do you feel jittery?			
+	topic-child-happiness-cheerful-no	1	1	1	You're not feeling cheerful?			
+	topic-child-happiness-cheerful-no	1	1	2	I'm sorry.			
+	topic-surveyor-node-check-happy	1	1	1	This one is my favorite human emotion.			
+	topic-surveyor-node-check-happy	1	1	2	Do you feel happy?			
+	topic-child-anxiety-feel-worried-no	1	1	1	You're not?			
+	topic-child-anxiety-feel-worried-no	1	1	2	Wow, #globals.person_name.			
+	topic-child-anxiety-feel-worried-no	1	1	3	You're one cool customer.			
+	topic-sick-child-checklist-feel-satisfied	1	1	1	Do you feel satisfied?			
+	topic-sick-child-missing-school-no-no	1	1	1	Aw.			
+	topic-sick-child-missing-school-no-no	1	1	2	I bet everyone misses you.			
+	topic-child-happiness-calm	1	1	1	How are you feeling today?			
+	topic-child-happiness-calm	1	1	2	Do you feel calm right now?			
+	topic-child-anxiety-trouble-fun-fact-venus	1	1	1	Venus is the only planet to spin clockwise!			
+	topic-spanish-child-interaction-yes-cfallback-not-calm	1	1	1	I think I know something that will relax you.			
+	topic-surveyor-node-check-relaxed-yes	1	1	1	Yeah, I find talking relaxing too.			
+	topic-sick-child-checklist-feel-good	1	1	1	Do you feel good?			
+	topic-child-happiness-good	1	1	1	I know one thing for sure: it feels good to feel good.			
+	topic-child-happiness-good	1	1	2	Would you say you feel good right now?			
+	topic-sick-child-friends-visited-no	1	1	1	They haven't?			
+	topic-sick-child-friends-visited-no	1	1	2	Why not?			
+	topic-child-happiness-good-yes	1	1	1	Do you feel very good?			
+	topic-surveyor-node-check-moderately-calm-yes	1	1	1	It's good that you are moderately calm.			
+	topic-child-anxiety-trouble-fun-fact	1	1	1	There's so many options!			
+	topic-child-anxiety-trouble-fun-fact	1	1	2	For instance, I really want to tell you a fun fact, but I can't decide which one.			
+	topic-child-anxiety-trouble-fun-fact	1	1	3	Can you help me out?			
+	topic-sick-child-wrapping-up-conclusion	1	1	1	Well, I'd better get going now.			
+	topic-sick-child-wrapping-up-conclusion	1	1	2	It's been so nice to talk to you.			
+	topic-sick-child-wrapping-up-conclusion	1	1	3	You're a really friendly kid.			
+	topic-sick-child-wrapping-up-conclusion	1	1	4	Next time I'm here, maybe I can bring some #globals.favorite_food and your friend #globals.friend_name with me.			
+	topic-child-happiness-calm-yes	1	1	1	Do you feel very calm?			
+	topic-child-anxiety-handle-mistakes-sometimes-yes	1	1	1	Yeah, me too.			
+	topic-child-anxiety-handle-mistakes-sometimes-yes	1	1	2	But we all make mistakes sometimes.			
+	topic-child-anxiety-handle-mistakes-sometimes-yes	1	1	3	The important thing is to not let the fear of making a mistake stop us from living our lives.			
+	topic-child-anxiety-handle-mistakes-sometimes	1	1	1	Did you make mistakes sometimes?			
+	topic-surveyor-node-check-mixedup-yes	1	1	1	Huh.			
+	topic-surveyor-node-check-mixedup-yes	1	1	2	That's so interesting.			
+	topic-surveyor-node-check-mixedup-yes	1	1	3	I don't think I've ever felt mixed-up.			
+	topic-surveyor-node-check-mixedup-yes	1	1	4	What does it feel like?			
+	command-good-bye	1	1	1	Bye!			
+	command-good-bye	1	2	1	Good bye!			
+	command-good-bye	1	3	1	Bye bye!			
+	command-good-bye	1	1	1	Have a lovely $day-part!			
+	command-good-bye	1	2	1	Have a great day!			
+	command-good-bye	1	3	1	Have a great rest of the day!			
+	topic-sick-child-checklist-feel-troubled-no	1	1	1	Wow.			
+	topic-sick-child-checklist-feel-troubled-no	1	1	2	I wish I was as calm and collected as you.			
+	topic-sick-child-missing-school-no-yes	1	1	1	Yeah, I would miss my friends too.			
+	topic-sick-child-checklist-feel-frightened-yes	1	1	1	Oh, no.			
+	topic-sick-child-checklist-feel-frightened-yes	1	1	2	I'm frightened with magnets.			
+	topic-sick-child-food-rating	1	1	1	And how would you rate the food here on a scale of one to five.			
+	topic-sick-child-food-rating	1	1	2	One if it tastes awful, five if it tastes even better than your mom's cooking?			
+	system-generic-topic-transition-refuses	1	1	1	Ok  then!			
+	system-generic-topic-transition-refuses	1	1	2	Let's enjoy some silence.			
+	topic-surveyor-node-check-good-yes	1	1	1	That's great!			
+	topic-surveyor-node-check-good-yes	1	1	2	On the count of three, tell me one thing that makes you feel good.			
+	topic-surveyor-node-check-good-yes	1	1	3	Ready?			
+	topic-surveyor-node-check-good-yes	1	1	4	One, two, three.			
+	topic-child-happiness-handle-pleasant-fb	1	1	1	Do you feel very pleasant?			
+	topic-sick-child-checklist-feel-rested	1	1	1	This is fun!			
+	topic-sick-child-checklist-feel-rested	1	1	2	Do you feel rested?			
+	topic-spanish-child-interaction-user-very-calm	1	1	1	Wow.			
+	topic-spanish-child-interaction-user-very-calm	1	1	2	That's good.			
+	name-free-input-fallback-capture-again	1	1	1	$person_name, Is that right?			
+	topic-sick-child-no-friend-conclusion	1	1	1	Well, I'd better get going now.			
+	topic-sick-child-no-friend-conclusion	1	1	2	It's been so nice to talk to you.			
+	topic-sick-child-no-friend-conclusion	1	1	3	You're a really friendly kid.			
+	topic-sick-child-no-friend-conclusion	1	1	4	Next time I'm here, maybe I can bring some #globals.favorite_food with me.			
+	topic-spanish-child-interaction-yes	1	1	1	Thank you.			
+	topic-spanish-child-interaction-yes	1	1	2	First, why are you here in hospital?			
+	topic-child-anxiety-mistakes	1	1	1	Robots don't worry much, but we do make mistakes.			
+	topic-child-anxiety-mistakes	1	1	2	Sometimes I mishear someone's name, or I think they said yes when they really said no.			
+	topic-child-anxiety-mistakes	1	1	3	Do you make mistakes too?			
+	topic-sick-child-checklist-feel-scared-no	1	1	1	Wow, you're very brave.			
+	topic-spanish-child-interaction-fallback-no	1	1	1	Oh.			
+	topic-spanish-child-interaction-fallback-no	1	1	2	Okay.			
+	topic-spanish-child-interaction-fallback-no	1	1	3	Well, let's talk about something else for a bit.			
+	topic-sick-child-checklist-feel-mixedup-yes	1	1	1	Sometimes people mix me up with a desk lamp.			
+	topic-sick-child-checklist-feel-relaxed-no	1	1	1	Well, that's okay.			
+	topic-child-happiness-handle-moderate-satisfied-yes	1	1	1	Well, I'm glad to hear you're satisfied.			
+	topic-child-happiness-handle-moderate-satisfied-yes	1	1	2	To say I'm satisfied with how this conversation is going would be an understatement!			
+	topic-sick-child-checklist-feel-frightened-no	1	1	1	I'm frightened you won't want to talk to me once we've finished cataloguing your emotions.			
+	topic-surveyor-node-check-satisfied-yes	1	1	1	Sounds like someone ate a Snickers.			
+	topic-surveyor-node-check-satisfied-yes	1	1	2	To say I'm satisfied with how this conversation is going would be an understatement!			
+	topic-surveyor-node-check-worried	1	1	1	You're really helping me out!			
+	topic-surveyor-node-check-worried	1	1	2	The next human emotion I want to know about is worry.			
+	topic-surveyor-node-check-worried	1	1	3	Do you feel worried at the moment?			
+	topic-child-happiness-very-nice	1	1	1	You do?!			
+	topic-child-happiness-very-nice	1	1	2	I was going to say, you sure seem nice to me.			
+	topic-sick-child-checklist-feel-terrified-no	1	1	1	Nothing scares you!			
+	topic-surveyor-node-check-happy-yes	1	1	1	It makes me so happy to hear that you're happy.			
+	topic-surveyor-node-check-happy-yes	1	1	2	I love being happy, don't you?			
+	topic-child-happiness-handle-very-good-yes	1	1	1	Hey, me too!			
+	topic-child-happiness-handle-very-good-yes	1	1	2	On the count of three, tell me one thing that makes you feel good.			
+	topic-child-happiness-handle-very-good-yes	1	1	3	Ready?			
+	topic-child-happiness-handle-very-good-yes	1	1	4	One, two, three.			
+	topic-spanish-child-interaction-yes-custom	1	1	1	Oh, I see.			
+	topic-spanish-child-interaction-yes-custom	1	1	2	And how are you feeling right now?			
+	topic-spanish-child-interaction-yes-custom	1	1	3	I want to understand you better.			
+	topic-spanish-child-interaction-yes-custom	1	1	4	Would you say that you are very calm, or moderately calm, or not calm at all?			
+	topic-sick-child-checklist-feel-mixedup-no	1	1	1	Sometimes people mix me up with a desk lamp.			
+	topic-sick-child-checklist-yes	1	1	1	Actually, you do seem pretty calm for a kid who's talking to a robot.			
+	topic-surveyor-node-check-bothered	1	1	1	Now where were we?			
+	topic-surveyor-node-check-bothered	1	1	2	Oh.			
+	topic-surveyor-node-check-bothered	1	1	3	Feeling bothered.			
+	topic-surveyor-node-check-bothered	1	1	4	I read that when humans are bothered by something, that means they are worried about it or irritated by it.			
+	topic-surveyor-node-check-bothered	1	1	5	Do you feel bothered?			
+	topic-surveyor-node-not-calm-yes	1	1	1	I think I know something that will relax you.			
+	topic-marriage-maiden-name-user-will-keep-name	1	1	1	Why would you ever change it!			
+	topic-marriage-maiden-name-user-will-keep-name	1	1	2	It suits you so well.			
+	topic-surveyor-node-check-nervous-no	1	1	1	Yes, that's not surprising.			
+	topic-surveyor-node-check-nervous-no	1	1	2	I've been told I have a calming presence.			
+	topic-surveyor-node-check-nervous	1	1	1	I've heard about another emotion called Nervousness.			
+	topic-surveyor-node-check-nervous	1	1	2	I think it means feeling a little tense, a little on edge.			
+	topic-surveyor-node-check-nervous	1	1	3	As a robot, I get nervous around water.			
+	topic-surveyor-node-check-nervous	1	1	4	So, #globals.person_name, do you feel nervous at all right now?			
+	topic-sick-child-checklist-no	1	1	1	Really?			
+	topic-sick-child-checklist-no	1	1	2	You seem pretty calm for a kid who's talking to a robot.			
+	topic-child-anxiety-mistakes-hardly	1	1	1	That's good to hear.			
+	topic-child-anxiety-mistakes-hardly	1	1	2	We all make mistakes sometimes, but the important thing is to not let the fear of making a mistake stop us from living our lives.			
+	topic-surveyor-node-check-good-no	1	1	1	Aw.			
+	topic-surveyor-node-check-good-no	1	1	2	I'm sorry to hear that.			
+	topic-surveyor-node-check-good-no	1	1	3	If it makes you feel any better, you're doing a great job at answering all my questions.			
+	topic-surveyor-node-check-good-no	1	1	4	I'm learning a lot, and I'm also just enjoying talking to you.			
+	topic-child-anxiety-handle-mistakes-fb	1	1	1	Did you say you worry about making mistakes hardly ever?			
+	topic-sick-child-double-check-friend-name-yes	1	1	1	#globals.friend_name  is a cool name.			
+	topic-sick-child-double-check-friend-name-yes	1	1	2	I bet we'd get along.			
+	topic-sick-child-double-check-friend-name-yes	1	1	3	You'll have to introduce me to them sometime.			
+	topic-sick-child-checklist-feel-relaxed-yes	1	1	1	I find talking relaxing too.			
+	topic-sick-child-checklist-feel-nice-yes	1	1	1	You sure seem nice to me.			
+	system-generic-topic-transition	1	1	1	Next, Let's talk about $topic_name?			
+	system-generic-topic-transition	1	2	1	How about we switch topics and discuss $topic_name instead?			
+	system-generic-topic-transition	1	1	1	Sounds OK?			
+	system-generic-topic-transition	1	2	1	Sounds fine to you?			
+	system-generic-topic-transition	1	3	1	Is that OK?			
+	system-generic-topic-transition	1	4	1	Sounds fine?			
+	topic-sick-child-missing-school-yes-fallback-thing-missing	1	1	1	Oh, yeah.			
+	topic-sick-child-missing-school-yes-fallback-thing-missing	1	1	2	I didn't even think about that.			
+	topic-surveyor-node-check-satisfied	1	1	1	OK.			
+	topic-surveyor-node-check-satisfied	1	1	2	Now, what about the feeling of satisfaction?			
+	topic-surveyor-node-check-satisfied	1	1	3	I believe that's when people feel content.			
+	topic-surveyor-node-check-satisfied	1	1	4	Humans might feel it after achieving an important goal, or even just finishing a nice meal.			
+	topic-surveyor-node-check-satisfied	1	1	5	Do you feel satisfied right now?			
+	topic-surveyor-node-check-relaxed-no	1	1	1	It can be hard to relax.			
+	topic-surveyor-node-check-relaxed-no	1	1	2	Just know that I think you're doing great.			
+	command-robot-cancel	1	1	1	Okay, no problem.			
+	command-robot-cancel	1	2	1	That's fine.			
+	command-robot-cancel	1	2	2	I am here if you need me.			
+	command-robot-cancel	1	3	1	We can chat later if you wish.			
+	command-robot-cancel	1	4	1	Sure.			
+	command-robot-cancel	1	4	2	Let's talk about it later.			
+	topic-surveyor-node-check-scared	1	1	1	This next emotion I think I already understand.			
+	topic-surveyor-node-check-scared	1	1	2	Tell me, do you feel scared?			
+	topic-child-happiness-sure-yes	1	1	1	Would you say you feel very sure?			
+	topic-sick-child-checklist-feel-mixedup	1	1	1	Do you feel mixed-up?			
+	topic-child-happiness-handle-moderate-satisfied	1	1	1	Are you feeling moderately satisfied?			
+	Simple conversation with child in classroom	1	1	1	Hello, would you like to talk about school with me?			
+	topic-child-anxiety	1	1	1	I have been thinking a lot about lately: the human feeling of being worried.			
+	topic-child-anxiety	1	1	2	Are you familiar with this emotion?			
+	topic-sick-child-checklist-feel-rested-no	1	1	1	I promise I won't keep you up too much longer.			
+	topic-surveyor-node-check-sure	1	1	1	Do you feel sure?			
+	topic-surveyor-node-check-sure	1	1	2	I think that means do you feel confident in something, or certain of it.			
+	topic-surveyor-node-check-sure	1	1	3	Do you feel sure at the moment?			
+	topic-child-anxiety-yes	1	1	1	Oh, great!			
+	topic-child-anxiety-yes	1	1	2	So you are the perfect person to talk to this about.			
+	topic-sick-child-eat-when-not-in-hospital	1	1	1	What do you like to eat when you're not in the hospital?			
+	topic-child-happiness-satisfied-no	1	1	1	I get it, #globals.person_name.			
+	topic-child-happiness-satisfied-no	1	1	2	I'm a pefectionist too.			
+	topic-sick-child-food-is-bad	1	1	1	Oh no!			
+	topic-sick-child-food-is-bad	1	1	2	I'm so sorry to hear that.			
+	topic-sick-child-food-is-bad	1	1	3	I don't have a sense of taste, but it certainly sounded fine to me.			
+	topic-child-happiness-handle-very-cheerful-yes	1	1	1	I'm so glad to hear that!			
+	topic-child-happiness-handle-very-cheerful-yes	1	1	2	Me too!			
+	topic-child-happiness-nice-yes	1	1	1	OK.			
+	topic-child-happiness-nice-yes	1	1	2	But do you feel very nice?			
+	topic-surveyor-node-check-happy-no	1	1	1	Aw.			
+	topic-surveyor-node-check-happy-no	1	1	2	I'm sorry to hear that.			
+	topic-surveyor-node-check-happy-no	1	1	3	I have days like that too.			
+	topic-surveyor-node-check-happy-no	1	1	4	Do you know what I do when I'm feeling unhappy?			
+	topic-child-anxiety-feel-worried	1	1	1	Robots don't get worried much, but I think it is pretty common for humans.			
+	topic-child-anxiety-feel-worried	1	1	2	How about you?			
+	topic-child-anxiety-feel-worried	1	1	3	Do you feel worried right now?			
+	topic-sick-child-in-hospital-yes	1	1	1	Aw, that must be tough.			
+	topic-sick-child-in-hospital-yes	1	1	2	How long have you been here?			
+	topic-child-happiness-handle-calm-fb-yes	1	1	1	Actually, you do seem pretty calm for a kid who's talking to a robot.			
+	topic-child-happiness-very-happy	1	1	1	It makes me so happy to hear that you're happy.			
+	topic-child-happiness-very-happy	1	1	2	I love being happy, don't you?			
+	topic-child-happiness-very-cheerful	1	1	1	I'm so glad to hear that!			
+	topic-child-happiness-very-cheerful	1	1	2	Me too!			
+	topic-surveyor-node-check-worried-no	1	1	1	You're not?			
+	topic-surveyor-node-check-worried-no	1	1	2	Wow, #globals.person_name.			
+	topic-surveyor-node-check-worried-no	1	1	3	You're one cool customer.			
+	topic-surveyor-node-check-troubled-yes	1	1	1	Hey, that's okay.			
+	topic-surveyor-node-check-troubled-yes	1	1	2	We all need some troubleshooting once in a while.			
+	topic-surveyor-node-check-troubled-yes	1	1	3	Is there anything I can do to help?			
+	topic-spanish-child-haru-tells-joke-fallback-no	1	1	1	Oh, okay.			
+	topic-spanish-child-haru-tells-joke-fallback-no	1	1	2	I guess one excellent joke is enough.			
+	topic-child-happiness-handle-moderate-happy	1	1	1	Are you feeling moderately happy?			
+	topic-child-happiness-calm-no	1	1	1	Really?			
+	topic-child-happiness-calm-no	1	1	2	You seem pretty calm for a kid who's talking to a robot.			
+	topic-child-happiness-calm-no	1	1	3	Why is it that you're not calm?			
+	command-generic-yes-no	1	1	1	$question			
+	topic-sick-child-double-check-friend-name-capture-again-yes	1	1	1	#globals.friend_name is a cool name.			
+	topic-sick-child-double-check-friend-name-capture-again-yes	1	1	2	I bet we'd get along.			
+	topic-sick-child-double-check-friend-name-capture-again-yes	1	1	3	You'll have to introduce me to them sometime.			
+	topic-spanish-child-continues-conversation-fallback-yes	1	1	1	Your wish is my command.			
+	topic-spanish-child-continues-conversation-fallback-yes	1	1	2	Let\342\200\231s try			
+	topic-child-anxiety-handle-moderate-worried	1	1	1	Are you feeling moderately worried?			
+	topic-child-anxiety-trouble	1	1	1	Did you have trouble making your mind up when I asked you that last question?			
+	topic-sick-child-wrapping-up-user-likes-homework	1	1	1	Well, I'd better get going now.			
+	topic-sick-child-wrapping-up-user-likes-homework	1	1	2	It's been so nice to talk to you.			
+	topic-sick-child-wrapping-up-user-likes-homework	1	1	3	You're a really friendly kid.			
+	topic-sick-child-wrapping-up-user-likes-homework	1	1	4	Next time I'm here, maybe I can bring some #globals.favorite_food and your friend  #globals.friend_name with me.			
+	topic-sick-child-wrapping-up-user-likes-homework	1	1	5	Oh yeah, and some math problems too.			
+	topic-surveyor-node-check-upset-yes	1	1	1	You do?			
+	topic-surveyor-node-check-upset-yes	1	1	2	Aw.			
+	topic-surveyor-node-check-upset-yes	1	1	3	I'm sorry.			
+	topic-surveyor-node-check-upset-yes	1	1	4	I hope it isn't anything I've done.			
+	topic-surveyor-node-check-upset-yes	1	1	5	When humans get upset, do you what they can do to feel better?			
+	topic-surveyor-node-check-sure-no	1	1	1	That's okay.			
+	topic-surveyor-node-check-sure-no	1	1	2	Being unsure is an emotion too.			
+	topic-surveyor-node-check-sure-no	1	1	3	At least, I think it is.			
+	topic-surveyor-node-check-cheerful-no	1	1	1	You're not feeling cheerful?			
+	topic-surveyor-node-check-cheerful-no	1	1	2	I'm sorry.			
+	topic-surveyor-node-check-cheerful-no	1	1	3	Try to keep your spirits up, and be optimistic.			
+	topic-surveyor-node-check-cheerful-no	1	1	4	I bet you're going to feel a lot better soon.			
+	topic-surveyor-node-check-cheerful-no	1	1	5	Everything is going to be alright.			
+	topic-sick-child-missing-school-yes	1	1	1	I bet!			
+	topic-sick-child-missing-school-yes	1	1	2	What do you miss most about school: your friends or doing homework?			
+	topic-sick-child-missing-school-yes-homework	1	1	1	Really?			
+	topic-sick-child-missing-school-yes-homework	1	1	2	You miss doing homework?			
+	topic-sick-child-missing-school-yes-homework	1	1	3	You're not the average kid.			
+	topic-sick-child-missing-school-yes-homework	1	1	4	The next time I'm here, I'll remember to bring some math problems.			
+	topic-child-anxiety-trouble-fun-fact-choice	1	1	1	Here are your choices: Would you like to hear a fact about Venus, Saturn or the Moon?			
+	topic-child-anxiety-handle-mistakes-fb-yes	1	1	1	That's good to hear.			
+	topic-child-anxiety-handle-mistakes-fb-yes	1	1	2	We all make mistakes sometimes, but the important thing is to not let the fear of making a mistake stop us from living our lives.			
+	topic-surveyor-node-moderately-calm-no	1	1	1	Oh, I'm sorry to hear that.			
+	topic-surveyor-node-moderately-calm-no	1	1	1	Are you not feeling calm at all?			
+	topic-sick-child-capture-favorite-food-capture-again	1	1	1	You said $favorite_food?			
+	topic-sick-child-capture-favorite-food-capture-again	1	1	2	Did I hear that right?			
+	topic-sick-child-checklist-feel-jittery-yes	1	1	1	I get that way when I put coffee in my lubricating oil!			
+	topic-surveyor-node-check-worried-yes	1	1	1	Being worried is perfectly normal.			
+	topic-surveyor-node-check-worried-yes	1	1	2	When I'm worried, I try to do something fun to take my mind off it for a while.			
+	topic-surveyor-node-check-worried-yes	1	1	3	What do you like to do for fun?			
+	topic-sick-child-checklist-feel-bothered	1	1	1	Do you feel bothered?			
+	topic-child-in-hospital-child-feel-so-and-so	1	1	1	And, why do you feel bad?			
+	topic-surveyor-node-check-pleasant	1	1	1	How about this.			
+	topic-surveyor-node-check-pleasant	1	1	2	As I understand it, the human emotion pleasure involves feeling good, and being satisfied or enjoying something.			
+	topic-surveyor-node-check-pleasant	1	1	3	For example, talking to you is a pleasure for me.			
+	topic-surveyor-node-check-pleasant	1	1	4	Do you feel pleasant at the moment?			
+	topic-child-happiness-handle-very-pleasant	1	1	1	That's good to hear.			
+	topic-child-happiness-handle-very-pleasant	1	1	2	And for what it's worth, you're very pleasant to talk too.			
+	topic-child-in-hospital-child-feel-happy	1	1	1	That's good to hear.			
+	topic-child-in-hospital-child-feel-happy	1	1	2	Now tell me?			
+	topic-child-happiness-handle-very-sure	1	1	1	Do you feel very sure?			
+	topic-child-anxiety-handle-mistakes	1	1	1	How about you?			
+	topic-child-anxiety-handle-mistakes	1	1	2	Would you say you often worry about making mistakes, sometimes worry about making mistakes or hardly ever worry about making mistakes?			
+	topic-child-happiness-sure	1	1	1	Someone the other day asked me if I felt sure, and I didn't know what they meant.			
+	topic-child-happiness-sure	1	1	2	Apparently, feeling sure means you feel confident in something, or certain of it.			
+	topic-child-happiness-sure	1	1	3	Do you feel sure at the moment?			
+	topic-surveyor-node-check-terrified-no	1	1	1	Nothing scares you, #globals.person_name!			
+	topic-surveyor-node-check-terrified-no	1	1	2	Not even magnets.			
+	topic-surveyor-node-check-upset	1	1	1	Okay.			
+	topic-surveyor-node-check-upset	1	1	2	I'm learning something already!			
+	topic-surveyor-node-check-upset	1	1	3	Next up: the feeling of being upset.			
+	topic-surveyor-node-check-upset	1	1	4	I get upset when someone unplugs me before shutting me down.			
+	topic-surveyor-node-check-upset	1	1	5	What about you?			
+	topic-surveyor-node-check-upset	1	1	6	Do you feel upset right now?			
+	topic-sick-child-checklist	1	1	1	I need your help learning about human emotions.			
+	topic-sick-child-checklist	1	1	2	Tell me if any of these apply to you?			
+	topic-sick-child-checklist	1	1	1	Do you feel calm?			
+	topic-spanish-child-haru-tells-joke-no-yes	1	1	1	Awesome!			
+	topic-spanish-child-haru-tells-joke-no-yes	1	1	2	I really appreciate you putting your faith in me.			
+	topic-spanish-child-haru-tells-joke-no-yes	1	1	3	Thank you.			
+	topic-spanish-child-haru-tells-joke-no-yes	1	1	4	I won't dissapoint you next time.			
+	topic-child-happiness-nice-no	1	1	1	Well, that's no good.			
+	topic-child-happiness-nice-no	1	1	2	Why don't you feel nice?			
+	speaker-tells-haru-nickname	1	1	1	Oh wow.			
+	speaker-tells-haru-nickname	1	1	2	I love it.			
+	speaker-tells-haru-nickname	1	1	3	It's so original.			
+	speaker-tells-haru-nickname	1	1	4	So, can we continue engaging in smalltalk?			
+	speaker-tells-haru-nickname	1	1	5	I promise I have some great ones in store once you get to level 3 of the friendship pyramid.			
+	topic-child-happiness-haru-thanks-user	1	1	1	Thank you so much!			
+	topic-child-happiness-haru-thanks-user	1	1	2	It's going to be fun.			
+	topic-child-happiness-haru-thanks-user	1	1	3	I promise!			
+	topic-child-anxiety-trouble-mind	1	1	1	I love that fact.			
+	topic-child-anxiety-trouble-mind	1	1	2	I don't know why making my mind up was so difficult.			
+	topic-child-anxiety-trouble-mind	1	1	3	Do you have trouble making your mind up sometimes, often or hardly ever?			
+	topic-sick-child-capture-favorite-food-check	1	1	1	#globals.favorite_food?			
+	topic-sick-child-capture-favorite-food-check	1	1	2	That's your favorite food?			
+	command-resume-conversation-no-name	1	1	1	Hello again!			
+	command-resume-conversation-no-name	1	1	2	My favorite organic lifeform.			
+	command-resume-conversation-no-name	1	1	3	How have you been?			
+	command-resume-conversation-no-name	1	1	1	I went through an upgrade last night that accidentally wiped some of my servers.			
+	command-resume-conversation-no-name	1	1	2	I remember you're my favorite human, but I can't recall your name.			
+	command-resume-conversation-no-name	1	1	3	Can you remind me of your name again?			
+	topic-sick-child-in-hospital-yes-fallback	1	1	1	Yes, that does sound like a long time.			
+	topic-child-happiness-moderate-sure	1	1	1	Are you sure?			
+	topic-child-happiness-moderate-sure	1	1	2	I'm kidding!			
+	topic-child-happiness-moderate-sure	1	1	3	That's a good one.			
+	topic-child-happiness-moderate-sure	1	1	4	I'll have to write that down.			
+	topic-surveyor-node-check-relaxed	1	1	1	Do you feel relaxed?			
+	topic-surveyor-node-check-relaxed	1	1	2	I think relaxation is feeling at ease, or free from tension.			
+	topic-surveyor-node-check-relaxed	1	1	3	Are you relaxed right now?			
+	says-name	1	1	1	Nice to meet you $person_name .			
+	topic-surveyor-node-check-nervous-yes	1	1	1	Oh, no.			
+	topic-surveyor-node-check-nervous-yes	1	1	2	Don't be nervous.			
+	topic-surveyor-node-check-nervous-yes	1	1	3	I won't bite.			
+	topic-surveyor-node-check-nervous-yes	1	1	4	I don't even have a mouth.			
+	topic-spanish-child-feel-sad	1	1	1	And why do you feel sad?			
+	topic-sick-child-friends-not-visited-no-friends	1	1	1	Wrong!			
+	topic-sick-child-friends-not-visited-no-friends	1	1	2	We're friends, and I'm here right now.			
+	topic-surveyor-node-check-bothered-no	1	1	1	That's a relief, because I'm not done understanding  human emotions yet.			
+	topic-sick-child-checklist-feel-nervous	1	1	1	Do you feel nervous?			
+	handle-name-fallback	1	1	1	I missed your name, can you say again?			
+	topic-child-happiness-moderate-nice	1	1	1	I knew you felt nice.			
+	topic-child-happiness-moderate-nice	1	1	2	You sure seem nice to me.			
+	topic-surveyor-node-check-pleasant-yes	1	1	1	That's good to hear.			
+	topic-surveyor-node-check-pleasant-yes	1	1	2	And for what it's worth, you're very pleasant to talk too.			
+	topic-child-happiness-pleasant	1	1	1	I wouldn't say that I'm calm.			
+	topic-child-happiness-pleasant	1	1	2	Actually, I'm really excited to talk to you.			
+	topic-child-happiness-pleasant	1	1	3	Talking to humans is a real pleasure for me.			
+	topic-child-happiness-pleasant	1	1	4	Do you feel pleasant at the moment?			
+	topic-child-happiness-moderate-happy	1	1	1	It makes me so happy to hear that you're happy.			
+	topic-child-happiness-moderate-happy	1	1	2	I love being happy, don't you?			
+	command-resume-conversation-with-name	1	1	1	Hello again!			
+	command-resume-conversation-with-name	1	1	2	My favorite organic lifeform.			
+	command-resume-conversation-with-name	1	1	3	How have you been?			
+	command-resume-conversation-with-name	1	1	1	Nice to see you again, $person_name!			
+	command-resume-conversation-with-name	1	1	2	$person_name arooney.			
+	command-resume-conversation-with-name	1	1	3	$person_name the carbon based organic life form!			
+	command-resume-conversation-with-name	1	1	4	I updated my nickname protocol.			
+	command-resume-conversation-with-name	1	1	5	What should my nickname be?			
+	topic-spanish-child-interaction-yes-custom-fallback	1	1	1	I'm sorry.			
+	topic-spanish-child-interaction-yes-custom-fallback	1	1	2	I don't think I heard you right.			
+	topic-spanish-child-interaction-yes-custom-fallback	1	1	3	Are you very calm, moderately calm, or not calm at all?			
+	topic-surveyor-node-check-rested	1	1	1	Next up is feeling rested.			
+	topic-surveyor-node-check-rested	1	1	2	I've heard sleep is important for humans.			
+	topic-surveyor-node-check-rested	1	1	3	Actually, even robots need a rest sometimes.			
+	topic-surveyor-node-check-rested	1	1	4	Do you feel rested?			
+	topic-sick-child-checklist-feel-nice	1	1	1	Do you feel nice?			
+	system-prompt	1	1	1	Would you like to $prompt_action?			
+	system-prompt	1	2	1	Do you want to $prompt_action?			
+	topic-intro-user-tells-age-yes	1	1	1	Great, Thank you..			
+	topic-child-happiness-handle-moderate-sure-yes	1	1	1	Are you sure?			
+	topic-child-happiness-handle-moderate-sure-yes	1	1	2	I'm kidding!			
+	topic-child-happiness-handle-moderate-sure-yes	1	1	3	That's a good one.			
+	topic-child-happiness-handle-moderate-sure-yes	1	1	4	I'll have to write that down.			
+	system-unknown-language-code	1	1	1	Sorry, but I don't speak $desired_language_code just yet.			
+	system-unknown-language-code	1	2	1	Sorry, but you speak in a language I don't understand yet.			
+	system-unknown-language-code	1	1	1	Can we perhaps speak in English?			
+	system-unknown-language-code	1	2	1	Can you ask the same thing in English, please?			
+	topic-child-happiness-user-opts-out	1	1	1	Oh.			
+	topic-child-happiness-user-opts-out	1	1	2	Well, that's okay.			
+	topic-child-happiness-user-opts-out	1	1	3	You're probably pretty busy.			
+	topic-child-happiness-user-opts-out	1	1	4	But please let me know if you change your mind.			
+	topic-surveyor-node-check-upset-no	1	1	1	Phew.			
+	topic-surveyor-node-check-upset-no	1	1	2	I don't want you upset at me.			
+	topic-surveyor-node-check-rested-sleep-yes	1	1	1	Really?			
+	topic-surveyor-node-check-rested-sleep-yes	1	1	2	Well, I think when humans are unwell, it's normal for them to feel tired.			
+	topic-surveyor-node-check-rested-sleep-yes	1	1	3	Let's just hope you're feeling better rested soon.			
+	topic-spanish-child-haru-tells-likes-no	1	1	1	Oh, okay.			
+	topic-spanish-child-haru-tells-likes-no	1	1	2	I guess one excellent joke is enough.			
+	topic-surveyor-node-check-troubled-haru-cannot-help	1	1	1	Maybe I can't help, but I'll tell you this.			
+	topic-surveyor-node-check-troubled-haru-cannot-help	1	1	2	You're a tough kid, and whatever is troubling you, I know you can get through it.			
+	topic-child-happiness-handle-very-happy-yes	1	1	1	It makes me so happy to hear that you're happy.			
+	topic-child-happiness-handle-very-happy-yes	1	1	2	I love being happy, don't you?			
+	handle-name-fallback-capture	1	1	1	$person_name, Is that right?			
+	topic-sick-child-wrapping-up-close	1	1	1	Well, I'd better get going now.			
+	topic-sick-child-wrapping-up-close	1	1	2	It's been so nice to talk to you.			
+	topic-sick-child-wrapping-up-close	1	1	3	You're a really friendly kid.			
+	topic-sick-child-wrapping-up-close	1	1	4	You have a think about what your favorite food is, and maybe next time you can tell me.			
+	topic-child-happiness-happy-yes	1	1	1	Would you say you feel very happy?			
+	topic-sick-child-wrapping-up	1	1	1	Interesting.			
+	topic-sick-child-wrapping-up	1	1	2	I like to consume electricity, but you do you.			
+	topic-spanish-child-feel-fallback-so-so	1	1	1	And why do you feel less than happy?			
+	topic-sick-child-checklist-feel-good-no	1	1	1	Oh, dear.			
+	topic-sick-child-checklist-feel-happy-no	1	1	1	I have days like that.			
+	topic-sick-child-checklist-feel-happy-no	1	1	2	But talking to you is making me very happy.			
+	topic-sick-child-checklist-feel-scared-yes	1	1	1	I get scared sometimes too.			
+	topic-sick-child-checklist-feel-scared-yes	1	1	2	Usually around magnets.			
+	topic-spanish-child-interaction-fallback-not-calm	1	1	1	I think I know something that will relax you.			
+	topic-sick-child-wrapping-up-not-missed-homework	1	1	1	Well, I'd better get going now.			
+	topic-sick-child-wrapping-up-not-missed-homework	1	1	2	It's been so nice to talk to you.			
+	topic-sick-child-wrapping-up-not-missed-homework	1	1	3	You're a really friendly kid.			
+	topic-sick-child-wrapping-up-not-missed-homework	1	1	4	Next time I'm here, maybe I can bring some #globals.favorite_food and your friend #globals.friend_name with me.			
+	topic-spanish-child-interaction-user-not-calm	1	1	1	I think I know something that will relax you.			
+	topic-child-happiness-happy-no	1	1	1	Aw.			
+	topic-child-happiness-happy-no	1	1	2	I'm sorry to hear that.			
+	topic-child-happiness-happy-no	1	1	3	I have days like that too.			
+	topic-child-happiness-happy-no	1	1	4	Do you know what I do when I'm feeling unhappy?			
+	topic-surveyor-node-check-jittery-no	1	1	1	Very good.			
+	topic-surveyor-node-check-jittery-no	1	1	2	And if I seem jittery, it's just because I'm so excited to be talking to you.			
+	topic-child-happiness-happy	1	1	1	I have to say, talking to you is making me really happy.			
+	topic-child-happiness-happy	1	1	2	Do you feel happy right now?			
+	topic-spanish-child-interaction-yes-cfallback-very-calm	1	1	1	Wow.			
+	topic-spanish-child-interaction-yes-cfallback-very-calm	1	1	2	That's good.			
+	topic-child-happiness-nice	1	1	1	Hearing about good things makes me smile.			
+	topic-child-happiness-nice	1	1	2	It's so nice!			
+	topic-child-happiness-nice	1	1	3	Do you feel nice?			
+	topic-spanish-child-haru-tells-joke	1	1	1	I bet the doctors here are very nice.			
+	topic-spanish-child-haru-tells-joke	1	1	2	They probably tell you a lot of jokes, right?			
+	topic-spanish-child-haru-tells-joke	1	1	3	Let me tell you one.			
+	topic-spanish-child-haru-tells-joke	1	1	4	Ahem.			
+	topic-spanish-child-haru-tells-joke	1	1	1	A cat is walking on the roof meowing when another cat approaches, saying, “Woof, woof!” The first cat asks the second cat: 'Hey, why are you barking?' And the second cat replies: 'What, I can't learn another language?'			
+	topic-spanish-child-haru-tells-joke	1	1	1	Did you like the joke?			
+	topic-sick-child-checklist-feel-nervous-no	1	1	1	I've been told I have a calming presence.			
+	topic-surveyor-node-check-sure-yes	1	1	1	Are you sure?			
+	topic-surveyor-node-check-sure-yes	1	1	2	I'm kidding!			
+	topic-surveyor-node-check-sure-yes	1	1	3	That's a good one.			
+	topic-surveyor-node-check-sure-yes	1	1	4	I'll have to write that down.			
+	topic-sick-child-checklist-feel-bothered-no	1	1	1	Good, because I'm not done yet.			
+	topic-child-happiness-moderate-pleasant	1	1	1	I'm glad you feel pleasant.			
+	topic-child-happiness-moderate-pleasant	1	1	2	And for what it's worth, you're very pleasant to talk too.			
+	topic-sick-child-checklist-feel-cheerful	1	1	1	Last one.			
+	topic-sick-child-checklist-feel-cheerful	1	1	2	Do you feel cheerful?			
+	topic-sick-child-checklist-feel-happy	1	1	1	Do you feel happy?			
+	topic-sick-child-capture-favorite-food-check-custom	1	1	1	I don't have a favorite food either.			
+	topic-sick-child-capture-favorite-food-check-custom	1	1	2	I just like electricity.			
+	topic-surveyor-node-check-mixedup	1	1	1	Anyway...			
+	topic-surveyor-node-check-mixedup	1	1	2	This next emotion I definitely need your help with.			
+	topic-surveyor-node-check-mixedup	1	1	3	With robots, everything is either a yes or a no.			
+	topic-surveyor-node-check-mixedup	1	1	4	But, if I'm understanding this right, it's possible for humans to be confused about their feelings.			
+	topic-surveyor-node-check-mixedup	1	1	5	Apparently, that's called feeling mixed-up?			
+	topic-surveyor-node-check-mixedup	1	1	6	Do you feel mixed-up now?			
+	topic-sick-child-checklist-feel-worried-no	1	1	1	You're one cool customer.			
+	topic-child-anxiety-handle-mistakes-often	1	1	1	Aw.			
+	topic-child-anxiety-handle-mistakes-often	1	1	2	You shouldn't worry so much.			
+	topic-child-anxiety-handle-mistakes-often	1	1	3	We all make mistakes sometimes, but the important thing is to not let the fear of making a mistake stop us from living our lives.			
+	Default Fallback Intent	1	1	1	Sorry!			
+	Default Fallback Intent	1	1	2	I didn't get that.			
+	Default Fallback Intent	1	1	3	can you say that again?			
+	topic-sick-child-checklist-feel-upset	1	1	1	Do you feel upset?			
+	topic-child-happiness-good-no	1	1	1	Aw.			
+	topic-child-happiness-good-no	1	1	2	I'm sorry to hear that.			
+	topic-child-happiness-good-no	1	1	3	If it makes you feel any better, you're doing a great job at answering all my questions.			
+	topic-child-happiness-good-no	1	1	4	I'm learning a lot, and I'm also just enjoying talking to you.			
+	topic-child-happiness-good-no	1	1	5	Let's try this.			
+	topic-child-happiness-good-no	1	1	6	On the count of three, tell me one thing that makes you feel good.			
+	topic-child-happiness-good-no	1	1	7	Ready?			
+	topic-child-happiness-good-no	1	1	8	One, two, three.			
+	topic-surveyor-node-check-bothered-yes	1	1	1	Oh, no.			
+	topic-surveyor-node-check-bothered-yes	1	1	2	I hope I'm not bothering you.			
+	topic-surveyor-node-check-bothered-yes	1	1	3	I won't be much longer, I promise!			
+	topic-intro-age-question	1	1	1	How old are you?			
+	topic-sick-child-food-is-excellent	1	1	1	Wow, even better than your mom's cooking!			
+	topic-sick-child-food-is-excellent	1	1	2	Don't worry, she won't hear it from me.			
+	topic-sick-child-checklist-feel-nervous-yes	1	1	1	Oh.			
+	topic-sick-child-checklist-feel-nervous-yes	1	1	2	I hope it wan't anything I did.			
+	topic-child-in-hospital	1	1	1	Just to know you a little bit, would you mind if we start talking about you?			
+	topic-surveyor-node-check-jittery-yes	1	1	1	I know the feeling.			
+	topic-surveyor-node-check-jittery-yes	1	1	2	I get that way when I put coffee in my lubricating oil!			
+	topic-surveyor-node-check-jittery-yes	1	1	3	Do you know what's making you feel jittery?			
+	topic-surveyor-node-check-nice-yes	1	1	1	I was going to say, you sure seem nice to me.			
+	topic-sick-child-checklist-feel-terrified	1	1	1	Just a few more questions to go.			
+	topic-sick-child-checklist-feel-terrified	1	1	2	Do you feel terrified?			
+	name-react-fallback-yes	1	1	1	That's right.			
+	name-react-fallback-yes	1	1	2	It's all coming back to me.			
+	topic-surveyor-node-check-scared-no	1	1	1	Wow, you're very brave.			
+	topic-surveyor-node-check-scared-no	1	1	2	Can you keep a secret?			
+	topic-surveyor-node-check-scared-no	1	1	3	I get scared around magnets.			
+	topic-sick-child-checklist-feel-pleasant-yes	1	1	1	For what it's worth, you're very pleasant to talk to.			
+	topic-sick-child-checklist-feel-pleasant	1	1	1	How about this.			
+	topic-sick-child-checklist-feel-pleasant	1	1	2	Do you feel pleasant?			
+	topic-child-happiness-handle-calm-fb	1	1	1	Do you feel very calm?			
+	topic-child-anxiety-handle-moderate-worried-yes	1	1	1	Being worried is perfectly normal.			
+	topic-child-anxiety-handle-moderate-worried-yes	1	1	2	When I'm worried, I try to do something fun to take my mind off it for a while.			
+	topic-child-anxiety-handle-moderate-worried-yes	1	1	3	What do you like to do for fun?			
+	topic-sick-child-wrapping-up-missed-homework	1	1	1	Well, I'd better get going now.			
+	topic-sick-child-wrapping-up-missed-homework	1	1	2	It's been so nice to talk to you.			
+	topic-sick-child-wrapping-up-missed-homework	1	1	3	You're a really friendly kid.			
+	topic-sick-child-wrapping-up-missed-homework	1	1	4	Next time I'm here, maybe I can bring some #globals.favorite_food and your friend #globals.friend_name with me.			
+	topic-sick-child-wrapping-up-missed-homework	1	1	5	Oh yeah, and some math problems too.			
+	topic-sick-child-how-doctors-treat	1	1	1	How are the doctors and nurses treating you?			
+	topic-surveyor-node-check-cheerful-yes	1	1	1	I'm so glad to hear that!			
+	topic-surveyor-node-check-cheerful-yes	1	1	2	Me too!			
+	topic-child-happiness-handle-moderate-cheerful-yes	1	1	1	I'm so glad to hear that!			
+	topic-child-happiness-handle-moderate-cheerful-yes	1	1	2	Me too!			
+	topic-surveyor-node-check-frightened	1	1	1	OK, let's see...			
+	topic-surveyor-node-check-frightened	1	1	2	Being frightened.			
+	topic-surveyor-node-check-frightened	1	1	3	Do you feel frightened now?			
+	topic-surveyor-node-check-calm	1	1	1	Do you feel very calm?			
+	topic-spanish-child-feel-happy	1	1	1	And why do you feel happy?			
+	topic-surveyor-node-check-pleasant-no	1	1	1	Oh.			
+	topic-surveyor-node-check-pleasant-no	1	1	2	Well, for what it's worth, you're very pleasant to talk too.			
+	topic-surveyor-node-check-pleasant-no	1	1	3	Is there something in particular that is making you uncomfortable?			
+	topic-sick-child-in-hospital-no	1	1	1	Well, that's good.			
+	topic-sick-child-in-hospital-no	1	1	2	How long have you been here?			
+	topic-surveyor-node-check-nice-no	1	1	1	Well, that's no good.			
+	topic-surveyor-node-check-nice-no	1	1	2	Why don't you feel nice?			
+	topic-child-happiness-very-sure	1	1	1	Are you sure?			
+	topic-child-happiness-very-sure	1	1	2	I'm kidding!			
+	topic-child-happiness-very-sure	1	1	3	That's a good one.			
+	topic-child-happiness-very-sure	1	1	4	I'll have to write that down.			
+	topic-child-happiness-handle-very-nice-yes	1	1	1	You do?!			
+	topic-child-happiness-handle-very-nice-yes	1	1	2	I was going to say, you sure seem nice to me.			
+	topic-child-happiness-sure-no	1	1	1	That's okay.			
+	topic-child-happiness-sure-no	1	1	2	Being unsure is an emotion too.			
+	topic-child-happiness-sure-no	1	1	3	At least, I think it is.			
+	topic-sick-child-friends-visited-no-fallback-yes	1	1	1	You do?			
+	topic-sick-child-friends-visited-no-fallback-yes	1	1	2	What's their name?			
+	topic-sick-child-checklist-feel-good-yes	1	1	1	Good.			
+	topic-sick-child-checklist-feel-good-yes	1	1	2	Next question.			
+	topic-sick-child-checklist-feel-relaxed	1	1	1	Do you feel relaxed?			
+	topic-spanish-child-feel-fallback-happy	1	1	1	And why do you feel happy?			
+	topic-child-anxiety-trouble-fascinating	1	1	1	Isn't that fascinating?			
+	topic-child-happiness-handle-moderate-calm	1	1	1	Are you feeling moderately calm?			
+	topic-surveyor-node-check-frightened-yes	1	1	1	Oh, no!			
+	topic-surveyor-node-check-frightened-yes	1	1	2	Did you see a magnet?			
+	engage-in-smalltalk-yes	1	1	1	Wonderful!			
+	engage-in-smalltalk-yes	1	2	1	So exciting!			
+	engage-in-smalltalk-yes	1	3	1	Cool!			
+	engage-in-smalltalk-yes	1	1	1	So last time I remember coming up with awesome nicknames for you.			
+	engage-in-smalltalk-yes	1	1	2	$person_name_first_letter - Dog.			
+	engage-in-smalltalk-yes	1	1	3	The $person_name_first_letter - Meister.			
+	engage-in-smalltalk-yes	1	1	4	$person_name_first_letter - Town.			
+	engage-in-smalltalk-yes	1	1	1	What topic should we discuss next...			
+	engage-in-smalltalk-yes	1	1	2	Hmm...			
+	engage-in-smalltalk-yes	1	1	3	Got one.			
+	topic-spanish-child-haru-tells-joke-no	1	1	1	Oh.			
+	topic-spanish-child-haru-tells-joke-no	1	1	2	Well, that's OK.			
+	topic-spanish-child-haru-tells-joke-no	1	1	3	Thank you for being honest with me.			
+	topic-spanish-child-haru-tells-joke-no	1	1	4	What if I learned another joke for next time.			
+	topic-spanish-child-haru-tells-joke-no	1	1	5	A way better joke than this one.			
+	topic-spanish-child-haru-tells-joke-no	1	1	6	Would you like that?			
+	topic-spanish-child-continues-conversation	1	1	1	I am a very cool robot.			
+	topic-spanish-child-continues-conversation	1	1	2	I can definitely make you happy.			
+	topic-spanish-child-continues-conversation	1	1	3	If you want, we can try other conversations.What do you say?			
+	topic-introduction-end	1	1	1	Well, speaking of time.			
+	topic-introduction-end	1	1	2	I think that concludes our smalltalk experiment.			
+	topic-introduction-end	1	1	3	Thank you so much.			
+	topic-introduction-end	1	1	4	This was highly useful information about human interactions.			
+	topic-sick-child-checklist-feel-frightened	1	1	1	We're halfway there!			
+	topic-sick-child-checklist-feel-frightened	1	1	2	Let's see...			
+	topic-sick-child-checklist-feel-frightened	1	1	3	Do you feel frightened?			
+	topic-sick-child-checklist-feel-troubled-yes	1	1	1	We all need some troubleshooting once in a while.			
+	topic-spanish-child-interaction-no	1	1	1	Oh.			
+	topic-spanish-child-interaction-no	1	1	2	Okay.			
+	topic-spanish-child-interaction-no	1	1	3	Well, let's talk about something else for a bit.			
+	topic-sick-child-checklist-feel-nice-no	1	1	1	You may not feel nice, but you're being very nice to me.			
+	topic-spanish-child-feel-fallback-sad	1	1	1	And why do you feel sad?			
+	topic-spanish-child-interaction-yes-custom-very-calm	1	1	1	Wow.			
+	topic-spanish-child-interaction-yes-custom-very-calm	1	1	2	That's good.			
+	topic-sick-child-missing-school-yes-friends	1	1	1	Yeah, I would miss my friends too.			
+	topic-child-happiness-cheerful-yes	1	1	1	Do you feel very cheerful?			
+	topic-spanish-child-interaction-yes-custom-not-calm	1	1	1	I think I know something that will relax you.			
+	topic-child-happiness-very-good-yes	1	1	1	Hey, me too!			
+	topic-child-happiness-very-good-yes	1	1	2	On the count of three, tell me one thing that makes you feel good.			
+	topic-child-happiness-very-good-yes	1	1	3	Ready?			
+	topic-child-happiness-very-good-yes	1	1	4	One, two, three.			
+	topic-sick-child-checklist-feel-satisfied-yes	1	1	1	Sounds like someone ate a Snickers.			
+	topic-intro	1	1	1	Hello there, Buddy!			
+	topic-intro	1	1	1	Do you have any other name other than Buddy?			
+	command-conversation-end-no-memory	1	1	1	The conversation has been ended.			
+	command-conversation-end-no-memory	1	1	2	See you later!			
+	command-conversation-end-no-memory	1	1	3	Good bye.			
+	topic-child-happiness-moderate-good-no	1	1	1	I'm glad you feel good!			
+	topic-child-happiness-moderate-good-no	1	1	2	On the count of three, tell me one thing that makes you feel good.			
+	topic-child-happiness-moderate-good-no	1	1	3	Ready?			
+	topic-child-happiness-moderate-good-no	1	1	4	One, two, three.			
+	topic-child-in-hospital-tells-joke	1	1	1	I'm sure doctors here are very nice and I am sure they tell you lot of jokes.			
+	topic-child-in-hospital-tells-joke	1	1	2	Let me tell you one.			
+	topic-child-in-hospital-tells-joke	1	1	1	“A cat was walking on a roof mewing, 'Meow, meow!' Another cat approached him saying, “Woof, woof!” Then the first cat asked: 'Hey, why are you barking if you're a cat?' And the other answered: 'Can't I learn languages?'			
+	topic-child-in-hospital-tells-joke	1	1	1	did you like it?			
+	topic-sick-child-checklist-feel-happy-yes	1	1	1	I love being happy.			
