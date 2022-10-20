@@ -1,181 +1,137 @@
-import pandas as pd
-
+from dataclasses import asdict, dataclass
+from datetime import datetime
+import os
+from time import time
+import spacy
 from rich_response import RichFulfillmentSentence, RichFulfillmentText
 
+import __init__
 
-class Sentence:
-    pass
-
-
-class TextResponse:
-    pass
+from dialogflow_api.src import dialogflow as df
 
 
-class Response:
-    pass
+@dataclass
+class BaseRichDataClass:
+    @classmethod
+    def fromDict(self, obj: dict):
+        return self(**obj)
+
+    def toDict(self):
+        return asdict(self)
+
+    def tolist(self):
+        return list(self.toDict().values())
+
+    @classmethod
+    def all_fields(self):
+        return [x for x in self.__dataclass_fields__]
+
+
+@dataclass
+class DataRow(BaseRichDataClass):
+    topic: str = ""
+    intent: str = ""
+    response: int = -1
+    paraphrase: int = -1
+    sentence: int = -1
+    text: str = ""
+    emotion: str = ""
+    genre: str = ""
+    routine: str = ""
+    routine_id: int = -1
+    comments: str = ""
 
 
 class CSVExporter:
     def __init__(self, config) -> None:
 
         self._config = config
-        self._csv = None
-        self._data = None
-        self._header = []
-        self._header_map = {}
 
-        self.unique_intents: dict = {}
-        self.intent_names: list = []
+        self.dialogflow = df.Dialogflow(config)
 
-        self.parsed_data = None
+        self.dialogflow.get_intents()
+        self._nlp = spacy.load("en_core_web_sm")
 
-        self.load()
-
-    def load(self):
-        self._csv = pd.read_csv(self._config["csv_filepath"], sep="\t", header=0)
-        self._data = self._csv.values.tolist()
-        self._header = self._csv.columns.values.tolist()
-        self._header_map = {header: i for i, header in enumerate(self._header)}
-        self.unique_intents = self.get_unique_intents()
-        self.intent_names = list(self.unique_intents.keys())
+        self.data = {}
+        self.rows = []
 
     def run(self):
-        self.parse()
+        self.load()
+        self.gen_rows()
+        self.dump()
 
-    def parse(self):
-        parsed_data = {}
+    def load(self):
+        data = {}
+        intents = self.dialogflow.intents["display_name"]
 
-        for intent in self.intent_names:
-            parsed_data[intent] = []
-            intent_rows = self.get_intent_rows(intent)
-            responses = self.get_responses(intent_rows)
+        for key in intents:
+            intent = intents[key]
 
-            rich_responses = []
-            rich_resonse = []
-            for i, response in enumerate(responses):
-                paraphrases = self.get_paraphrases(response)
-                sentences = []
-                for j, paraphrase in enumerate(paraphrases):
-                    sentences = self.get_sentences_with_metadata(paraphrase)
-                    # print(f"Intent\t\t: {intent}")
-                    # print(f"Response\t: {i}")
-                    # print(f"Paraphrase\t: {j}")
-                    # print(f"Sentences")
-                    # for k, sent in enumerate(sentences):
-                    #     print(f"{k}\t\t: {sent['text']}")
-                    # print("\n\n")
+            containers = []
+            for text_container in intent.text_messages:
+                texts = []
+                for text in text_container:
+                    sentence_container = {"text": text}
+                    nlp_result = self._nlp(text.replace('"', ""))
+                    sentences = []
+                    for sent in nlp_result.sents:
+                        rfs = RichFulfillmentSentence(text=sent.text)
+                        sentences.append(rfs.toDict())
+                    sentence_container["sentences"] = sentences
+                    texts.append(sentence_container)
+                containers.append(texts)
+            data[intent.intent_obj.display_name] = containers
 
-                    rich_text = RichFulfillmentText(
-                        sentences=[
-                            RichFulfillmentSentence.fromDict(x) for x in sentences
-                        ],
-                        text=" ".join([x["text"] for x in sentences]),
-                    )
-                    rich_resonse.append(rich_text)
-                rich_responses.append(rich_resonse)
+        self.data = data
 
-            parsed_data[intent] = rich_responses
+    def gen_rows(self):
 
-        self.parsed_data = parsed_data
+        rows = []
+        for key in self.data:
+            for i, response in enumerate(self.data[key]):
+                for j, text in enumerate(response):
+                    for k, sentence in enumerate(text["sentences"]):
 
-    def get_intent_rows(self, intent: str, start_idx=0) -> list:
-        intents = []
-        for i in range(start_idx, len(self._data)):
-            if self._data[i][self._header_map["intent"]] == intent:
-                intents.append(self._data[i])
+                        row = DataRow()
+                        row.intent = key
+                        row.response = i + 1
+                        row.paraphrase = j + 1
+                        row.sentence = k + 1
+                        row.text = sentence["text"]
+                        # row.emotion = key
+                        # row.genre = "neutral"
+                        # row.routine = key
+                        # row.routine_id = key
+                        # row.comments = key
 
-        return intents
+                        rows.append(row)
 
-    def get_unique_intents(self) -> dict:
-        intents = {}
+        self.rows = rows
 
-        for data in self._data:
-            intent = data[self._header_map["intent"]]
-            if not intents.get(intent):
-                intents[intent] = 0
+    def dump(self):
+        agent, ext = os.path.splitext(
+            os.path.basename(self._config.get("credential", "default-agent.json"))
+        )
+        filename = agent + datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ".tsv"
+        dir = self._config.get("output_dir", f"{os.path.dirname(__file__)}")
+        filepath = os.path.join(dir, filename)
 
-            intents[intent] += 1
+        with open(filepath, "w") as f:
+            lines = []
 
-        return intents
+            header = DataRow.all_fields()
+            lines.append("\t".join(header))
 
-    def get_responses(self, intents: list) -> list:
-        responses = {}
-        cur_idx = 1
+            for row in self.rows:
+                line = row.tolist()
+                lines.append("\t".join([str(x) for x in line]))
 
-        response = []
-        for intent in intents:
-            response_idx = intent[self._header_map["response"]]
-
-            if response_idx != cur_idx:
-                responses[cur_idx] = response
-                response = []
-                cur_idx = response_idx
-
-            response.append(intent)
-
-        responses[cur_idx] = response
-
-        return list(responses.values())
-
-    def get_paraphrases(self, responses: list) -> list:
-        """
-        returns a list of paraphrases for a single response block.
-
-        @param
-        paraphrases : list of rows with the same response id
-
-        @returns
-        list of paraphrases
-        """
-        paraphrases = {}
-        cur_idx = 1
-
-        sentences = []
-        for response in responses:
-            paraphrase_idx = response[self._header_map["paraphrase"]]
-
-            if paraphrase_idx != cur_idx:
-                paraphrases[cur_idx] = sentences
-                sentences = []
-                cur_idx = paraphrase_idx
-
-            sentences.append(response)
-
-        paraphrases[cur_idx] = sentences
-
-        return list(paraphrases.values())
-
-    def get_sentences(self, paraphrases: list) -> list:
-        """
-        returns the sentences for a single paraphrase.
-
-        @param
-        paraphrases : list of rows with the same paraphrase id
-
-        @returns
-        list of sentences for the paraphrase
-        """
-        return [x[self._header_map["text"]] for x in paraphrases]
-
-    def get_sentences_with_metadata(self, paraphrases: list) -> list:
-        """
-        returns the sentences for a single paraphrase.
-
-        @param
-        paraphrases : list of rows with the same paraphrase id
-
-        @returns
-        list of sentence objects for the paraphrase
-        """
-        return [
-            {k: x[self._header_map[k]] for k in ["text", "emotion", "genre"]}
-            for x in paraphrases
-        ]
+            f.writelines([f"{x}\n" for x in lines])
 
 
 if __name__ == "__main__":
 
-    title = "csv parser"
+    title = "csv exporter"
     version = "0.1.0"
     author = "Farhabi Helal"
     email = "farhabi.helal@jp.honda-ri.com"
@@ -183,24 +139,33 @@ if __name__ == "__main__":
     import argparse
 
     default_config = {
-        "csv_filepath": "",
+        "project_id": "",
+        "credential": "",
     }
 
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        "--csv_filepath",
-        dest="csv_filepath",
-        default=default_config.get("csv_filepath", ""),
-        # required=True,
+        "--project_id",
+        dest="project_id",
         type=str,
-        help="Path to the CSV file to parse.",
+        default=default_config.get("project_id", ""),
+        help="Google Cloud Project Id",
     )
+    parser.add_argument(
+        "--credential",
+        dest="credential",
+        type=str,
+        default=default_config.get("credential", ""),
+        help="Path to Google Cloud Project credential",
+    )
+
     args, args_list = parser.parse_known_args()
 
     config = {
-        "csv_filepath": args.csv_filepath,
+        "project_id": args.project_id,
+        "credential": args.credential,
     }
 
-    parser = CSVParser(config)
+    parser = CSVExporter(config)
     parser.run()
