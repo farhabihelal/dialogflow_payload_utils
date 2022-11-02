@@ -12,3 +12,4 @@ openpyxl==3.0.10
 numpy==1.22.3
 matplotlib==3.5.2
 spacy
+google-cloud-dialogflow

@@ -17,7 +17,7 @@ source ./venv/bin/activate
 (venv) pip install -r ./requirements.txt
 
 # download spacy language model
-(venv) spacy download "en-core-web-sm"
+(venv) spacy download en_core_web_sm
 
 # run the desired tool with supplying proper arguments.
 (venv) python src/${TOOL}.py --project_id ${PROJECT_ID} --credential ${AGENT_CREDENTIAL_PATH}
