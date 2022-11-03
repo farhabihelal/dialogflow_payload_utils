@@ -38,7 +38,7 @@ class DataRow(BaseRichDataClass):
     emotion: str = ""
     genre: str = ""
     routine: str = ""
-    routine_id: int = -1
+    routine_id: str = ""
     comments: str = ""
 
 
@@ -54,6 +54,10 @@ class CSVExporter:
 
         self.data = {}
         self.rows = []
+
+        self.default_export_dir = os.path.abspath(
+            f"{os.path.dirname(__file__)}/../exports"
+        )
 
     def run(self):
         self.load()
@@ -112,8 +116,10 @@ class CSVExporter:
         agent, ext = os.path.splitext(
             os.path.basename(self._config.get("credential", "default-agent.json"))
         )
-        filename = agent + datetime.now().strftime("%Y-%m-%d %H:%M:%S") + ".tsv"
-        dir = self._config.get("output_dir", f"{os.path.dirname(__file__)}")
+        datetime_str = datetime.now().strftime("%Y%m%d%H%M%S")
+        filename = f"{agent}_{datetime_str}.tsv"
+        dir = self._config.get("output_dir", self.default_export_dir)
+        os.makedirs(dir, exist_ok=True)
         filepath = os.path.join(dir, filename)
 
         with open(filepath, "w") as f:
@@ -122,7 +128,9 @@ class CSVExporter:
             header = DataRow.all_fields()
             lines.append("\t".join(header))
 
-            for row in self.rows:
+            rows = sorted(self.rows, key=lambda x: x.intent)
+
+            for row in rows:
                 line = row.tolist()
                 lines.append("\t".join([str(x) for x in line]))
 
