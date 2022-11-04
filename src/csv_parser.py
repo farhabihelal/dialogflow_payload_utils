@@ -3,18 +3,6 @@ import pandas as pd
 from rich_response import RichFulfillmentSentence, RichFulfillmentText
 
 
-class Sentence:
-    pass
-
-
-class TextResponse:
-    pass
-
-
-class Response:
-    pass
-
-
 class CSVParser:
     def __init__(self, config) -> None:
 
@@ -32,7 +20,8 @@ class CSVParser:
         self.load()
 
     def load(self):
-        self._csv = pd.read_csv(self._config["csv_filepath"], sep="\t", header=0)
+        self._csv = pd.read_csv(self._config["filepath"], sep="\t", header=0)
+        self._csv.fillna("", inplace=True)
         self._data = self._csv.values.tolist()
         self._header = self._csv.columns.values.tolist()
         self._header_map = {header: i for i, header in enumerate(self._header)}
@@ -51,7 +40,7 @@ class CSVParser:
             responses = self.get_responses(intent_rows)
 
             rich_responses = []
-            rich_resonse = []
+            rich_response = []
             for i, response in enumerate(responses):
                 paraphrases = self.get_paraphrases(response)
                 sentences = []
@@ -71,8 +60,8 @@ class CSVParser:
                         ],
                         text=" ".join([x["text"] for x in sentences]),
                     )
-                    rich_resonse.append(rich_text)
-                rich_responses.append(rich_resonse)
+                    rich_response.append(rich_text)
+                rich_responses.append(rich_response)
 
             parsed_data[intent] = rich_responses
 
@@ -183,24 +172,26 @@ if __name__ == "__main__":
     import argparse
 
     default_config = {
-        "csv_filepath": "",
+        "filepath": "",
     }
 
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        "--csv_filepath",
-        dest="csv_filepath",
-        default=default_config.get("csv_filepath", ""),
-        # required=True,
+        "--filepath",
+        dest="filepath",
+        default=default_config.get("filepath", ""),
+        required=True,
         type=str,
         help="Path to the CSV file to parse.",
     )
     args, args_list = parser.parse_known_args()
 
     config = {
-        "csv_filepath": args.csv_filepath,
+        "filepath": args.filepath,
     }
 
     parser = CSVParser(config)
     parser.run()
+    data = parser.parsed_data
+    print(data)
