@@ -10,6 +10,9 @@ class BaseRichDataClass:
     def toDict(self):
         return asdict(self)
 
+    def __repr__(self) -> str:
+        return str(self.toDict())
+
 
 @dataclass
 class RichFulfillmentSentence(BaseRichDataClass):
@@ -51,6 +54,9 @@ class RichFulfillmentContainer(list):
     def __init__(self, fulfillment_texts: list = []) -> None:
         """ """
         list.__init__(self)
+
+    def __repr__(self) -> str:
+        return "\n".join([repr(x) for x in self])
 
 
 class RichFulfillmentMessageCollection(list):
@@ -94,3 +100,118 @@ class RichFulfillmentMessageCollection(list):
             rfm_collection.append(rt_container)
 
         return rfm_collection
+
+    def __hash__(self):
+        return hash(repr(self))
+
+    def __repr__(self) -> str:
+        return "\n".join([repr(x) for x in self])
+
+
+if __name__ == "__main__":
+
+    payload = {
+        "messages": [
+            [
+                {
+                    "text": "Are you going somewhere, $user_name?",
+                    "sentences": [
+                        {
+                            "ssml_text": '<usel genre="neutral">Are you going somewhere, $user_name?</usel>',
+                            "silence": {},
+                            "text": "Are you going somewhere, $user_name?",
+                            "alt_text": "",
+                            "genre": "neutral",
+                            "emotion": "",
+                            "routine": {},
+                            "alt_ssml_text": "",
+                        }
+                    ],
+                },
+                {
+                    "sentences": [
+                        {
+                            "genre": "neutral",
+                            "emotion": "",
+                            "ssml_text": '<usel genre="neutral">Are you going to leave home soon, $user_name?</usel>',
+                            "silence": {},
+                            "alt_ssml_text": "",
+                            "text": "Are you going to leave home soon, $user_name?",
+                            "routine": {},
+                            "alt_text": "",
+                        }
+                    ],
+                    "text": "Are you going to leave home soon, $user_name?",
+                },
+                {
+                    "text": "$user_name, are you going somewhere?",
+                    "sentences": [
+                        {
+                            "alt_ssml_text": "",
+                            "text": "$user_name, are you going somewhere?",
+                            "routine": {},
+                            "alt_text": "",
+                            "ssml_text": '<usel genre="neutral">$user_name, are you going somewhere?</usel>',
+                            "silence": {},
+                            "genre": "neutral",
+                            "emotion": "",
+                        }
+                    ],
+                },
+                {
+                    "text": "Pardon me $user_name, but it seems to me that you are preparing to leave. Is that correct?",
+                    "sentences": [
+                        {
+                            "emotion": "",
+                            "genre": "neutral",
+                            "alt_text": "",
+                            "ssml_text": '<usel genre="neutral">Pardon me $user_name, but it seems to me that you are preparing to leave.</usel>',
+                            "text": "Pardon me $user_name, but it seems to me that you are preparing to leave.",
+                            "routine": {},
+                            "silence": {},
+                            "alt_ssml_text": "",
+                        },
+                        {
+                            "silence": {},
+                            "ssml_text": '<usel genre="neutral">Is that correct?</usel>',
+                            "alt_ssml_text": "",
+                            "genre": "neutral",
+                            "text": "Is that correct?",
+                            "alt_text": "",
+                            "routine": {},
+                            "emotion": "",
+                        },
+                    ],
+                },
+                {
+                    "text": "Pardon me $user_name, but it seems you are about to leave. Am I correct?",
+                    "sentences": [
+                        {
+                            "genre": "neutral",
+                            "alt_ssml_text": "",
+                            "alt_text": "",
+                            "ssml_text": '<usel genre="neutral">Pardon me $user_name, but it seems you are about to leave.</usel>',
+                            "silence": {},
+                            "emotion": "",
+                            "text": "Pardon me $user_name, but it seems you are about to leave.",
+                            "routine": {},
+                        },
+                        {
+                            "ssml_text": '<usel genre="neutral">Am I correct?</usel>',
+                            "alt_text": "",
+                            "silence": {},
+                            "routine": {},
+                            "emotion": "",
+                            "genre": "neutral",
+                            "alt_ssml_text": "",
+                            "text": "Am I correct?",
+                        },
+                    ],
+                },
+            ]
+        ]
+    }
+
+    rfm_collection = RichFulfillmentMessageCollection.from_payload(payload)
+    print(repr(rfm_collection))
+    print(hash(rfm_collection))
