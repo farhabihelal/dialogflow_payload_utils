@@ -1,6 +1,11 @@
 import pandas as pd
 
-from rich_response import RichFulfillmentSentence, RichFulfillmentText
+from do.rich_response import (
+    RichFulfillmentSentence,
+    RichFulfillmentText,
+    RichFulfillmentMessageCollection,
+    RichFulfillmentContainer,
+)
 
 
 class CSVParser:
@@ -17,8 +22,6 @@ class CSVParser:
 
         self.parsed_data = None
 
-        self.load()
-
     def load(self):
         self._csv = pd.read_csv(self._config["filepath"], sep="\t", header=0)
         self._csv.fillna("", inplace=True)
@@ -29,6 +32,7 @@ class CSVParser:
         self.intent_names = list(self.unique_intents.keys())
 
     def run(self):
+        self.load()
         self.parse()
 
     def parse(self):
@@ -39,9 +43,9 @@ class CSVParser:
             intent_rows = self.get_intent_rows(intent)
             responses = self.get_responses(intent_rows)
 
-            rich_responses = []
-            rich_response = []
+            rich_responses = RichFulfillmentMessageCollection()
             for i, response in enumerate(responses):
+                rich_response = RichFulfillmentContainer()
                 paraphrases = self.get_paraphrases(response)
                 sentences = []
                 for j, paraphrase in enumerate(paraphrases):
