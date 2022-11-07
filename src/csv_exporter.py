@@ -3,7 +3,10 @@ from datetime import datetime
 import os
 from time import time
 import spacy
-from rich_response import RichFulfillmentSentence, RichFulfillmentText
+from rich_response import (
+    RichFulfillmentSentence,
+    RichFulfillmentMessageCollection,
+)
 
 import __init__
 
@@ -31,9 +34,9 @@ class BaseRichDataClass:
 class DataRow(BaseRichDataClass):
     topic: str = ""
     intent: str = ""
-    response: int = -1
-    paraphrase: int = -1
-    sentence: int = -1
+    response: str = ""
+    paraphrase: str = ""
+    sentence: str = ""
     text: str = ""
     emotion: str = ""
     genre: str = ""
@@ -43,21 +46,34 @@ class DataRow(BaseRichDataClass):
 
 
 class CSVExporter:
-    def __init__(self, config) -> None:
+    def __init__(self, config: dict) -> None:
 
-        self._config = config
+        self._config: dict = config
 
         self.dialogflow = df.Dialogflow(config)
 
         self.dialogflow.get_intents()
         self._nlp = spacy.load("en_core_web_sm")
 
-        self.data = {}
-        self.rows = []
+        self.data: dict = {}
+        self.rows: list = []
 
-        self.default_export_dir = os.path.abspath(
+        self.default_export_dir: str = os.path.abspath(
             f"{os.path.dirname(__file__)}/../exports"
         )
+
+    @property
+    def sorted_data(self) -> dict:
+        return {k: self.data[k] for k in sorted(self.data.keys())} if self.data else {}
+
+    @property
+    def rich_responses(self) -> RichFulfillmentMessageCollection:
+        rich_responses = {
+            k: RichFulfillmentMessageCollection.from_payload({"messages": v})
+            for k, v in self.sorted_data.items()
+        }
+
+        return rich_responses
 
     def run(self):
         self.load()
@@ -117,8 +133,16 @@ class CSVExporter:
             os.path.basename(self._config.get("credential", "default-agent.json"))
         )
         datetime_str = datetime.now().strftime("%Y%m%d%H%M%S")
-        filename = f"{agent}_{datetime_str}.tsv"
-        dir = self._config.get("output_dir", self.default_export_dir)
+        filename = (
+            self._config.get("export_filename")
+            if bool(self._config.get("export_filename"))
+            else f"{agent}_{datetime_str}.tsv"
+        )
+        dir = (
+            self._config.get("export_directory")
+            if bool(self._config.get("export_directory"))
+            else self.default_export_dir
+        )
         os.makedirs(dir, exist_ok=True)
         filepath = os.path.join(dir, filename)
 
@@ -149,6 +173,8 @@ if __name__ == "__main__":
     default_config = {
         "project_id": "",
         "credential": "",
+        "export_directory": "",
+        "export_filename": "",
     }
 
     parser = argparse.ArgumentParser()
@@ -167,13 +193,29 @@ if __name__ == "__main__":
         default=default_config.get("credential", ""),
         help="Path to Google Cloud Project credential",
     )
+    parser.add_argument(
+        "--export_directory",
+        dest="export_directory",
+        type=str,
+        default=default_config.get("export_directory", ""),
+        help="Absolute path to export directory",
+    )
+    parser.add_argument(
+        "--export_filename",
+        dest="export_filename",
+        type=str,
+        default=default_config.get("export_filename", ""),
+        help="Name of the exported file",
+    )
 
     args, args_list = parser.parse_known_args()
 
     config = {
         "project_id": args.project_id,
         "credential": args.credential,
+        "export_directory": args.export_directory,
+        "export_filename": args.export_filename,
     }
 
-    parser = CSVExporter(config)
-    parser.run()
+    exporter = CSVExporter(config)
+    exporter.run()
