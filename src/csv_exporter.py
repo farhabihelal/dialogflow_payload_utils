@@ -1,48 +1,19 @@
-from dataclasses import asdict, dataclass
 from datetime import datetime
 import os
 from time import time
 import spacy
-from rich_response import (
+
+from do.base_rich_dataclass import BaseRichDataClass
+from do.rich_response import (
     RichFulfillmentSentence,
     RichFulfillmentMessageCollection,
 )
+from do.base_datarow import DataRow
+
 
 import __init__
 
 from dialogflow_api.src import dialogflow as df
-
-
-@dataclass
-class BaseRichDataClass:
-    @classmethod
-    def fromDict(self, obj: dict):
-        return self(**obj)
-
-    def toDict(self):
-        return asdict(self)
-
-    def tolist(self):
-        return list(self.toDict().values())
-
-    @classmethod
-    def all_fields(self):
-        return [x for x in self.__dataclass_fields__]
-
-
-@dataclass
-class DataRow(BaseRichDataClass):
-    topic: str = ""
-    intent: str = ""
-    response: str = ""
-    paraphrase: str = ""
-    sentence: str = ""
-    text: str = ""
-    emotion: str = ""
-    genre: str = ""
-    routine: str = ""
-    routine_id: str = ""
-    comments: str = ""
 
 
 class CSVExporter:
