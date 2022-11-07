@@ -1,10 +1,3 @@
-import json
-
-import __init__
-
-
-from dialogflow_api.src import dialogflow as df
-
 from csv_exporter import CSVExporter
 from csv_parser import CSVParser
 
@@ -17,15 +10,42 @@ class RichResponseValidator:
 
         self.parser = CSVParser(config["parser"])
 
+        self.ignored_intents = []
+        self.faulty_intents = []
+
     def run(self):
         self.exporter.run()
         self.parser.run()
 
-        exporter_rr = self.exporter.rich_responses
-        parser_rr = self.parser.parsed_data
+        exporter_data = self.exporter.rich_responses
+        parser_data = self.parser.parsed_data
 
-        print(f"hash of exporter_rr: {hash(json.dumps(exporter_rr))}")
-        print(f"hash of parser_rr: {hash(json.dumps(parser_rr))}")
+        for k in exporter_data:
+            exporter_rr = exporter_data[k]
+
+            # ignore intents that don't have responses. These are missing in the csv.
+            if not bool(exporter_rr):
+                self.ignored_intents.append(k)
+                continue
+
+            parser_rr = parser_data[k]
+
+            if exporter_rr != parser_rr:
+                self.faulty_intents.append(
+                    {"intent": k, "exporter_rr": exporter_rr, "parser_rr": parser_rr}
+                )
+
+            # hash_exporter = hash(repr(exporter_rr))
+            # hash_parser = hash(repr(parser_rr))
+
+            # if hash_exporter != hash_parser:
+            #     self.faulty_intents.append(
+            #         {"intent": k, "exporter_rr": exporter_rr, "parser_rr": parser_rr}
+            #     )
+
+    def report(self):
+        print(f"intents ignored : {len(self.ignored_intents)}")
+        print(f"intents faulty  : {len(self.faulty_intents)}")
 
 
 if __name__ == "__main__":
@@ -104,3 +124,4 @@ if __name__ == "__main__":
 
     rr_validator = RichResponseValidator(config)
     rr_validator.run()
+    rr_validator.report()
