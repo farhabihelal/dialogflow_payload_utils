@@ -101,6 +101,21 @@ class RichFulfillmentMessageCollection(list):
 
         return rfm_collection
 
+    def toDict(self) -> dict:
+        rr = {}
+
+        containers = []
+        for rr_containers in self:
+            container = []
+            for text in rr_containers:
+                text: RichFulfillmentText
+                container.append(text.toDict())
+            containers.append(container)
+
+        rr["messages"] = containers
+
+        return rr
+
     def __hash__(self):
         return hash(repr(self))
 

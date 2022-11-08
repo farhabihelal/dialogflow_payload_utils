@@ -1,5 +1,9 @@
-from datetime import datetime
+import sys
 import os
+
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+
+from datetime import datetime
 from time import time
 import spacy
 
@@ -46,10 +50,10 @@ class CSVExporter:
 
         return rich_responses
 
-    def run(self):
+    def run(self, export_filename=None):
         self.load()
         self.gen_rows()
-        self.dump()
+        self.dump(filename=export_filename)
 
     def load(self):
         data = {}
@@ -99,13 +103,15 @@ class CSVExporter:
 
         self.rows = rows
 
-    def dump(self):
+    def dump(self, filename=None):
         agent, ext = os.path.splitext(
             os.path.basename(self._config.get("credential", "default-agent.json"))
         )
         datetime_str = datetime.now().strftime("%Y%m%d%H%M%S")
         filename = (
-            self._config.get("export_filename")
+            filename
+            if bool(filename)
+            else self._config.get("export_filename")
             if bool(self._config.get("export_filename"))
             else f"{agent}_{datetime_str}.tsv"
         )

@@ -1,5 +1,6 @@
 from csv_exporter import CSVExporter
 from csv_parser import CSVParser
+from rich_response_uploader import RichResponseUploader
 
 
 class RichResponseValidator:
@@ -9,6 +10,8 @@ class RichResponseValidator:
         self.exporter = CSVExporter(config["exporter"])
 
         self.parser = CSVParser(config["parser"])
+
+        self.uploader = RichResponseUploader(config["uploader"])
 
         self.ignored_intents = []
         self.faulty_intents = []
@@ -43,6 +46,12 @@ class RichResponseValidator:
             #         {"intent": k, "exporter_rr": exporter_rr, "parser_rr": parser_rr}
             #     )
 
+    def upload(self):
+        pass
+
+    def export(self):
+        self.exporter.run()
+
     def report(self):
         print(f"intents ignored : {len(self.ignored_intents)}")
         print(f"intents faulty  : {len(self.faulty_intents)}")
@@ -66,6 +75,10 @@ if __name__ == "__main__":
         },
         "parser": {
             "filepath": "",
+        },
+        "uploader": {
+            "project_id": "",
+            "credential": "",
         },
     }
 
@@ -119,6 +132,10 @@ if __name__ == "__main__":
         },
         "parser": {
             "filepath": os.path.join(args.export_directory, args.export_filename),
+        },
+        "uploader": {
+            "project_id": args.project_id,
+            "credential": args.credential,
         },
     }
 

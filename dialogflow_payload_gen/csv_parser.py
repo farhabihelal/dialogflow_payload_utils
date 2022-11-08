@@ -1,3 +1,9 @@
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+
+
 import pandas as pd
 
 from do.rich_response import (
@@ -22,8 +28,10 @@ class CSVParser:
 
         self.parsed_data = None
 
-    def load(self):
-        self._csv = pd.read_csv(self._config["filepath"], sep="\t", header=0)
+    def load(self, filepath=None):
+        self._csv = pd.read_csv(
+            filepath if bool(filepath) else self._config["filepath"], sep="\t", header=0
+        )
         self._csv.fillna("", inplace=True)
         self._data = self._csv.values.tolist()
         self._header = self._csv.columns.values.tolist()
@@ -31,8 +39,8 @@ class CSVParser:
         self.unique_intents = self.get_unique_intents()
         self.intent_names = list(self.unique_intents.keys())
 
-    def run(self):
-        self.load()
+    def run(self, filepath=None):
+        self.load(filepath)
         self.parse()
 
     def parse(self):
