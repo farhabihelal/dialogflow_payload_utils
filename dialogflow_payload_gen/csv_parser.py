@@ -13,6 +13,8 @@ from do.rich_response import (
     RichFulfillmentContainer,
 )
 
+from do.base_datarow import DataRow
+
 
 class CSVParser:
     def __init__(self, config) -> None:
@@ -67,10 +69,8 @@ class CSVParser:
                     # print("\n\n")
 
                     rich_text = RichFulfillmentText(
-                        sentences=[
-                            RichFulfillmentSentence.fromDict(x) for x in sentences
-                        ],
-                        text=" ".join([x["text"] for x in sentences]),
+                        sentences=sentences,
+                        text=" ".join([x.text for x in sentences]),
                     )
                     rich_response.append(rich_text)
                 rich_responses.append(rich_response)
@@ -168,10 +168,34 @@ class CSVParser:
         @returns
         list of sentence objects for the paraphrase
         """
+        return [self.dr_to_rfs(x) for x in self.get_datarows(paraphrases)]
+
+    def get_datarows(self, paraphrases: list) -> list:
+        """
+        returns datarows for corresponding sentences of a single paraphrase.
+
+        @param
+        paraphrases : list of rows with the same paraphrase id
+
+        @returns
+        list of datarow objects for the paraphrase
+        """
         return [
-            {k: x[self._header_map[k]] for k in ["text", "emotion", "genre"]}
+            DataRow.fromDict({k: x[self._header_map[k]] for k in DataRow.all_fields()})
             for x in paraphrases
         ]
+
+    def dr_to_rfs(self, dr: DataRow):
+        """
+        Converts DataRow to Rich Fulfillment Sentence.
+        """
+        return RichFulfillmentSentence.fromDict(
+            {
+                k: v
+                for k, v in dr.toDict().items()
+                if k in RichFulfillmentSentence.all_fields()
+            }
+        )
 
 
 if __name__ == "__main__":
