@@ -20,8 +20,11 @@ class RichFulfillmentSentence(BaseRichDataClass):
     emotion: str = ""
     ssml_text: str = ""
     alt_ssml_text: str = ""
-    routine: dict = field(default_factory=dict)
+    routine: str = ""
     silence: dict = field(default_factory=dict)
+    auto_genre: str = ""
+    auto_emotion: str = ""
+    auto_score: str = ""
 
     @classmethod
     def fromDict(self, obj: dict):
