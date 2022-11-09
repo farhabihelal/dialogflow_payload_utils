@@ -3,6 +3,7 @@ import os
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
+from enum import Enum
 from datetime import datetime
 from time import time
 import spacy
@@ -20,6 +21,11 @@ import __init__
 from dialogflow_api.src import dialogflow as df
 
 
+class ExportMode(Enum):
+    TEXT = 0
+    RICH_RESPONSE = 1
+
+
 class CSVExporter:
     def __init__(self, config: dict) -> None:
 
@@ -27,7 +33,7 @@ class CSVExporter:
 
         self.dialogflow = df.Dialogflow(config)
 
-        self.dialogflow.get_intents()
+        # self.dialogflow.get_intents()
         self._nlp = spacy.load("en_core_web_sm")
 
         self.data: dict = {}
@@ -50,12 +56,22 @@ class CSVExporter:
 
         return rich_responses
 
-    def run(self, export_filename=None):
-        self.load()
+    def run(self, export_filename=None, export_mode=None):
+        self.load(mode=export_mode)
         self.gen_rows()
         self.dump(filename=export_filename)
 
-    def load(self):
+    def load(self, mode=None):
+        self.dialogflow.get_intents()
+
+        mode = ExportMode.TEXT if not mode else mode
+
+        if mode == ExportMode.RICH_RESPONSE:
+            return self.load_rr()
+
+        return self.load_text()
+
+    def load_text(self):
         data = {}
         intents = self.dialogflow.intents["display_name"]
 
@@ -79,6 +95,16 @@ class CSVExporter:
 
         self.data = data
 
+    def load_rr(self):
+        data = {}
+        intents = self.dialogflow.intents["display_name"]
+
+        for key in intents:
+            intent = intents[key]
+            data[intent.intent_obj.display_name] = intent.rich_responses
+
+        self.data = data
+
     def gen_rows(self):
 
         rows = []
@@ -87,17 +113,12 @@ class CSVExporter:
                 for j, text in enumerate(response):
                     for k, sentence in enumerate(text["sentences"]):
 
-                        row = DataRow()
+                        row = self.rfs_to_dr(sentence)
+                        row.topic = ""
                         row.intent = key
                         row.response = i + 1
                         row.paraphrase = j + 1
                         row.sentence = k + 1
-                        row.text = sentence["text"]
-                        # row.emotion = key
-                        # row.genre = "neutral"
-                        # row.routine = key
-                        # row.routine_id = key
-                        # row.comments = key
 
                         rows.append(row)
 
@@ -136,6 +157,14 @@ class CSVExporter:
                 lines.append("\t".join([str(x) for x in line]))
 
             f.writelines([f"{x}\n" for x in lines])
+
+    def rfs_to_dr(self, rfs: dict):
+        """
+        Converts Rich Fulfillment Sentence to DataRow.
+        """
+        return DataRow.fromDict(
+            {k: v for k, v in rfs.items() if k in DataRow.all_fields()}
+        )
 
 
 if __name__ == "__main__":
