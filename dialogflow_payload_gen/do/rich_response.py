@@ -7,6 +7,8 @@ from dataclasses import dataclass, field
 
 from base_rich_dataclass import BaseRichDataClass
 
+from rich_response_helpers import substitute_parameters
+
 
 @dataclass
 class RichFulfillmentSentence(BaseRichDataClass):
@@ -25,6 +27,9 @@ class RichFulfillmentSentence(BaseRichDataClass):
     auto_genre: str = ""
     auto_emotion: str = ""
     auto_score: str = ""
+
+    def __post_init__(self):
+        self.auto_score = str(self.auto_score)
 
     @classmethod
     def fromDict(self, obj: dict):
@@ -48,6 +53,15 @@ class RichFulfillmentText(BaseRichDataClass):
     alt_text: str = ""
     priority: int = 10
 
+    def get_fulfillment_sentence(
+        self, sentence: str, parameters: dict = {}
+    ) -> RichFulfillmentSentence:
+        for rfs in self.sentences:
+            rfs: RichFulfillmentSentence
+            text = substitute_parameters(rfs.text, parameters)
+            if text == sentence:
+                return rfs
+
 
 class RichFulfillmentContainer(list):
     """
@@ -61,6 +75,24 @@ class RichFulfillmentContainer(list):
     def __repr__(self) -> str:
         return "\n".join([repr(x) for x in self])
 
+    def get_fulfillment_text(self, text: str, parameters: dict = {}):
+
+        for response in self:
+            response: RichFulfillmentText
+            subs_text = substitute_parameters(response.text, parameters)
+            if subs_text == text:
+                return response
+
+    def get_fulfillment_sentence(
+        self, sentence: str, parameters: dict = {}
+    ) -> RichFulfillmentSentence:
+        for rft in self:
+            rft: RichFulfillmentText
+
+            rfs = rft.get_fulfillment_sentence(sentence, parameters)
+            if rfs != None:
+                return rfs
+
 
 class RichFulfillmentMessageCollection(list):
     """
@@ -71,25 +103,6 @@ class RichFulfillmentMessageCollection(list):
         list.__init__(self)
 
         for container in containers:
-            rr_container = container
-
-            if type(container) != RichFulfillmentContainer:
-                rr_container = RichFulfillmentContainer()
-                for response in container:
-                    rft = RichFulfillmentText.fromDict(response)
-                    rft.sentences = [
-                        RichFulfillmentSentence.fromDict(x)
-                        for x in response["sentences"]
-                    ]
-                    rr_container.append(rft)
-            self.append(rr_container)
-
-    @staticmethod
-    def from_payload(payload: dict):
-        responses = payload.get("messages", [])
-
-        rfm_collection = RichFulfillmentMessageCollection()
-        for container in responses:
             rt_container = RichFulfillmentContainer()
             for response in container:
                 rr = RichFulfillmentText(
@@ -100,9 +113,60 @@ class RichFulfillmentMessageCollection(list):
                     ],
                 )
                 rt_container.append(rr)
-            rfm_collection.append(rt_container)
+            self.append(rt_container)
 
-        return rfm_collection
+    def get_container(
+        self, text: str, parameters: dict = {}
+    ) -> RichFulfillmentContainer:
+        for container in self:
+            container: RichFulfillmentContainer
+
+            if container.get_fulfillment_text(text, parameters) != None:
+                return container
+
+    def get_fulfillment_text(
+        self, text: str, parameters: dict = {}
+    ) -> RichFulfillmentContainer:
+        for container in self:
+            container: RichFulfillmentContainer
+
+            rft: RichFulfillmentText = container.get_fulfillment_text(text, parameters)
+            if rft != None:
+                return rft
+
+    def get_fulfillment_sentence(
+        self, sentence: str, parameters: dict = {}
+    ) -> RichFulfillmentSentence:
+        for container in self:
+            container: RichFulfillmentContainer
+
+            rfs = container.get_fulfillment_sentence(sentence, parameters)
+            if rfs != None:
+                return rfs
+
+    # @staticmethod
+    # def from_payload(payload: dict):
+    #     responses = payload.get("messages", [])
+
+    #     rfm_collection = RichFulfillmentMessageCollection(responses)
+    #     for container in responses:
+    #         rt_container = RichFulfillmentContainer()
+    #         for response in container:
+    #             rr = RichFulfillmentText(
+    #                 text=response["text"].strip(),
+    #                 sentences=[
+    #                     RichFulfillmentSentence.fromDict(x)
+    #                     for x in response["sentences"]
+    #                 ],
+    #             )
+    #             rt_container.append(rr)
+    #         rfm_collection.append(rt_container)
+
+    #     return rfm_collection
+
+    @staticmethod
+    def from_payload(payload: dict):
+        return RichFulfillmentMessageCollection(payload.get("messages", []))
 
     def toDict(self) -> dict:
         rr = {}
@@ -341,3 +405,127 @@ if __name__ == "__main__":
     print(hash(rfm_collection_2))
 
     print(rfm_collection_1 == rfm_collection_2)
+
+    payload = {
+        "messages": [
+            [
+                {
+                    "sentences": [
+                        {
+                            "alt_ssml_text": "",
+                            "text": "Are you going somewhere, $user_name?",
+                            "ssml_text": "",
+                            "genre": "neutral",
+                            "emotion": "",
+                            "alt_text": "",
+                            "routine": {},
+                            "silence": {},
+                        }
+                    ],
+                    "text": "Are you going somewhere, $user_name?",
+                },
+                {
+                    "text": "Are you going to leave home soon, $user_name?",
+                    "sentences": [
+                        {
+                            "alt_text": "",
+                            "text": "Are you going to leave home soon, $user_name?",
+                            "silence": {},
+                            "ssml_text": "",
+                            "genre": "neutral",
+                            "routine": {},
+                            "alt_ssml_text": "",
+                            "emotion": "",
+                        }
+                    ],
+                },
+                {
+                    "text": "$user_name, are you going somewhere?",
+                    "sentences": [
+                        {
+                            "alt_text": "",
+                            "genre": "neutral",
+                            "routine": {},
+                            "silence": {},
+                            "text": "$user_name, are you going somewhere?",
+                            "ssml_text": "",
+                            "emotion": "",
+                            "alt_ssml_text": "",
+                        }
+                    ],
+                },
+                {
+                    "sentences": [
+                        {
+                            "alt_text": "",
+                            "text": "Pardon me $user_name, but it seems to me that you are preparing to leave.",
+                            "genre": "neutral",
+                            "alt_ssml_text": "",
+                            "emotion": "",
+                            "ssml_text": "",
+                            "silence": {},
+                            "routine": {},
+                        },
+                        {
+                            "silence": {},
+                            "alt_text": "",
+                            "emotion": "",
+                            "text": "Is that correct?",
+                            "routine": {},
+                            "alt_ssml_text": "",
+                            "genre": "neutral",
+                            "ssml_text": "",
+                        },
+                    ],
+                    "text": "Pardon me $user_name, but it seems to me that you are preparing to leave. Is that correct?",
+                },
+                {
+                    "sentences": [
+                        {
+                            "routine": {},
+                            "silence": {},
+                            "alt_ssml_text": "",
+                            "emotion": "",
+                            "genre": "neutral",
+                            "alt_text": "",
+                            "text": "Pardon me $user_name, but it seems you are about to leave.",
+                            "ssml_text": "",
+                        },
+                        {
+                            "genre": "neutral",
+                            "ssml_text": "",
+                            "alt_ssml_text": "",
+                            "silence": {},
+                            "routine": {},
+                            "alt_text": "",
+                            "text": "Am I correct?",
+                            "emotion": "",
+                        },
+                    ],
+                    "text": "Pardon me $user_name, but it seems you are about to leave. Am I correct?",
+                },
+            ]
+        ]
+    }
+
+    rich_response_1 = RichFulfillmentMessageCollection.from_payload(payload)
+    rich_response_2 = RichFulfillmentMessageCollection(payload["messages"])
+
+    print(rich_response_1 == rich_response_2)
+
+    rich_response = RichFulfillmentMessageCollection.from_payload(payload)
+
+    parameters = {
+        "user_name": "randy",
+    }
+
+    sstr = "Pardon me randy, but it seems to me that you are preparing to leave. Is that correct?"
+    sent = "Pardon me randy, but it seems to me that you are preparing to leave."
+
+    rfc = rich_response.get_container(sstr, parameters)
+    rft = rich_response.get_fulfillment_text(sstr, parameters)
+    rfs = rich_response.get_fulfillment_sentence(sent, parameters)
+
+    print(rfc)
+    print(rft)
+    print(rfs)
