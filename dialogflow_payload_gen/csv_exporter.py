@@ -63,6 +63,7 @@ class CSVExporter:
 
     def load(self, mode=None):
         self.dialogflow.get_intents()
+        self.dialogflow.generate_tree()
 
         mode = ExportMode.TEXT if not mode else mode
 
@@ -114,7 +115,9 @@ class CSVExporter:
                     for k, sentence in enumerate(text["sentences"]):
 
                         row = self.rfs_to_dr(sentence)
-                        row.topic = ""
+                        row.topic = self.dialogflow.intents["display_name"][
+                            key
+                        ].root.intent_obj.display_name
                         row.intent = key
                         row.response = i + 1
                         row.paraphrase = j + 1
@@ -150,7 +153,7 @@ class CSVExporter:
             header = DataRow.all_fields()
             lines.append("\t".join(header))
 
-            rows = sorted(self.rows, key=lambda x: x.intent)
+            rows = sorted(self.rows, key=lambda x: x.topic)
 
             for row in rows:
                 line = row.tolist()
