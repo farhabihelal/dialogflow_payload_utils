@@ -59,7 +59,7 @@ class CSVExporter:
     def run(self, export_filename=None, export_mode=None):
         self.load(mode=export_mode)
         self.gen_rows()
-        self.dump(filename=export_filename)
+        self.dump(lines=self.get_processed_data(), filename=export_filename)
 
     def load(self, mode=None):
         self.dialogflow.get_intents()
@@ -106,11 +106,13 @@ class CSVExporter:
 
         self.data = data
 
-    def gen_rows(self):
+    def gen_rows(self, data=None):
+
+        data = data if data else self.data
 
         rows = []
-        for key in self.data:
-            for i, response in enumerate(self.data[key]):
+        for key in data:
+            for i, response in enumerate(data[key]):
                 for j, text in enumerate(response):
                     for k, sentence in enumerate(text["sentences"]):
 
@@ -127,7 +129,29 @@ class CSVExporter:
 
         self.rows = rows
 
-    def dump(self, filename=None):
+    def get_processed_data(self, rows=None) -> list:
+
+        rows = rows if rows else self.rows
+
+        lines = []
+
+        header = DataRow.all_fields()
+        lines.append("\t".join(header))
+
+        rows = sorted(rows, key=lambda x: x.topic)
+
+        for row in rows:
+            row: DataRow
+            line = row.tolist()
+            lines.append("\t".join([str(x) for x in line]))
+
+        return lines
+
+    def dump(self, lines=None, filename=None):
+
+        if not lines:
+            raise ValueError("Lines can not be empty!")
+
         agent, ext = os.path.splitext(
             os.path.basename(self._config.get("credential", "default-agent.json"))
         )
@@ -148,17 +172,6 @@ class CSVExporter:
         filepath = os.path.join(dir, filename)
 
         with open(filepath, "w") as f:
-            lines = []
-
-            header = DataRow.all_fields()
-            lines.append("\t".join(header))
-
-            rows = sorted(self.rows, key=lambda x: x.topic)
-
-            for row in rows:
-                line = row.tolist()
-                lines.append("\t".join([str(x) for x in line]))
-
             f.writelines([f"{x}\n" for x in lines])
 
     def rfs_to_dr(self, rfs: dict):
