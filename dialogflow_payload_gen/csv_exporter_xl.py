@@ -50,7 +50,7 @@ class CSVExporterXL(CSVExporter):
 
             sheets[sheet_name].append(row.tolist())
 
-        return sheets
+        return {k: sheets[k] for k in sorted(sheets.keys())}
 
     def create_xlsx(self, sheets: dict, filepath: str = None):
         writer = pd.ExcelWriter(filepath)
