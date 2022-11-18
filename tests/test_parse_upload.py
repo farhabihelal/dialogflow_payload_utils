@@ -3,9 +3,7 @@ import os
 
 sys.path.append(os.path.abspath(f"{os.path.dirname(__file__)}/.."))
 
-import time
 
-from dialogflow_payload_gen.csv_exporter import CSVExporter, ExportMode
 from dialogflow_payload_gen.csv_parser import CSVParser
 from dialogflow_payload_gen.rich_response_uploader import RichResponseUploader
 
@@ -14,7 +12,6 @@ class TestParseUpload:
     def __init__(self, config) -> None:
         self.config = config
 
-        # self.exporter = CSVExporter(config["exporter"])
         self.parser = CSVParser(config["parser"])
         self.uploader = RichResponseUploader(config["uploader"])
 
@@ -32,17 +29,6 @@ class TestParseUpload:
         print("Uploader is running...\t", end="")
         self.uploader.run(rich_responses=self.parser.parsed_data)
         print("done\n")
-
-        # print("Sleeping...\t", end="")
-        # time.sleep(5)
-        # print("done\n")
-
-        # print("Exporter is running...\t", end="")
-        # self.exporter.run(
-        #     export_filename="haru-games-annotated-after.tsv",
-        #     export_mode=ExportMode.RICH_RESPONSE,
-        # )
-        # print("done\n")
 
     def report(self):
         pass
