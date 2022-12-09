@@ -18,7 +18,10 @@ from do.base_datarow import DataRow
 
 import __init__
 
+
 from dialogflow_api.src import dialogflow as df
+
+from export_utils import ExportGeneric, ExportBFS, ExportDFS
 
 
 class ExportMode(Enum):
@@ -33,6 +36,8 @@ class CSVExporter:
 
         self.dialogflow = df.Dialogflow(config)
 
+        self.algo = self.get_export_algorithm()
+
         # self.dialogflow.get_intents()
         self._nlp = spacy.load("en_core_web_sm")
 
@@ -42,6 +47,20 @@ class CSVExporter:
         self.default_export_dir: str = os.path.abspath(
             f"{os.path.dirname(__file__)}/../exports"
         )
+
+    def get_export_algorithm(self):
+        algo = None
+
+        if self._config.get("algorithm") == "bfs":
+            algo = ExportBFS()
+
+        elif self._config.get("algorithm") == "dfs":
+            algo = ExportDFS()
+
+        else:
+            algo = ExportGeneric()
+
+        return algo
 
     @property
     def sorted_data(self) -> dict:
@@ -58,7 +77,9 @@ class CSVExporter:
 
     def run(self, export_filename=None, export_mode=None):
         self.load(mode=export_mode)
-        self.gen_rows()
+        self.gen_rows(
+            data=self.algo.get_data(self.data, self.dialogflow.get_root_intents())
+        )
         self.dump(lines=self.get_processed_data(), filename=export_filename)
 
     def load(self, mode=None):
@@ -197,6 +218,8 @@ if __name__ == "__main__":
         "credential": "",
         "export_directory": "",
         "export_filename": "",
+        "algorithm": "",
+        "mode": "text",
     }
 
     parser = argparse.ArgumentParser()
@@ -232,11 +255,26 @@ if __name__ == "__main__":
 
     args, args_list = parser.parse_known_args()
 
+    # config = {
+    #     "project_id": args.project_id,
+    #     "credential": args.credential,
+    #     "export_directory": args.export_directory,
+    #     "export_filename": args.export_filename,
+    #     "algorithm": "dfs",
+    #     "mode": "text",
+    # }
+
+    root_dir = os.path.abspath(f"{os.path.dirname(__file__)}/..")
+    agents_dir = os.path.abspath(os.path.join(root_dir, ".temp/keys"))
+    exports_dir = os.path.abspath(os.path.join(root_dir, "exports"))
+
     config = {
-        "project_id": args.project_id,
-        "credential": args.credential,
-        "export_directory": args.export_directory,
-        "export_filename": args.export_filename,
+        "project_id": "empathetic-stimulator-owp9",
+        "credential": os.path.abspath(os.path.join(agents_dir, "es.json")),
+        "export_directory": exports_dir,
+        "export_filename": "es.tsv",
+        "algorithm": "dfs",
+        "mode": "text",
     }
 
     exporter = CSVExporter(config)
