@@ -67,7 +67,7 @@ class CSVExporterXL(CSVExporter):
         writer.save()
 
     def process_sheet_name(self, name: str):
-        return name.replace("topic-", "").replace("-", " ").title().strip()
+        return name.replace("topic-", "").replace(" ", "-").lower().strip()
 
 
 if __name__ == "__main__":
@@ -119,11 +119,25 @@ if __name__ == "__main__":
 
     args, args_list = parser.parse_known_args()
 
+    # config = {
+    #     "project_id": args.project_id,
+    #     "credential": args.credential,
+    #     "export_directory": args.export_directory,
+    #     "export_filename": args.export_filename,
+    #     "algorithm": "dfs",
+    # }
+
+    root_dir = os.path.abspath(f"{os.path.dirname(__file__)}/..")
+    agents_dir = os.path.abspath(os.path.join(root_dir, ".temp/keys"))
+    exports_dir = os.path.abspath(os.path.join(root_dir, "exports"))
+
     config = {
-        "project_id": args.project_id,
-        "credential": args.credential,
-        "export_directory": args.export_directory,
-        "export_filename": args.export_filename,
+        "project_id": "empathetic-stimulator-owp9",
+        "credential": os.path.abspath(os.path.join(agents_dir, "es.json")),
+        "export_directory": exports_dir,
+        "export_filename": "ES.xlsx",
+        "algorithm": "dfs",
+        "mode": "text",
     }
 
     exporter = CSVExporterXL(config)
