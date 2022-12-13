@@ -36,6 +36,7 @@ class CSVExporter:
 
         self.dialogflow = df.Dialogflow(config)
 
+        self.export_mode = self.get_export_mode()
         self.algo = self.get_export_algorithm()
 
         # self.dialogflow.get_intents()
@@ -47,6 +48,14 @@ class CSVExporter:
         self.default_export_dir: str = os.path.abspath(
             f"{os.path.dirname(__file__)}/../exports"
         )
+
+    def get_export_mode(self):
+        mode = ExportMode.TEXT
+
+        if self._config.get("mode", "") == "rich":
+            mode = ExportMode.RICH_RESPONSE
+
+        return mode
 
     def get_export_algorithm(self):
         algo = None
@@ -76,6 +85,11 @@ class CSVExporter:
         return rich_responses
 
     def run(self, export_filename=None, export_mode=None):
+        export_mode = export_mode if export_mode else self.export_mode
+        export_filename = (
+            export_filename if export_filename else self._config.get("export_filename")
+        )
+
         self.load(mode=export_mode)
         self.gen_rows(
             data=self.algo.get_data(self.data, self.dialogflow.get_root_intents())
