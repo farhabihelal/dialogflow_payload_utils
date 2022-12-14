@@ -3,19 +3,9 @@ import os
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
-
 import pandas as pd
 
-from do.rich_response import (
-    RichFulfillmentSentence,
-    RichFulfillmentText,
-    RichFulfillmentMessageCollection,
-    RichFulfillmentContainer,
-)
-
 from csv_parser import CSVParser
-
-from do.base_datarow import DataRow
 
 
 class CSVParserXL(CSVParser):
@@ -88,7 +78,7 @@ if __name__ == "__main__":
         "filepath": args.filepath,
     }
 
-    parser = CSVParser(config)
+    parser = CSVParserXL(config)
     parser.run()
     data = parser.parsed_data
     print(data)
