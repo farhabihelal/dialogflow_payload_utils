@@ -16,7 +16,7 @@ from do.rich_response import (
 from do.base_datarow import DataRow
 
 
-class CSVParser:
+class Parser:
     def __init__(self, config) -> None:
 
         self._config = config
@@ -219,7 +219,7 @@ if __name__ == "__main__":
         default=default_config.get("filepath", ""),
         required=True,
         type=str,
-        help="Path to the CSV file to parse.",
+        help="Path to the  file to parse.",
     )
     args, args_list = parser.parse_known_args()
 
@@ -227,7 +227,7 @@ if __name__ == "__main__":
         "filepath": args.filepath,
     }
 
-    parser = CSVParser(config)
+    parser = Parser(config)
     parser.run()
     data = parser.parsed_data
     print(data)

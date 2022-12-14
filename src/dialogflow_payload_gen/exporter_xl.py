@@ -3,43 +3,76 @@ import os
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
+from datetime import datetime
 
-from csv_exporter_xl import CSVExporterXL
+from dialogflow_payload_gen.exporter import Exporter
 from do.base_datarow import DataRow
 
 import pandas as pd
 
 
-class ESExporter(CSVExporterXL):
+class ExporterXL(Exporter):
     def __init__(self, config: dict) -> None:
         super().__init__(config)
 
+    def dump(self, lines=None, filename=None):
+
+        agent, ext = os.path.splitext(
+            os.path.basename(self._config.get("credential", "default-agent.json"))
+        )
+        datetime_str = datetime.now().strftime("%Y%m%d%H%M%S")
+        filename = (
+            filename
+            if bool(filename)
+            else self._config.get("export_filename")
+            if bool(self._config.get("export_filename"))
+            else f"{agent}_{datetime_str}.xlsx"
+        )
+        dir = (
+            self._config.get("export_directory")
+            if bool(self._config.get("export_directory"))
+            else self.default_export_dir
+        )
+        os.makedirs(dir, exist_ok=True)
+        filepath = os.path.join(dir, filename)
+
+        sheets = self.get_sheets(self.rows)
+        self.create_xlsx(sheets, filepath)
+
     def get_sheets(self, rows: list):
-        sheets = super().get_sheets(rows)
-        return self.get_demo_sheets(sheets)
+        sheets = {}
 
-    def get_demo_sheets(self, sheets=None):
+        for row in rows:
+            row: DataRow
+            sheet_name = self.process_sheet_name(row.topic)
+            if not sheets.get(sheet_name):
+                sheets[sheet_name] = []
 
-        session_data = self._config["session_data"]
+            sheets[sheet_name].append(row.tolist())
 
-        demo_sheets = {}
+        return {k: sheets[k] for k in sorted(sheets.keys())}
 
-        for day in session_data:
-            for session in session_data[day]:
-                sheet_name = f"day-{day}-session-{session}"
-                if not demo_sheets.get(sheet_name):
-                    demo_sheets[sheet_name] = []
+    def create_xlsx(self, sheets: dict, filepath: str = None):
+        writer = pd.ExcelWriter(filepath)
 
-                for intent_name in session_data[day][session]:
-                    intents = sheets[self.process_sheet_name(intent_name)]
-                    demo_sheets[sheet_name].extend(intents)
+        for sheet_name in sheets:
 
-        return demo_sheets
+            df = pd.DataFrame(sheets[sheet_name], columns=DataRow.all_fields())
+            df.to_excel(
+                excel_writer=writer,
+                sheet_name=sheet_name,
+                index=False,
+            )
+
+        writer.save()
+
+    def process_sheet_name(self, name: str):
+        return name.replace("topic-", "").replace(" ", "-").lower().strip()
 
 
 if __name__ == "__main__":
 
-    title = "es exporter"
+    title = "csv exporter dfs"
     version = "0.1.0"
     author = "Farhabi Helal"
     email = "farhabi.helal@jp.honda-ri.com"
@@ -98,49 +131,14 @@ if __name__ == "__main__":
     agents_dir = os.path.abspath(os.path.join(root_dir, ".temp/keys"))
     exports_dir = os.path.abspath(os.path.join(root_dir, "exports"))
 
-    session_data = {
-        "1": {
-            "1": [
-                "topic-intro",
-                "topic-day-one-session-one-names-origins",
-                "topic-day-one-session-one-transition-age",
-                "topic-day-one-session-one-age",
-            ],
-            "2": [
-                "topic-day-one-session-two-intro",
-                "topic-travel-homecountry",
-                "topic-day-one-session-two-transition",
-                "topic-hometown",
-                "topic-day-one-session-two-outro",
-            ],
-        },
-        "2": {
-            "1": [
-                "topic-day-two-session-one-intro",
-                "topic-day-two-family",
-                "topic-day-two-session-one-transition",
-                "topic-day-two-parents",
-                "topic-day-two-session-one-outro",
-            ],
-            "2": [
-                "topic-day-two-session-two-intro",
-                "topic-pet-new",
-                "topic-day-two-session-two-transition",
-                "topic-lemurs",
-                "topic-day-two-session-two-end",
-            ],
-        },
-    }
-
     config = {
         "project_id": "empathetic-stimulator-owp9",
         "credential": os.path.abspath(os.path.join(agents_dir, "es.json")),
         "export_directory": exports_dir,
-        "export_filename": "ES_v4.xlsx",
+        "export_filename": "ES.xlsx",
         "algorithm": "dfs",
-        "mode": "rich",
-        "session_data": session_data,
+        "mode": "text",
     }
 
-    exporter = ESExporter(config)
+    exporter = ExporterXL(config)
     exporter.run()

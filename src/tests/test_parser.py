@@ -4,24 +4,24 @@ import os
 sys.path.append(os.path.abspath(f"{os.path.dirname(__file__)}/.."))
 
 
-from dialogflow_payload_gen.csv_parser import CSVParser
-from dialogflow_payload_gen.csv_parser_xl import CSVParserXL
+from dialogflow_payload_gen.parser import Parser
+from dialogflow_payload_gen.parser_xl import ParserXL
 
 
 class TestParser:
     def __init__(self, config: dict) -> None:
         self.config = config
 
-        self.parser = CSVParser(config["parser"])
+        self.parser = Parser(config["parser"])
 
         self.select_parser()
 
     def select_parser(self):
 
         if self.config.get("parser_name") == "xl":
-            parser = CSVParserXL(self.config["parser"])
+            parser = ParserXL(self.config["parser"])
         else:
-            parser = CSVParser(config["parser"])
+            parser = Parser(config["parser"])
 
         self.parser = parser
 

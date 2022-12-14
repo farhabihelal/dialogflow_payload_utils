@@ -4,13 +4,10 @@ import os
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 
-import pandas as pd
+from dialogflow_payload_gen.parser_xl import ParserXL
 
 
-from csv_parser_xl import CSVParserXL
-
-
-class ESParser(CSVParserXL):
+class ESParser(ParserXL):
     def __init__(self, config) -> None:
 
         super().__init__(config)
@@ -37,7 +34,7 @@ if __name__ == "__main__":
         default=default_config.get("filepath", ""),
         # required=True,
         type=str,
-        help="Path to the CSV file to parse.",
+        help="Path to the  file to parse.",
     )
     args, args_list = parser.parse_known_args()
 

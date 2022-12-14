@@ -5,7 +5,7 @@ import threading
 from std_msgs.msg import Header
 from idmind_tabletop_msgs.msg import TTSCommand, TTSStatus
 
-from csv_parser import CSVParser
+from parser import Parser
 
 
 class TTSPlaylist:
@@ -126,7 +126,7 @@ if __name__ == "__main__":
         "filepath": f"{export_dir}/haru-games-demo.tsv",
     }
 
-    parser = CSVParser(parser_config)
+    parser = Parser(parser_config)
     parser.run()
 
     key = "game-would-you-rather-prompt"

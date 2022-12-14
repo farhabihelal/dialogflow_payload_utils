@@ -29,7 +29,7 @@ class ExportMode(Enum):
     RICH_RESPONSE = 1
 
 
-class CSVExporter:
+class Exporter:
     def __init__(self, config: dict) -> None:
 
         self._config: dict = config
@@ -291,5 +291,5 @@ if __name__ == "__main__":
         "mode": "text",
     }
 
-    exporter = CSVExporter(config)
+    exporter = Exporter(config)
     exporter.run()

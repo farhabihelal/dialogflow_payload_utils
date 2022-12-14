@@ -3,12 +3,12 @@ import os
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
-from csv_exporter import CSVExporter
+from dialogflow_payload_gen.exporter import Exporter
 
 from do.base_datarow import DataRow
 
 
-class CSVExporterDFS(CSVExporter):
+class ExporterDFS(Exporter):
     def __init__(self, config: dict) -> None:
         super().__init__(config)
 
@@ -106,5 +106,5 @@ if __name__ == "__main__":
         "export_filename": args.export_filename,
     }
 
-    exporter = CSVExporterDFS(config)
+    exporter = ExporterDFS(config)
     exporter.run()

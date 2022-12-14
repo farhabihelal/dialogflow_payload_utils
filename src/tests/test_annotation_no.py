@@ -5,8 +5,8 @@ sys.path.append(os.path.abspath(f"{os.path.dirname(__file__)}/.."))
 
 import time
 
-from dialogflow_payload_gen.csv_exporter import CSVExporter
-from dialogflow_payload_gen.csv_parser import CSVParser
+from dialogflow_payload_gen.exporter import Exporter
+from dialogflow_payload_gen.parser import Parser
 from dialogflow_payload_gen.rich_response_uploader import RichResponseUploader
 
 
@@ -14,8 +14,8 @@ class TestAnnotationNo:
     def __init__(self, config) -> None:
         self.config = config
 
-        self.exporter = CSVExporter(config["exporter"])
-        self.parser = CSVParser(config["parser"])
+        self.exporter = Exporter(config["exporter"])
+        self.parser = Parser(config["parser"])
         self.uploader = RichResponseUploader(config["uploader"])
 
     def run(self):

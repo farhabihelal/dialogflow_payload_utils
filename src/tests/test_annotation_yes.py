@@ -3,16 +3,19 @@ import os
 
 sys.path.append(os.path.abspath(f"{os.path.dirname(__file__)}/.."))
 
+import time
 
-from dialogflow_payload_gen.csv_parser import CSVParser
+from dialogflow_payload_gen.exporter import Exporter, ExportMode
+from dialogflow_payload_gen.parser import Parser
 from dialogflow_payload_gen.rich_response_uploader import RichResponseUploader
 
 
-class TestParseUpload:
+class TestAnnotationYes:
     def __init__(self, config) -> None:
         self.config = config
 
-        self.parser = CSVParser(config["parser"])
+        self.exporter = Exporter(config["exporter"])
+        self.parser = Parser(config["parser"])
         self.uploader = RichResponseUploader(config["uploader"])
 
     def run(self):
@@ -21,13 +24,24 @@ class TestParseUpload:
         self.parser.run(
             filepath=os.path.join(
                 self.config["exporter"]["export_directory"],
-                "haru-games-demo.tsv",
+                "haru-games-annotated.tsv",
             )
         )
         print("done\n")
 
         print("Uploader is running...\t", end="")
         self.uploader.run(rich_responses=self.parser.parsed_data)
+        print("done\n")
+
+        print("Sleeping...\t", end="")
+        time.sleep(5)
+        print("done\n")
+
+        print("Exporter is running...\t", end="")
+        self.exporter.run(
+            export_filename="haru-games-annotated-after.tsv",
+            export_mode=ExportMode.RICH_RESPONSE,
+        )
         print("done\n")
 
     def report(self):
@@ -50,9 +64,7 @@ if __name__ == "__main__":
         "credential": os.path.abspath(os.path.join(agents_dir, "api-test.json")),
         "export_directory": exports_dir,
         "export_filename": "haru-games-annotated-after.tsv",
-        "parse_filepath": os.path.join(
-            exports_dir, "haru-games-annotated-modified.tsv"
-        ),
+        "parse_filepath": os.path.join(exports_dir, "haru-games-annotated.tsv"),
     }
 
     config = {
@@ -73,6 +85,6 @@ if __name__ == "__main__":
         },
     }
 
-    test = TestParseUpload(config)
+    test = TestAnnotationYes(config)
     test.run()
     test.report()

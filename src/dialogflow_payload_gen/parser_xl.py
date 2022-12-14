@@ -5,10 +5,10 @@ sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 import pandas as pd
 
-from csv_parser import CSVParser
+from parser import Parser
 
 
-class CSVParserXL(CSVParser):
+class ParserXL(Parser):
     def __init__(self, config) -> None:
 
         self._config = config
@@ -70,7 +70,7 @@ if __name__ == "__main__":
         default=default_config.get("filepath", ""),
         required=True,
         type=str,
-        help="Path to the CSV file to parse.",
+        help="Path to the  file to parse.",
     )
     args, args_list = parser.parse_known_args()
 
@@ -78,7 +78,7 @@ if __name__ == "__main__":
         "filepath": args.filepath,
     }
 
-    parser = CSVParserXL(config)
+    parser = ParserXL(config)
     parser.run()
     data = parser.parsed_data
     print(data)

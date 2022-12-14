@@ -3,12 +3,12 @@ import os
 
 sys.path.append(os.path.abspath(f"{os.path.dirname(__file__)}/.."))
 
-from dialogflow_payload_gen.csv_exporter import ExportMode
+from dialogflow_payload_gen.exporter import ExportMode
 
-from dialogflow_payload_gen.csv_exporter import CSVExporter
-from dialogflow_payload_gen.csv_exporter_bfs import CSVExporterBFS
-from dialogflow_payload_gen.csv_exporter_dfs import CSVExporterDFS
-from dialogflow_payload_gen.csv_exporter_xl import CSVExporterXL
+from dialogflow_payload_gen.exporter import Exporter
+from dialogflow_payload_gen.exporter_bfs import ExporterBFS
+from dialogflow_payload_gen.exporter_dfs import ExporterDFS
+from dialogflow_payload_gen.exporter_xl import ExporterXL
 
 
 class TestExport:
@@ -19,16 +19,16 @@ class TestExport:
 
     def select_exporter(self):
         if self.config.get("exporter_name", "") == "bfs":
-            exporter = CSVExporterBFS(config["exporter"])
+            exporter = ExporterBFS(config["exporter"])
 
         elif self.config.get("exporter_name", "") == "dfs":
-            exporter = CSVExporterDFS(config["exporter"])
+            exporter = ExporterDFS(config["exporter"])
 
         elif self.config.get("exporter_name", "") == "xl":
-            exporter = CSVExporterXL(config["exporter"])
+            exporter = ExporterXL(config["exporter"])
 
         else:
-            exporter = CSVExporter(config["exporter"])
+            exporter = Exporter(config["exporter"])
 
         self.exporter = exporter
 

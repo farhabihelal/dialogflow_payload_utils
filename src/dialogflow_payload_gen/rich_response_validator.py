@@ -1,5 +1,5 @@
-from csv_exporter import CSVExporter
-from csv_parser import CSVParser
+from dialogflow_payload_gen.exporter import Exporter
+from parser import Parser
 from rich_response_uploader import RichResponseUploader
 
 
@@ -7,9 +7,9 @@ class RichResponseValidator:
     def __init__(self, config) -> None:
         self.config = config
 
-        self.exporter = CSVExporter(config["exporter"])
+        self.exporter = Exporter(config["exporter"])
 
-        self.parser = CSVParser(config["parser"])
+        self.parser = Parser(config["parser"])
 
         self.uploader = RichResponseUploader(config["uploader"])
 
@@ -118,7 +118,7 @@ if __name__ == "__main__":
         default=default_config.get("filepath", ""),
         required=True,
         type=str,
-        help="Path to the CSV file to parse.",
+        help="Path to the  file to parse.",
     )
 
     args, args_list = parser.parse_known_args()
