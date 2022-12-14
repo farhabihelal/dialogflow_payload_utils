@@ -2,7 +2,7 @@ import sys
 import os
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
-sys.path.append(os.path.abspath(f"{os.path.dirname(__file__)}/../dialogflow_api/src"))
+sys.path.append(os.path.abspath(f"{os.path.dirname(__file__)}/../dialogflow-api/src"))
 
 from enum import Enum
 from datetime import datetime
