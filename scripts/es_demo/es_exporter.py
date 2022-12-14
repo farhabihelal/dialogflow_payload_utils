@@ -3,6 +3,7 @@ import os
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
+sys.path.append(os.path.abspath(f"{os.path.dirname(__file__)}/../src"))
 
 from dialogflow_payload_gen.exporter_xl import ExporterXL
 
