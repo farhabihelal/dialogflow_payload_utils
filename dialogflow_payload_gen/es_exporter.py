@@ -20,17 +20,17 @@ class ESExporter(CSVExporterXL):
 
     def get_demo_sheets(self, sheets=None):
 
-        demo_data = self._config["demo_data"]
+        session_data = self._config["session_data"]
 
         demo_sheets = {}
 
-        for day in demo_data:
-            for session in demo_data[day]:
+        for day in session_data:
+            for session in session_data[day]:
                 sheet_name = f"day-{day}-session-{session}"
                 if not demo_sheets.get(sheet_name):
                     demo_sheets[sheet_name] = []
 
-                for intent_name in demo_data[day][session]:
+                for intent_name in session_data[day][session]:
                     intents = sheets[self.process_sheet_name(intent_name)]
                     demo_sheets[sheet_name].extend(intents)
 
@@ -39,7 +39,7 @@ class ESExporter(CSVExporterXL):
 
 if __name__ == "__main__":
 
-    title = "csv exporter dfs"
+    title = "es exporter"
     version = "0.1.0"
     author = "Farhabi Helal"
     email = "farhabi.helal@jp.honda-ri.com"
@@ -98,15 +98,36 @@ if __name__ == "__main__":
     agents_dir = os.path.abspath(os.path.join(root_dir, ".temp/keys"))
     exports_dir = os.path.abspath(os.path.join(root_dir, "exports"))
 
-    demo_data = {
+    session_data = {
         "1": {
             "1": [
-                "topic-names-origins",
-                "topic-age",
+                "topic-intro",
+                "topic-day-one-session-one-names-origins",
+                "topic-day-one-session-one-transition-age",
+                "topic-day-one-session-one-age",
             ],
             "2": [
-                "topic-hometown",
+                "topic-day-one-session-two-intro",
                 "topic-travel-homecountry",
+                "topic-day-one-session-two-transition",
+                "topic-hometown",
+                "topic-day-one-session-two-outro",
+            ],
+        },
+        "2": {
+            "1": [
+                "topic-day-two-session-one-intro",
+                "topic-day-two-family",
+                "topic-day-two-session-one-transition",
+                "topic-day-two-parents",
+                "topic-day-two-session-one-outro",
+            ],
+            "2": [
+                "topic-day-two-session-two-intro",
+                "topic-pet-new",
+                "topic-day-two-session-two-transition",
+                "topic-lemurs",
+                "topic-day-two-session-two-end",
             ],
         },
     }
@@ -115,10 +136,10 @@ if __name__ == "__main__":
         "project_id": "empathetic-stimulator-owp9",
         "credential": os.path.abspath(os.path.join(agents_dir, "es.json")),
         "export_directory": exports_dir,
-        "export_filename": "ES.xlsx",
+        "export_filename": "ES_v4.xlsx",
         "algorithm": "dfs",
-        "mode": "text",
-        "demo_data": demo_data,
+        "mode": "rich",
+        "session_data": session_data,
     }
 
     exporter = ESExporter(config)
