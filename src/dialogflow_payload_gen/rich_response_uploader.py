@@ -1,15 +1,20 @@
+import sys
+import os
+
+sys.path.append(os.path.abspath(f"{os.path.dirname(__file__)}"))
+sys.path.append(os.path.abspath(f"{os.path.dirname(__file__)}/../dialogflow_api/src"))
+
 from copy import deepcopy
 
-import __init__
 
-from dialogflow_api.src import dialogflow as df
+from dialogflow import Dialogflow
 
 
 class RichResponseUploader:
     def __init__(self, config) -> None:
         self.config = config
 
-        self.dialogflow = df.Dialogflow(config)
+        self.dialogflow = Dialogflow(config)
         self.dialogflow.get_intents()
 
         self.old_intents = None

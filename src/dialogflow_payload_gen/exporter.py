@@ -2,6 +2,7 @@ import sys
 import os
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+sys.path.append(os.path.abspath(f"{os.path.dirname(__file__)}/../dialogflow_api/src"))
 
 from enum import Enum
 from datetime import datetime
@@ -16,10 +17,7 @@ from do.rich_response import (
 from do.base_datarow import DataRow
 
 
-import __init__
-
-
-from dialogflow_api.src import dialogflow as df
+from dialogflow import Dialogflow
 
 from export_utils import ExportGeneric, ExportBFS, ExportDFS
 
@@ -34,7 +32,7 @@ class Exporter:
 
         self._config: dict = config
 
-        self.dialogflow = df.Dialogflow(config)
+        self.dialogflow = Dialogflow(config)
 
         self.export_mode = self.get_export_mode()
         self.algo = self.get_export_algorithm()
