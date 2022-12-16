@@ -52,16 +52,15 @@ class ExportAlgorithm(ABC):
     @classmethod
     @abstractmethod
     def get_data(self, loaded_data=None):
-        pass
+        return loaded_data
 
 
 class ExportGeneric(ExportAlgorithm):
-    def __init__(self, loaded_data) -> None:
+    def __init__(self) -> None:
         super().__init__()
 
     def get_data(self, loaded_data=None):
-        super().get_data(loaded_data)
-        return
+        return super().get_data(loaded_data)
 
 
 class ExportBFS(ExportAlgorithm):
