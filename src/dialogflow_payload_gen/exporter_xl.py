@@ -5,7 +5,7 @@ sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 from datetime import datetime
 
-from dialogflow_payload_gen.exporter import Exporter
+from exporter import Exporter
 from do.base_datarow import DataRow
 
 import pandas as pd
@@ -127,7 +127,7 @@ if __name__ == "__main__":
     #     "algorithm": "dfs",
     # }
 
-    root_dir = os.path.abspath(f"{os.path.dirname(__file__)}/..")
+    root_dir = os.path.abspath(f"{os.path.dirname(__file__)}/../../")
     agents_dir = os.path.abspath(os.path.join(root_dir, ".temp/keys"))
     exports_dir = os.path.abspath(os.path.join(root_dir, "exports"))
 
@@ -137,7 +137,7 @@ if __name__ == "__main__":
         "export_directory": exports_dir,
         "export_filename": "ES.xlsx",
         "algorithm": "dfs",
-        "mode": "text",
+        "mode": "rich",
     }
 
     exporter = ExporterXL(config)
