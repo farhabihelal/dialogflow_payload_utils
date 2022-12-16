@@ -2,8 +2,7 @@ import sys
 import os
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
-
-sys.path.append(os.path.abspath(f"{os.path.dirname(__file__)}/../src"))
+sys.path.append(os.path.abspath(f"{os.path.dirname(__file__)}/../../src"))
 
 from dialogflow_payload_gen.exporter_xl import ExporterXL
 
@@ -92,51 +91,19 @@ if __name__ == "__main__":
     #     "algorithm": "dfs",
     # }
 
-    root_dir = os.path.abspath(f"{os.path.dirname(__file__)}/..")
+    root_dir = os.path.abspath(f"{os.path.dirname(__file__)}/../../")
     agents_dir = os.path.abspath(os.path.join(root_dir, ".temp/keys"))
     exports_dir = os.path.abspath(os.path.join(root_dir, "exports"))
 
-    session_data = {
-        "1": {
-            "1": [
-                "topic-intro",
-                "topic-day-one-session-one-names-origins",
-                "topic-day-one-session-one-transition-age",
-                "topic-day-one-session-one-age",
-            ],
-            "2": [
-                "topic-day-one-session-two-intro",
-                "topic-travel-homecountry",
-                "topic-day-one-session-two-transition",
-                "topic-hometown",
-                "topic-day-one-session-two-outro",
-            ],
-        },
-        "2": {
-            "1": [
-                "topic-day-two-session-one-intro",
-                "topic-day-two-family",
-                "topic-day-two-session-one-transition",
-                "topic-day-two-parents",
-                "topic-day-two-session-one-outro",
-            ],
-            "2": [
-                "topic-day-two-session-two-intro",
-                "topic-pet-new",
-                "topic-day-two-session-two-transition",
-                "topic-lemurs",
-                "topic-day-two-session-two-end",
-            ],
-        },
-    }
+    from es_data import session_data
 
     config = {
         "project_id": "empathetic-stimulator-owp9",
         "credential": os.path.abspath(os.path.join(agents_dir, "es.json")),
         "export_directory": exports_dir,
-        "export_filename": "ES_v4.xlsx",
+        "export_filename": "ES-Text-v2.xlsx",
         "algorithm": "dfs",
-        "mode": "rich",
+        "mode": "text",
         "session_data": session_data,
     }
 
