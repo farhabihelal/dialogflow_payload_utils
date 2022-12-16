@@ -5,7 +5,7 @@ sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 import pandas as pd
 
-from parser import Parser
+from .parser import Parser
 
 
 class ParserXL(Parser):
