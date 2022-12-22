@@ -23,6 +23,7 @@ class RichFulfillmentSentence(BaseRichDataClass):
     ssml_text: str = ""
     alt_ssml_text: str = ""
     routine: str = ""
+    # routine_id: str = ""
     silence: dict = field(default_factory=dict)
     auto_genre: str = ""
     auto_emotion: str = ""
@@ -182,6 +183,15 @@ class RichFulfillmentMessageCollection(list):
         rr["messages"] = containers
 
         return rr
+
+    def toTextResponse(self) -> list:
+        text_response = []
+
+        for container in self:
+            texts = [text.text for text in container]
+            text_response.append(texts)
+
+        return text_response
 
     def __hash__(self):
         return hash(repr(self))
@@ -405,6 +415,8 @@ if __name__ == "__main__":
     print(hash(rfm_collection_2))
 
     print(rfm_collection_1 == rfm_collection_2)
+
+    print(rfm_collection_1.toTextResponse())
 
     payload = {
         "messages": [
