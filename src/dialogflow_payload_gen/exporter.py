@@ -23,8 +23,9 @@ from export_utils import ExportGeneric, ExportBFS, ExportDFS
 
 
 class ExportMode(Enum):
-    TEXT = 0
-    RICH_RESPONSE = 1
+    TEXT = 0  # Text is the source of truth, ignore RR
+    RICH_RESPONSE = 1  # RR is the source of truth, ignore Text
+    TEXT_RR = 2  # Text is the source of truth, retain RR
 
 
 class Exporter:
@@ -47,27 +48,21 @@ class Exporter:
             f"{os.path.dirname(__file__)}/../exports"
         )
 
-    def get_export_mode(self):
-        mode = ExportMode.TEXT
-
+    def get_export_mode(self) -> ExportMode:
         if self._config.get("mode", "") == "rich":
-            mode = ExportMode.RICH_RESPONSE
+            return ExportMode.RICH_RESPONSE
+        elif self._config.get("mode", "") == "text_rr":
+            return ExportMode.TEXT_RR
 
-        return mode
+        return ExportMode.TEXT
 
     def get_export_algorithm(self):
-        algo = None
-
         if self._config.get("algorithm") == "bfs":
-            algo = ExportBFS()
-
+            return ExportBFS()
         elif self._config.get("algorithm") == "dfs":
-            algo = ExportDFS()
+            return ExportDFS()
 
-        else:
-            algo = ExportGeneric()
-
-        return algo
+        return ExportGeneric()
 
     @property
     def sorted_data(self) -> dict:
@@ -102,6 +97,8 @@ class Exporter:
 
         if mode == ExportMode.RICH_RESPONSE:
             return self.load_rr()
+        elif mode == ExportMode.TEXT_RR:
+            return self.load_text_rr()
 
         return self.load_text()
 
@@ -136,6 +133,18 @@ class Exporter:
         for key in intents:
             intent = intents[key]
             data[intent.intent_obj.display_name] = intent.rich_responses
+
+        self.data = data
+
+    def load_text_rr(self):
+        data = {}
+        text_data = self.load_text()
+        intents = self.dialogflow.intents["display_name"]
+
+        for key in text_data:
+            text_rr = text_data[key]
+            text_response = text_rr.toText()
+            rr = intents[key].rich_responses
 
         self.data = data
 
