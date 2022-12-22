@@ -185,17 +185,37 @@ class Parser:
             for x in paraphrases
         ]
 
+    # ORIGINAL
+    # def dr_to_rfs(self, dr: DataRow):
+    #     """
+    #     Converts DataRow to Rich Fulfillment Sentence.
+    #     """
+    #     return RichFulfillmentSentence.fromDict(
+    #         {
+    #             k: v
+    #             for k, v in dr.toDict().items()
+    #             if k in RichFulfillmentSentence.all_fields()
+    #         }
+    #     )
+
+    # QUICK FIX
     def dr_to_rfs(self, dr: DataRow):
         """
         Converts DataRow to Rich Fulfillment Sentence.
         """
-        return RichFulfillmentSentence.fromDict(
+        rfs = RichFulfillmentSentence.fromDict(
             {
                 k: v
                 for k, v in dr.toDict().items()
                 if k in RichFulfillmentSentence.all_fields()
             }
         )
+
+        rfs.routine = str(
+            int(dr.routine_id) if type(dr.routine_id) == float else dr.routine_id
+        )
+
+        return rfs
 
 
 if __name__ == "__main__":
