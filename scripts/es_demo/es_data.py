@@ -46,4 +46,36 @@ session_data = {
             "topic-day-three-session-two-outro",
         },
     },
+    "4": {
+        "1": {
+            "topic-day-four-session-one-intro",
+            "topic-day-four-school",
+            "topic-day-four-session-one-transition",
+            "topic-day-four-friends",
+            "topic-day-four-session-one-outro",
+        },
+        "2": {
+            "topic-day-four-session-two-intro",
+            "topic-language",
+            "topic-day-four-session-two-transition",
+            "topic-music",
+            "topic-day-four-session-two-outro",
+        },
+    },
+    # "5": {
+    #     "1": {
+    #         "topic-day-five-session-one-intro",
+    #         "topic-weather",
+    #         "topic-day-five-session-one-transition",
+    #         "topic-day-five-clothing",
+    #         "topic-day-five-session-one-outro",
+    #     },
+    #     "2": {
+    #         "topic-day-five-session-two-intro",
+    #         "topic-day-five-travel",
+    #         "topic-day-five-session-two-transition",
+    #         "topic-olympics",
+    #         "topic-day-five-session-two-outro",
+    #     },
+    # },
 }
