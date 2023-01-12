@@ -1,23 +1,18 @@
-import sys
 import os
+import sys
+from dialogflow_payload_gen import ASK_SURVEY_KEY
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 from enum import Enum
 from datetime import datetime
-from time import time
 import spacy
 
-from do.base_rich_dataclass import BaseRichDataClass
 from do.rich_response import (
     RichFulfillmentSentence,
     RichFulfillmentMessageCollection,
 )
 from do.base_datarow import DataRow
-
-
-import __init__
-
 
 from dialogflow_api.src import dialogflow as df
 
@@ -27,6 +22,7 @@ from export_utils import ExportGeneric, ExportBFS, ExportDFS
 class ExportMode(Enum):
     TEXT = 0
     RICH_RESPONSE = 1
+    SURVEY_DATA = 2  # Loads survey question id
 
 
 class CSVExporter:
@@ -54,6 +50,8 @@ class CSVExporter:
 
         if self._config.get("mode", "") == "rich":
             mode = ExportMode.RICH_RESPONSE
+        elif self._config.get("mode", "") == "survey":
+            mode = ExportMode.SURVEY_DATA
 
         return mode
 
@@ -104,6 +102,8 @@ class CSVExporter:
 
         if mode == ExportMode.RICH_RESPONSE:
             return self.load_rr()
+        elif mode == ExportMode.SURVEY_DATA:
+            return self.load_survey_data()
 
         return self.load_text()
 
@@ -141,6 +141,16 @@ class CSVExporter:
 
         self.data = data
 
+    def load_survey_data(self):
+        data = {}
+        intents = self.dialogflow.intents["display_name"]
+
+        for key in intents:
+            intent = intents[key]
+            data[intent.intent_obj.display_name] = intent.custom_payload.get(ASK_SURVEY_KEY, "")
+
+        self.data = data
+
     def gen_rows(self, data=None):
 
         data = data if data else self.data
@@ -150,15 +160,19 @@ class CSVExporter:
             for i, response in enumerate(data[key]):
                 for j, text in enumerate(response):
                     for k, sentence in enumerate(text["sentences"]):
+                        intent_obj = self.dialogflow.intents["display_name"][
+                            key
+                        ]
 
                         row = self.rfs_to_dr(sentence)
-                        row.topic = self.dialogflow.intents["display_name"][
-                            key
-                        ].root.intent_obj.display_name
+                        row.topic = intent_obj.root.intent_obj.display_name
                         row.intent = key
                         row.response = i + 1
                         row.paraphrase = j + 1
                         row.sentence = k + 1
+                        if row.response == row.paraphrase == row.sentence == 1:
+                            row.survey_question_id = int(intent_obj.custom_payload.get(ASK_SURVEY_KEY, None)) \
+                                if intent_obj.custom_payload.get(ASK_SURVEY_KEY, None) else ""
 
                         rows.append(row)
 
@@ -219,7 +233,6 @@ class CSVExporter:
 
 
 if __name__ == "__main__":
-
     title = "csv exporter"
     version = "0.1.0"
     author = "Farhabi Helal"

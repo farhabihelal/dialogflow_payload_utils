@@ -18,4 +18,5 @@ class DataRow(BaseRichDataClass):
     auto_score: str = ""
     routine: str = ""
     routine_id: str = ""
+    survey_question_id: str = ""
     comments: str = ""

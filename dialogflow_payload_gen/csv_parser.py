@@ -1,5 +1,6 @@
 import sys
 import os
+from typing import List
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
@@ -29,6 +30,7 @@ class CSVParser:
         self.intent_names: list = []
 
         self.parsed_data = None
+        self.survey_data = None
 
     def load(self, filepath=None):
         self._csv = pd.read_csv(
@@ -47,11 +49,13 @@ class CSVParser:
 
     def parse(self):
         parsed_data = {}
+        survey_data = {}
 
         for intent in self.intent_names:
             parsed_data[intent] = []
             intent_rows = self.get_intent_rows(intent)
             responses = self.get_responses(intent_rows)
+            survey_data[intent] = self.get_survey_data(intent_rows)
 
             rich_responses = RichFulfillmentMessageCollection()
             for i, response in enumerate(responses):
@@ -78,6 +82,7 @@ class CSVParser:
             parsed_data[intent] = rich_responses
 
         self.parsed_data = parsed_data
+        self.survey_data = survey_data
 
     def get_intent_rows(self, intent: str, start_idx=0) -> list:
         intents = []
@@ -145,6 +150,11 @@ class CSVParser:
         paraphrases[cur_idx] = sentences
 
         return list(paraphrases.values())
+
+    def get_survey_data(self, intent_rows: List[dict]) -> int:
+        return next((int(data_row[self._header_map["survey_question_id"]]) for data_row in intent_rows
+                     if data_row[self._header_map["survey_question_id"]]), None)
+
 
     def get_sentences(self, paraphrases: list) -> list:
         """
