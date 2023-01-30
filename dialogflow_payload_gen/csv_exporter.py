@@ -1,23 +1,20 @@
-import sys
 import os
+import sys
+from dialogflow_payload_gen import ASK_SURVEY_KEY
+from dialogflow_payload_gen import SURVEY_METADATA_KEY
+from dialogflow_payload_gen.do.survey_datarow import SurveyQuestionsDataRow
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 from enum import Enum
 from datetime import datetime
-from time import time
 import spacy
 
-from do.base_rich_dataclass import BaseRichDataClass
 from do.rich_response import (
     RichFulfillmentSentence,
     RichFulfillmentMessageCollection,
 )
 from do.base_datarow import DataRow
-
-
-import __init__
-
 
 from dialogflow_api.src import dialogflow as df
 
@@ -27,6 +24,8 @@ from export_utils import ExportGeneric, ExportBFS, ExportDFS
 class ExportMode(Enum):
     TEXT = 0
     RICH_RESPONSE = 1
+    SURVEY_DATA = 2  # Loads survey question id
+    SURVEY_QUESTIONS = 3  # Loads survey questions
 
 
 class CSVExporter:
@@ -54,6 +53,10 @@ class CSVExporter:
 
         if self._config.get("mode", "") == "rich":
             mode = ExportMode.RICH_RESPONSE
+        elif self._config.get("mode", "") == "survey":
+            mode = ExportMode.SURVEY_DATA
+        elif self._config.get("mode", "") == "survey_questions":
+            mode = ExportMode.SURVEY_QUESTIONS
 
         return mode
 
@@ -104,6 +107,10 @@ class CSVExporter:
 
         if mode == ExportMode.RICH_RESPONSE:
             return self.load_rr()
+        elif mode == ExportMode.SURVEY_DATA:
+            return self.load_survey_data()
+        elif mode == ExportMode.SURVEY_QUESTIONS:
+            return self.load_survey_questions()
 
         return self.load_text()
 
@@ -141,26 +148,67 @@ class CSVExporter:
 
         self.data = data
 
+    def load_survey_data(self):
+        data = {}
+        intents = self.dialogflow.intents["display_name"]
+
+        for key in intents:
+            intent = intents[key]
+            data[intent.intent_obj.display_name] = intent.custom_payload.get(ASK_SURVEY_KEY, "")
+
+        self.data = data
+
+    def load_survey_questions(self):
+        data = {}
+        intents = self.dialogflow.intents["display_name"]
+
+        for key in intents:
+            intent = intents[key]
+
+            if 'node_type' in intent.custom_payload and intent.custom_payload['node_type'] == 'SurveyRootNode':
+                for survey_question in intent.children:
+                    data[survey_question.intent_obj.display_name] = {**{
+                        'survey_root_name': intent.intent_obj.display_name,
+                    }, **survey_question.custom_payload.get(SURVEY_METADATA_KEY, {})}
+
+        self.data = data
+
     def gen_rows(self, data=None):
 
         data = data if data else self.data
 
         rows = []
         for key in data:
-            for i, response in enumerate(data[key]):
-                for j, text in enumerate(response):
-                    for k, sentence in enumerate(text["sentences"]):
 
-                        row = self.rfs_to_dr(sentence)
-                        row.topic = self.dialogflow.intents["display_name"][
-                            key
-                        ].root.intent_obj.display_name
-                        row.intent = key
-                        row.response = i + 1
-                        row.paraphrase = j + 1
-                        row.sentence = k + 1
+            if self.export_mode == ExportMode.SURVEY_QUESTIONS:
+                survey_metadata = data[key]
+                row = SurveyQuestionsDataRow(
+                    survey_root_name=survey_metadata.get('survey_root_name', ""),
+                    intent=key,
+                    question_id=survey_metadata.get('question_id', ""),
+                    question_text=survey_metadata.get('question_text', ""),
+                    question_form=survey_metadata.get('form', ""),
+                )
+                rows.append(row)
+            else:
+                for i, response in enumerate(data[key]):
+                    for j, text in enumerate(response):
+                        for k, sentence in enumerate(text["sentences"]):
+                            intent_obj = self.dialogflow.intents["display_name"][
+                                key
+                            ]
 
-                        rows.append(row)
+                            row = self.rfs_to_dr(sentence)
+                            row.topic = intent_obj.root.intent_obj.display_name
+                            row.intent = key
+                            row.response = i + 1
+                            row.paraphrase = j + 1
+                            row.sentence = k + 1
+                            if row.response == row.paraphrase == row.sentence == 1:
+                                row.survey_question_id = int(intent_obj.custom_payload.get(ASK_SURVEY_KEY, None)) \
+                                    if intent_obj.custom_payload.get(ASK_SURVEY_KEY, None) else ""
+
+                            rows.append(row)
 
         self.rows = rows
 
@@ -170,15 +218,25 @@ class CSVExporter:
 
         lines = []
 
-        header = DataRow.all_fields()
-        lines.append("\t".join(header))
+        if self.export_mode == ExportMode.SURVEY_QUESTIONS:
+            header = SurveyQuestionsDataRow.all_fields()
+            lines.append("\t".join(header))
+            rows = sorted(rows, key=lambda x: x.question_id)
 
-        rows = sorted(rows, key=lambda x: x.topic)
+            for row in rows:
+                row: SurveyQuestionsDataRow
+                line = row.tolist()
+                lines.append("\t".join([str(x) for x in line]))
+        else:
+            header = DataRow.all_fields()
+            lines.append("\t".join(header))
 
-        for row in rows:
-            row: DataRow
-            line = row.tolist()
-            lines.append("\t".join([str(x) for x in line]))
+            rows = sorted(rows, key=lambda x: x.topic)
+
+            for row in rows:
+                row: DataRow
+                line = row.tolist()
+                lines.append("\t".join([str(x) for x in line]))
 
         return lines
 
@@ -219,7 +277,6 @@ class CSVExporter:
 
 
 if __name__ == "__main__":
-
     title = "csv exporter"
     version = "0.1.0"
     author = "Farhabi Helal"

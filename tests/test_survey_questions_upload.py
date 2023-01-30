@@ -1,23 +1,16 @@
-import sys
 import os
 
+from dialogflow_payload_gen.csv_parser import CSVParser
+from dialogflow_payload_gen.survey_questions_parser import SurveyQuestionsParser
+from dialogflow_payload_gen.survey_questions_uploader import SurveryQuestionsUploader
 
-sys.path.append(os.path.abspath(f"{os.path.dirname(__file__)}/.."))
 
-
-from dialogflow_payload_gen.es_parser import ESParser
-from dialogflow_payload_gen.rich_response_uploader import RichResponseUploader
-from dialogflow_payload_gen.survey_metadata_uploader import SurveyMetadataUploader
-
-class ESParseUpload:
+class TestSurveyQuestionsUpload:
     def __init__(self, config) -> None:
         self.config = config
 
-        self.parser = ESParser(config["parser"])
-        self.rr_uploader = RichResponseUploader(config["rr_uploader"])
-        self.survey_metadata_uploader = SurveyMetadataUploader(
-            config["survey_metadata_uploader"]
-        )
+        self.parser = SurveyQuestionsParser(config["parser"])
+        self.uploader = SurveryQuestionsUploader(config["uploader"])
 
     def run(self):
 
@@ -25,17 +18,12 @@ class ESParseUpload:
         self.parser.run()
         print("done\n")
 
-        print("Rich Response uploader is running...\t", end="")
-        self.rr_uploader.run(rich_responses=self.parser.parsed_data)
-        print("done\n")
-
-        print("Survey Metadata uploader is running...\t", end="")
-        self.survey_metadata_uploader.run(survey_data=self.parser.survey_data)
+        print("Uploader is running...\t", end="")
+        self.uploader.run(survey_questions_data=self.parser.parsed_data)
         print("done\n")
 
     def report(self):
         pass
-
 
 if __name__ == "__main__":
 
@@ -64,13 +52,12 @@ if __name__ == "__main__":
             "project_id": args["project_id"],
             "credential": args["credential"],
         },
-        "survey_data_uploader": {
+        "uploader": {
             "project_id": args["project_id"],
             "credential": args["credential"],
-            "survey_data_uploader_mode": args["mode"],
         },
     }
 
-    test = ESParseUpload(config)
+    test = TestSurveyQuestionsUpload(config)
     test.run()
     test.report()

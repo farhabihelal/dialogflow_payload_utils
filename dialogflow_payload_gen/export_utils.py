@@ -113,6 +113,6 @@ class ExportDFS(ExportAlgorithm):
         for intents in dfs_data.values():
             dfs_data_flattened.extend([x.display_name for x in intents])
 
-        data = {k: loaded_data[k] for k in dfs_data_flattened}
+        data = {k: loaded_data[k] for k in dfs_data_flattened if k in loaded_data}
 
         return data
