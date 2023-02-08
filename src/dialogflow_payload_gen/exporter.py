@@ -25,6 +25,7 @@ from export_utils import ExportGeneric, ExportBFS, ExportDFS
 class ExportMode(Enum):
     TEXT = 0
     RICH_RESPONSE = 1
+    TEXT_RR = 2
 
 
 class Exporter:
@@ -52,6 +53,8 @@ class Exporter:
 
         if self._config.get("mode", "") == "rich":
             mode = ExportMode.RICH_RESPONSE
+        elif self._config.get("mode", "") == "text_rr":
+            mode = ExportMode.TEXT_RR
 
         return mode
 
@@ -102,6 +105,8 @@ class Exporter:
 
         if mode == ExportMode.RICH_RESPONSE:
             return self.load_rr()
+        elif mode == ExportMode.TEXT_RR:
+            return self.load_text_rr()
 
         return self.load_text()
 
@@ -136,6 +141,31 @@ class Exporter:
         for key in intents:
             intent = intents[key]
             data[intent.intent_obj.display_name] = intent.rich_responses
+
+        self.data = data
+
+    def load_text_rr(self):
+        data = {}
+        intents = self.dialogflow.intents["display_name"]
+
+        for key in intents:
+            intent = intents[key]
+            rich_responses = RichFulfillmentMessageCollection.from_text_messages(
+                intent.text_messages
+            )
+
+            rich_responses_payload = RichFulfillmentMessageCollection(
+                intent.rich_responses
+            )
+
+            for i, rfc in enumerate(rich_responses):
+                for j, rft in enumerate(rfc):
+                    rft_payload = rich_responses_payload.get_fulfillment_text(rft.text)
+
+                    if rft_payload:
+                        rich_responses[i][j] = rft_payload
+
+            data[intent.intent_obj.display_name] = rich_responses.toDict()["messages"]
 
         self.data = data
 
@@ -276,7 +306,7 @@ if __name__ == "__main__":
     #     "mode": "text",
     # }
 
-    root_dir = os.path.abspath(f"{os.path.dirname(__file__)}/..")
+    root_dir = os.path.abspath(f"{os.path.dirname(__file__)}/../../")
     agents_dir = os.path.abspath(os.path.join(root_dir, ".temp/keys"))
     exports_dir = os.path.abspath(os.path.join(root_dir, "exports"))
 
@@ -286,7 +316,7 @@ if __name__ == "__main__":
         "export_directory": exports_dir,
         "export_filename": "es.tsv",
         "algorithm": "dfs",
-        "mode": "text",
+        "mode": "text_rr",
     }
 
     exporter = Exporter(config)
