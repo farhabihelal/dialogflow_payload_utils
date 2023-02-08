@@ -1,8 +1,11 @@
 import logging
+import spacy
+import jellyfish
+
+NLP = spacy.load("en_core_web_sm")
 
 
 def substitute_parameters(sentence: str, parameters: dict) -> str:
-
     # match = re.search("(\#\w+\.\w+)|(\$\w+)", sentence)
     # params = [x for x in match.groups() if x is not None] if match else []
 
@@ -32,3 +35,14 @@ def substitute_parameters(sentence: str, parameters: dict) -> str:
             except Exception as e:
                 logging.exception(e)
     return sentence
+
+
+def is_similar_sentence(sent1, sent2, threshold=0.9) -> bool:
+    return jellyfish.jaro_winkler_similarity(sent1, sent2) >= threshold
+
+
+if __name__ == "__main__":
+    string_1 = "Hi. My name is Ayon."
+    string_2 = "Hey there. My name is Ayon."
+
+    print(is_similar_sentence(string_1, string_2, 0.8))

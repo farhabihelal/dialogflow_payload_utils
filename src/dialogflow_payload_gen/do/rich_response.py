@@ -7,7 +7,7 @@ from dataclasses import dataclass, field
 
 from base_rich_dataclass import BaseRichDataClass
 
-from rich_response_helpers import substitute_parameters
+from rich_response_helpers import substitute_parameters, NLP, is_similar_sentence
 
 
 @dataclass
@@ -59,7 +59,7 @@ class RichFulfillmentText(BaseRichDataClass):
         for rfs in self.sentences:
             rfs: RichFulfillmentSentence
             text = substitute_parameters(rfs.text, parameters)
-            if text == sentence:
+            if is_similar_sentence(text, sentence):
                 return rfs
 
 
@@ -76,11 +76,10 @@ class RichFulfillmentContainer(list):
         return "\n".join([repr(x) for x in self])
 
     def get_fulfillment_text(self, text: str, parameters: dict = {}):
-
         for response in self:
             response: RichFulfillmentText
             subs_text = substitute_parameters(response.text, parameters)
-            if subs_text == text:
+            if is_similar_sentence(text, subs_text):
                 return response
 
     def get_fulfillment_sentence(
@@ -168,6 +167,26 @@ class RichFulfillmentMessageCollection(list):
     def from_payload(payload: dict):
         return RichFulfillmentMessageCollection(payload.get("messages", []))
 
+    @staticmethod
+    def from_text_messages(text_messages: list):
+        nlp = NLP
+        rfmc = RichFulfillmentMessageCollection()
+        for text_container in text_messages:
+            rfc = RichFulfillmentContainer()
+            for text in text_container:
+                rft = RichFulfillmentText()
+                rft.text = text
+                nlp_result = nlp(text.replace('"', ""))
+                sentences = []
+                for sent in nlp_result.sents:
+                    rfs = RichFulfillmentSentence(text=sent.text)
+                    sentences.append(rfs.toDict())
+                rft.sentences = sentences
+                rfc.append(rft)
+            rfmc.append(rfc)
+
+        return rfmc
+
     def toDict(self) -> dict:
         rr = {}
 
@@ -191,6 +210,22 @@ class RichFulfillmentMessageCollection(list):
 
 
 if __name__ == "__main__":
+    text_messages = [
+        [
+            "Hi.",
+            "Hey.",
+            "Hello.",
+        ],
+        [
+            "I am Ayon.",
+            "My name is Ayon.",
+            "Call me Ayon.",
+        ],
+    ]
+
+    rfmc = RichFulfillmentMessageCollection.from_text_messages(text_messages)
+
+    print(rfmc)
 
     payload_1 = {
         "messages": [
