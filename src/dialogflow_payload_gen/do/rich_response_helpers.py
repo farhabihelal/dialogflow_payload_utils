@@ -37,12 +37,12 @@ def substitute_parameters(sentence: str, parameters: dict) -> str:
     return sentence
 
 
-def is_similar_sentence(sent1, sent2, threshold=0.9) -> bool:
+def is_similar_sentence(sent1, sent2, threshold=0.8) -> bool:
     return jellyfish.jaro_winkler_similarity(sent1, sent2) >= threshold
 
 
 if __name__ == "__main__":
-    string_1 = "Hi. My name is Ayon."
-    string_2 = "Hey there. My name is Ayon."
+    string_1 = "Do you like the name #globals.person_name?"
+    string_2 = "Do you like the name Buddy?"
 
     print(is_similar_sentence(string_1, string_2, 0.8))

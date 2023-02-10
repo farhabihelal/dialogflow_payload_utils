@@ -12,6 +12,8 @@ import spacy
 from do.base_rich_dataclass import BaseRichDataClass
 from do.rich_response import (
     RichFulfillmentSentence,
+    RichFulfillmentText,
+    RichFulfillmentContainer,
     RichFulfillmentMessageCollection,
 )
 from do.base_datarow import DataRow
@@ -30,7 +32,6 @@ class ExportMode(Enum):
 
 class Exporter:
     def __init__(self, config: dict) -> None:
-
         self._config: dict = config
 
         self.dialogflow = Dialogflow(config)
@@ -43,6 +44,8 @@ class Exporter:
 
         self.data: dict = {}
         self.rows: list = []
+
+        self._annotation_data: dict = {}
 
         self.default_export_dir: str = os.path.abspath(
             f"{os.path.dirname(__file__)}/../exports"
@@ -101,6 +104,8 @@ class Exporter:
         self.dialogflow.get_intents()
         self.dialogflow.generate_tree()
 
+        self.load_annotations()
+
         mode = ExportMode.TEXT if not mode else mode
 
         if mode == ExportMode.RICH_RESPONSE:
@@ -144,7 +149,7 @@ class Exporter:
 
         self.data = data
 
-    def load_text_rr(self):
+    def load_text_rr(self, threshold: float = 0.8):
         data = {}
         intents = self.dialogflow.intents["display_name"]
 
@@ -159,18 +164,81 @@ class Exporter:
             )
 
             for i, rfc in enumerate(rich_responses):
+                rfc: RichFulfillmentContainer
                 for j, rft in enumerate(rfc):
-                    rft_payload = rich_responses_payload.get_fulfillment_text(rft.text)
+                    rft: RichFulfillmentText
+                    for k, rfs in enumerate(rft.sentences):
+                        rfs: RichFulfillmentSentence
+                        rfs_payload: RichFulfillmentSentence = (
+                            rich_responses_payload.get_fulfillment_sentence(
+                                sentence=rfs.text, threshold=threshold
+                            )
+                        )
 
-                    if rft_payload:
-                        rich_responses[i][j] = rft_payload
+                        if rfs_payload:
+                            # Replace ONLY annotations NOT Text
+                            if not rich_responses[i][j].sentences[k].auto_score:
+                                rich_responses[i][j].sentences[
+                                    k
+                                ].auto_score = rfs_payload.auto_score
+
+                            if not rich_responses[i][j].sentences[k].auto_emotion:
+                                rich_responses[i][j].sentences[
+                                    k
+                                ].auto_emotion = rfs_payload.auto_emotion
+
+                            if not rich_responses[i][j].sentences[k].auto_genre:
+                                rich_responses[i][j].sentences[
+                                    k
+                                ].auto_genre = rfs_payload.auto_genre
+
+                            if not rich_responses[i][j].sentences[k].emotion:
+                                rich_responses[i][j].sentences[
+                                    k
+                                ].emotion = rfs_payload.emotion
+
+                            if not rich_responses[i][j].sentences[k].genre:
+                                rich_responses[i][j].sentences[
+                                    k
+                                ].genre = rfs_payload.genre
+
+                            if not rich_responses[i][j].sentences[k].routine:
+                                rich_responses[i][j].sentences[
+                                    k
+                                ].routine = rfs_payload.routine
+
+                            if not rich_responses[i][j].sentences[k].silence:
+                                rich_responses[i][j].sentences[
+                                    k
+                                ].silence = rfs_payload.silence
 
             data[intent.intent_obj.display_name] = rich_responses.toDict()["messages"]
 
         self.data = data
 
-    def gen_rows(self, data=None):
+    def load_annotations(self):
+        data = {}
+        intents = self.dialogflow.intents["display_name"]
 
+        for key in intents:
+            intent = intents[key]
+            rich_responses = RichFulfillmentMessageCollection(intent.rich_responses)
+
+            if not rich_responses:
+                continue
+
+            for i, rfc in enumerate(rich_responses):
+                rfc: RichFulfillmentContainer
+                for j, rft in enumerate(rfc):
+                    rft: RichFulfillmentText
+                    for k, rfs in enumerate(rft.sentences):
+                        rfs: RichFulfillmentSentence
+                        key = f"{rfs.text}-{intent.display_name}-{i}-{j}-{k}"
+                        data[key] = rfs
+
+        self._annotation_data = data
+
+    def gen_rows(self, data=None):
         data = data if data else self.data
 
         rows = []
@@ -178,7 +246,6 @@ class Exporter:
             for i, response in enumerate(data[key]):
                 for j, text in enumerate(response):
                     for k, sentence in enumerate(text["sentences"]):
-
                         row = self.rfs_to_dr(sentence)
                         row.topic = self.dialogflow.intents["display_name"][
                             key
@@ -193,7 +260,6 @@ class Exporter:
         self.rows = rows
 
     def get_processed_data(self, rows=None) -> list:
-
         rows = rows if rows else self.rows
 
         lines = []
@@ -211,7 +277,6 @@ class Exporter:
         return lines
 
     def dump(self, lines=None, filename=None):
-
         if not lines:
             raise ValueError("Lines can not be empty!")
 
@@ -247,7 +312,6 @@ class Exporter:
 
 
 if __name__ == "__main__":
-
     title = "csv exporter"
     version = "0.1.0"
     author = "Farhabi Helal"

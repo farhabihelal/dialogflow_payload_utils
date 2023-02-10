@@ -54,12 +54,12 @@ class RichFulfillmentText(BaseRichDataClass):
     priority: int = 10
 
     def get_fulfillment_sentence(
-        self, sentence: str, parameters: dict = {}
+        self, sentence: str, parameters: dict = {}, threshold: float = 0.8
     ) -> RichFulfillmentSentence:
         for rfs in self.sentences:
             rfs: RichFulfillmentSentence
             text = substitute_parameters(rfs.text, parameters)
-            if is_similar_sentence(text, sentence):
+            if is_similar_sentence(text, sentence, threshold):
                 return rfs
 
 
@@ -75,20 +75,22 @@ class RichFulfillmentContainer(list):
     def __repr__(self) -> str:
         return "\n".join([repr(x) for x in self])
 
-    def get_fulfillment_text(self, text: str, parameters: dict = {}):
+    def get_fulfillment_text(
+        self, text: str, parameters: dict = {}, threshold: float = 0.8
+    ):
         for response in self:
             response: RichFulfillmentText
             subs_text = substitute_parameters(response.text, parameters)
-            if is_similar_sentence(text, subs_text):
+            if is_similar_sentence(text, subs_text, threshold):
                 return response
 
     def get_fulfillment_sentence(
-        self, sentence: str, parameters: dict = {}
+        self, sentence: str, parameters: dict = {}, threshold: float = 0.8
     ) -> RichFulfillmentSentence:
         for rft in self:
             rft: RichFulfillmentText
 
-            rfs = rft.get_fulfillment_sentence(sentence, parameters)
+            rfs = rft.get_fulfillment_sentence(sentence, parameters, threshold)
             if rfs != None:
                 return rfs
 
@@ -115,31 +117,33 @@ class RichFulfillmentMessageCollection(list):
             self.append(rt_container)
 
     def get_container(
-        self, text: str, parameters: dict = {}
+        self, text: str, parameters: dict = {}, threshold: float = 0.8
     ) -> RichFulfillmentContainer:
         for container in self:
             container: RichFulfillmentContainer
 
-            if container.get_fulfillment_text(text, parameters) != None:
+            if container.get_fulfillment_text(text, parameters, threshold) != None:
                 return container
 
     def get_fulfillment_text(
-        self, text: str, parameters: dict = {}
+        self, text: str, parameters: dict = {}, threshold: float = 0.8
     ) -> RichFulfillmentContainer:
         for container in self:
             container: RichFulfillmentContainer
 
-            rft: RichFulfillmentText = container.get_fulfillment_text(text, parameters)
+            rft: RichFulfillmentText = container.get_fulfillment_text(
+                text, parameters, threshold
+            )
             if rft != None:
                 return rft
 
     def get_fulfillment_sentence(
-        self, sentence: str, parameters: dict = {}
+        self, sentence: str, parameters: dict = {}, threshold: float = 0.8
     ) -> RichFulfillmentSentence:
         for container in self:
             container: RichFulfillmentContainer
 
-            rfs = container.get_fulfillment_sentence(sentence, parameters)
+            rfs = container.get_fulfillment_sentence(sentence, parameters, threshold)
             if rfs != None:
                 return rfs
 
@@ -180,7 +184,7 @@ class RichFulfillmentMessageCollection(list):
                 sentences = []
                 for sent in nlp_result.sents:
                     rfs = RichFulfillmentSentence(text=sent.text)
-                    sentences.append(rfs.toDict())
+                    sentences.append(rfs)
                 rft.sentences = sentences
                 rfc.append(rft)
             rfmc.append(rfc)
