@@ -21,7 +21,6 @@ class RichResponseUploader:
         self.uploaded_intents = None
 
     def run(self, rich_responses=None):
-
         if not rich_responses:
             rich_responses = self.config.get("rich_responses")
 
@@ -40,14 +39,14 @@ class RichResponseUploader:
                 intent.rich_responses = rr
 
         self.dialogflow.batch_update_intents(
-            [intents[intent_name].intent_obj for intent_name in intents]
+            [intents[intent_name].intent_obj for intent_name in intents],
+            self.config.get("language_code"),
         )
 
         self.uploaded_intents = intents
 
 
 if __name__ == "__main__":
-
     title = "rich response uploader"
     version = "0.1.0"
     author = "Farhabi Helal"
