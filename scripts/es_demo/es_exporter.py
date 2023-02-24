@@ -16,7 +16,6 @@ class ESExporter(ExporterXL):
         return self.get_demo_sheets(sheets)
 
     def get_demo_sheets(self, sheets=None):
-
         session_data = self._config["session_data"]
 
         demo_sheets = {}
@@ -35,7 +34,6 @@ class ESExporter(ExporterXL):
 
 
 if __name__ == "__main__":
-
     title = "es exporter"
     version = "0.1.0"
     author = "Farhabi Helal"
@@ -101,9 +99,9 @@ if __name__ == "__main__":
         "project_id": "empathetic-stimulator-owp9",
         "credential": os.path.abspath(os.path.join(agents_dir, "es.json")),
         "export_directory": exports_dir,
-        "export_filename": "ES-Text-v2.xlsx",
+        "export_filename": "ES_v2.xlsx",
         "algorithm": "dfs",
-        "mode": "text",
+        "mode": "text_rr",
         "session_data": session_data,
     }
 

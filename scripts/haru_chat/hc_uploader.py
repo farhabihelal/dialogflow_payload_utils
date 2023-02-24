@@ -18,7 +18,6 @@ class HCUploader:
         self.uploader = RichResponseUploader(config["uploader"])
 
     def run(self):
-
         print("Parser is running...\t", end="")
         self.parser.run()
         print("done\n")
@@ -32,7 +31,6 @@ class HCUploader:
 
 
 if __name__ == "__main__":
-
     title = "haru chat uploader"
     version = "0.1.0"
     author = "Farhabi Helal"
@@ -42,14 +40,13 @@ if __name__ == "__main__":
     agents_dir = os.path.abspath(os.path.join(root_dir, ".temp/keys"))
     exports_dir = os.path.abspath(os.path.join(root_dir, "exports"))
 
-
     config = {
         "parser": {
-            "filepath": os.path.join(exports_dir, "ES.xlsx"),
+            "filepath": os.path.join(exports_dir, "Haru-Chat-Games.xlsx"),
         },
         "uploader": {
-            "project_id": "haru-smalltalk-all-topics-gdga",
-            "credential": os.path.join(agents_dir, "haru-smalltalk-all-topics-lithin.json"),
+            # "project_id": "haru-smalltalk-all-topics-girm",
+            "credential": os.path.join(agents_dir, "haru-chat-games.json"),
         },
     }
 

@@ -18,7 +18,6 @@ class ESUploader:
         self.uploader = RichResponseUploader(config["uploader"])
 
     def run(self):
-
         print("Parser is running...\t", end="")
         self.parser.run()
         print("done\n")
@@ -32,7 +31,6 @@ class ESUploader:
 
 
 if __name__ == "__main__":
-
     title = "es uploader"
     version = "0.1.0"
     author = "Farhabi Helal"
@@ -46,12 +44,16 @@ if __name__ == "__main__":
 
     config = {
         "parser": {
-            "filepath": os.path.join(exports_dir, "ES.xlsx"),
+            "filepath": os.path.join(exports_dir, "ES_v1_Spanish.xlsx"),
             "session_data": session_data,
         },
         "uploader": {
-            "project_id": "empathetic-stimulator-owp9",
-            "credential": os.path.join(agents_dir, "es.json"),
+            # "project_id": "empathetic-stimulator-owp9",
+            # "credential": os.path.join(agents_dir, "es.json"),
+            "credential": os.path.join(agents_dir, "child-in-hospital.json"),
+            # "project_id": "api-test-v99y",
+            # "credential": os.path.join(agents_dir, "haru-test.json"),
+            "language_code": "es",
         },
     }
 

@@ -13,7 +13,6 @@ class HCExporter(ExporterXL):
 
 
 if __name__ == "__main__":
-
     title = "haru chat exporter"
     version = "0.1.0"
     author = "Farhabi Helal"
@@ -74,14 +73,12 @@ if __name__ == "__main__":
     exports_dir = os.path.abspath(os.path.join(root_dir, "exports"))
 
     config = {
-        "project_id": "haru-smalltalk-all-topics-gdga",
-        "credential": os.path.abspath(
-            os.path.join(agents_dir, "haru-smalltalk-all-topics-lithin.json")
-        ),
+        # "project_id": "haru-smalltalk-all-topics-girm",
+        "credential": os.path.abspath(os.path.join(agents_dir, "haru-chat-games.json")),
         "export_directory": exports_dir,
-        "export_filename": "Haru-Chat.xlsx",
+        "export_filename": "Haru-Chat-Games.xlsx",
         "algorithm": "dfs",
-        "mode": "text",
+        "mode": "text_rr",
     }
 
     exporter = HCExporter(config)
