@@ -15,10 +15,11 @@ from do.rich_response import (
 
 from do.base_datarow import DataRow
 
+from dialogflow_payload_gen.behavior import Behavior
+
 
 class Parser:
     def __init__(self, config) -> None:
-
         self._config = config
         self._csv = None
         self._data = None
@@ -203,6 +204,19 @@ class Parser:
         """
         Converts DataRow to Rich Fulfillment Sentence.
         """
+
+        auto_emotion = Behavior.get_emotion(dr.text)
+        dr.auto_emotion = auto_emotion["label"]
+        dr.auto_score = auto_emotion["score"]
+
+        dr.genre = Behavior.get_genre(emotion=dr.auto_emotion)
+
+        dr.routine_id = Behavior.get_routine(dr.genre)
+
+        # RoutineMapper.map_routine(
+        #     datarow=dr, override=True, override_intent_names=[]
+        # )
+
         rfs = RichFulfillmentSentence.fromDict(
             {
                 k: v
@@ -219,7 +233,6 @@ class Parser:
 
 
 if __name__ == "__main__":
-
     title = "csv parser"
     version = "0.1.0"
     author = "Farhabi Helal"
@@ -245,6 +258,8 @@ if __name__ == "__main__":
 
     config = {
         "filepath": args.filepath,
+        "override": False,
+        "override_intent_names": [],
     }
 
     parser = Parser(config)
