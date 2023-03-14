@@ -160,7 +160,7 @@ if __name__ == "__main__":
         "emotion_model_name": "",
         "override_behavior": False,
         "override_intent_names": [],
-        "behavior_profile": {
+        "profile": {
             "routine_map": {},
             "genre_map": {},
         },

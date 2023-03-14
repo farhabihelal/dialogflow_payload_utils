@@ -31,7 +31,7 @@ class Parser:
 
         self.parsed_data = None
 
-        self._behavior = Behavior(config)
+        self._behavior = Behavior(config["behavior"])
 
     def load(self, filepath=None):
         self._csv = pd.read_csv(
@@ -253,9 +253,11 @@ if __name__ == "__main__":
 
     config = {
         "filepath": args.filepath,
-        "override_behavior": False,
-        "override_intent_names": [],
-        "behavior_profile": {},
+        "behavior": {
+            "override_behavior": False,
+            "override_intent_names": [],
+            "profile": {},
+        },
     }
 
     parser = Parser(config)
