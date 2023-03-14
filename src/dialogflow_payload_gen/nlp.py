@@ -3,6 +3,8 @@ import os
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
+import re
+
 from transformers import pipeline
 import spacy
 
@@ -35,6 +37,9 @@ class NLP:
 
         self.nlp = spacy.load("en_core_web_md")
 
+        self.valid_chars = "\w\s</>?;.,\"':\-$@#%&"
+        self.invalid_pattern = re.compile(f"[^{self.valid_chars}]")
+
     def configure(self, config: dict):
         self.config = config
         self.emotion_model_name = self.config.get("emotion_model_name")
@@ -46,8 +51,10 @@ class NLP:
         result = self.nlp(text)
         return [x.text for x in result.sents]
 
-    def process_text(self, text: str) -> str:
-        pass
+    def clean_text(self, text: str) -> str:
+        text = self.invalid_pattern.sub("", text)
+        text = re.sub("\s+", " ", text)
+        return text.strip()
 
     def classify_emotion(self, text: str) -> dict:
         raw_data = self.emotion_model(text)
@@ -60,4 +67,7 @@ if __name__ == "__main__":
         "emotion_model_name": "",
     }
     nlp = NLP(config)
-    print(nlp.get_sentences("Hello there. My name is Haru."))
+    # print(nlp.get_sentences("Hello there. My name is Haru."))
+
+    text = nlp.clean_text("abcABC123!@#$%^&*()...    _-+=?,.</>;'\"[]\{\}|\\")
+    print(text)
