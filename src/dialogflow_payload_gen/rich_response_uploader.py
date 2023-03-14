@@ -16,6 +16,7 @@ class RichResponseUploader:
 
         self.dialogflow = Dialogflow(config)
         self.dialogflow.get_intents()
+        self.dialogflow.generate_tree()
 
         self.old_intents = None
         self.uploaded_intents = None
