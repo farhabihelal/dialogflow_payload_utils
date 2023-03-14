@@ -31,6 +31,8 @@ class Parser:
 
         self.parsed_data = None
 
+        self._behavior = Behavior(config)
+
     def load(self, filepath=None):
         self._csv = pd.read_csv(
             filepath if bool(filepath) else self._config["filepath"], sep="\t", header=0
@@ -182,7 +184,13 @@ class Parser:
         list of datarow objects for the paraphrase
         """
         return [
-            DataRow.fromDict({k: x[self._header_map[k]] for k in DataRow.all_fields()})
+            self._behavior.add_behavior(
+                datarow=DataRow.fromDict(
+                    {k: x[self._header_map[k]] for k in DataRow.all_fields()}
+                ),
+                profile=self._config.get("behavior_profile"),
+                override_behavior=False,
+            )
             for x in paraphrases
         ]
 
@@ -204,19 +212,6 @@ class Parser:
         """
         Converts DataRow to Rich Fulfillment Sentence.
         """
-
-        auto_emotion = Behavior.get_emotion(dr.text)
-        dr.auto_emotion = auto_emotion["label"]
-        dr.auto_score = auto_emotion["score"]
-
-        dr.genre = Behavior.get_genre(emotion=dr.auto_emotion)
-
-        dr.routine_id = Behavior.get_routine(dr.genre)
-
-        # RoutineMapper.map_routine(
-        #     datarow=dr, override=True, override_intent_names=[]
-        # )
-
         rfs = RichFulfillmentSentence.fromDict(
             {
                 k: v
@@ -258,8 +253,9 @@ if __name__ == "__main__":
 
     config = {
         "filepath": args.filepath,
-        "override": False,
+        "override_behavior": False,
         "override_intent_names": [],
+        "behavior_profile": {},
     }
 
     parser = Parser(config)
