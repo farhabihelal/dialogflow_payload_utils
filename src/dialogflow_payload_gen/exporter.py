@@ -17,7 +17,7 @@ from do.rich_response import (
     RichFulfillmentMessageCollection,
 )
 from do.base_datarow import DataRow
-
+from behavior import Behavior
 
 from dialogflow import Dialogflow
 
@@ -35,6 +35,8 @@ class Exporter:
         self._config: dict = config
 
         self.dialogflow = Dialogflow(config)
+
+        self.behavior = Behavior(config["behavior"])
 
         self.export_mode = self.get_export_mode()
         self.algo = self.get_export_algorithm()
@@ -246,7 +248,9 @@ class Exporter:
             for i, response in enumerate(data[key]):
                 for j, text in enumerate(response):
                     for k, sentence in enumerate(text["sentences"]):
-                        row = self.rfs_to_dr(sentence)
+                        row = self.behavior.add_behavior(
+                            datarow=self.rfs_to_dr(sentence)
+                        )
                         row.topic = self.dialogflow.intents["display_name"][
                             key
                         ].root.intent_obj.display_name
@@ -394,6 +398,10 @@ if __name__ == "__main__":
         "export_filename": "es.tsv",
         "algorithm": "dfs",
         "mode": "text_rr",
+        "behavior": {
+            "override_behavior": False,
+            "profile": {},
+        },
     }
 
     exporter = Exporter(config)
