@@ -302,13 +302,26 @@ class Exporter:
         with open(filepath, "w") as f:
             f.writelines([f"{x}\n" for x in lines])
 
+    # def rfs_to_dr(self, rfs: dict):
+    #     """
+    #     Converts Rich Fulfillment Sentence to DataRow.
+    #     """
+    #     return DataRow.fromDict(
+    #         {k: v for k, v in rfs.items() if k in DataRow.all_fields()}
+    #     )
+
     def rfs_to_dr(self, rfs: dict):
         """
         Converts Rich Fulfillment Sentence to DataRow.
         """
-        return DataRow.fromDict(
+        dr = DataRow.fromDict(
             {k: v for k, v in rfs.items() if k in DataRow.all_fields()}
         )
+
+        dr.routine_id = str(dr.routine)
+        dr.routine = ""
+
+        return dr
 
 
 if __name__ == "__main__":
