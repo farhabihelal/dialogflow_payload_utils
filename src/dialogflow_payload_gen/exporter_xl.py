@@ -15,8 +15,11 @@ class ExporterXL(Exporter):
     def __init__(self, config: dict) -> None:
         super().__init__(config)
 
-    def dump(self, lines=None, filename=None):
+    def get_processed_data(self, rows=None) -> list:
+        pass
 
+    def dump(self, rows=None, filename=None, **kwargs):
+        rows = rows if rows else self.rows
         agent, ext = os.path.splitext(
             os.path.basename(self._config.get("credential", "default-agent.json"))
         )
@@ -36,7 +39,7 @@ class ExporterXL(Exporter):
         os.makedirs(dir, exist_ok=True)
         filepath = os.path.join(dir, filename)
 
-        sheets = self.get_sheets(self.rows)
+        sheets = self.get_sheets(rows)
         self.create_xlsx(sheets, filepath)
 
     def get_sheets(self, rows: list):
@@ -56,7 +59,6 @@ class ExporterXL(Exporter):
         writer = pd.ExcelWriter(filepath)
 
         for sheet_name in sheets:
-
             df = pd.DataFrame(sheets[sheet_name], columns=DataRow.all_fields())
             df.to_excel(
                 excel_writer=writer,
@@ -71,7 +73,6 @@ class ExporterXL(Exporter):
 
 
 if __name__ == "__main__":
-
     title = "csv exporter dfs"
     version = "0.1.0"
     author = "Farhabi Helal"

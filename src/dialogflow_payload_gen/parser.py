@@ -17,11 +17,12 @@ from do.base_datarow import DataRow
 
 from dialogflow_payload_gen.behavior import Behavior
 
+from abc import ABC, abstractmethod
 
-class Parser:
-    def __init__(self, config) -> None:
+
+class Parser(ABC):
+    def __init__(self, config: dict) -> None:
         self._config = config
-        self._csv = None
         self._data = None
         self._header = []
         self._header_map = {}
@@ -31,18 +32,11 @@ class Parser:
 
         self.parsed_data = None
 
-        self._behavior = Behavior(config["behavior"])
+        self._behavior = Behavior(config.get("behavior", {}))
 
+    @abstractmethod
     def load(self, filepath=None):
-        self._csv = pd.read_csv(
-            filepath if bool(filepath) else self._config["filepath"], sep="\t", header=0
-        )
-        self._csv.fillna("", inplace=True)
-        self._data = self._csv.values.tolist()
-        self._header = self._csv.columns.values.tolist()
-        self._header_map = {header: i for i, header in enumerate(self._header)}
-        self.unique_intents = self.get_unique_intents()
-        self.intent_names = list(self.unique_intents.keys())
+        raise NotImplementedError()
 
     def run(self, filepath=None):
         self.load(filepath)
@@ -183,16 +177,16 @@ class Parser:
         @returns
         list of datarow objects for the paraphrase
         """
-        return [
-            self._behavior.add_behavior(
-                datarow=DataRow.fromDict(
-                    {k: x[self._header_map[k]] for k in DataRow.all_fields()}
-                ),
-                profile=self._config.get("behavior_profile"),
-                override_behavior=False,
-            )
-            for x in paraphrases
-        ]
+        return [self.get_datarow(x) for x in paraphrases]
+
+    def get_datarow(self, data: list):
+        return self._behavior.add_behavior(
+            datarow=DataRow.fromDict(
+                {k: data[self._header_map[k]] for k in DataRow.all_fields()}
+            ),
+            profile=self._config.get("behavior_profile"),
+            override_behavior=False,
+        )
 
     # ORIGINAL
     # def dr_to_rfs(self, dr: DataRow):
@@ -228,7 +222,7 @@ class Parser:
 
 
 if __name__ == "__main__":
-    title = "csv parser"
+    title = "base parser"
     version = "0.1.0"
     author = "Farhabi Helal"
     email = "farhabi.helal@jp.honda-ri.com"

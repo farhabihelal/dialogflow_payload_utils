@@ -392,7 +392,6 @@ if __name__ == "__main__":
     exports_dir = os.path.abspath(os.path.join(root_dir, "exports"))
 
     config = {
-        "project_id": "empathetic-stimulator-owp9",
         "credential": os.path.abspath(os.path.join(agents_dir, "es.json")),
         "export_directory": exports_dir,
         "export_filename": "es.tsv",
