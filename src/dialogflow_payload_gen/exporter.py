@@ -36,7 +36,7 @@ class Exporter:
 
         self.dialogflow = Dialogflow(config)
 
-        self.behavior = Behavior(config["behavior"])
+        self.behavior = Behavior(config.get("behavior", {}))
 
         self.export_mode = self.get_export_mode()
         self.algo = self.get_export_algorithm()
