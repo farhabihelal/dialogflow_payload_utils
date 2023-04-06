@@ -49,10 +49,10 @@ if __name__ == "__main__":
             }
         ),
         "uploader": {
-            # "credential": os.path.join(agents_dir, "es.json"),
+            "credential": os.path.join(agents_dir, "es.json"),
             # "credential": os.path.join(agents_dir, "child-in-hospital.json"),
             # "credential": os.path.join(agents_dir, "haru-test.json"),
-            "credential": os.path.join(agents_dir, "system-intents.json"),
+            # "credential": os.path.join(agents_dir, "system-intents.json"),
             "language_code": "en",
         },
     }
