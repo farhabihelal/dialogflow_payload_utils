@@ -31,6 +31,7 @@ class ParserXL(Parser):
             df = pd.read_excel(self._xl, sheet_name=sheet)
             self._xl_sheets[sheet] = df
             df.fillna("", inplace=True)
+            df = df.loc[df.text != ""]
 
             self._headers[sheet] = df.columns.values.tolist()
             self._data.extend(df.values.tolist())
