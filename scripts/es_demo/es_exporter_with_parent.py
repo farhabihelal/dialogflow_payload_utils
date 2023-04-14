@@ -95,14 +95,22 @@ if __name__ == "__main__":
 
     from es_data import session_data
 
+    # agent_filename = "es.json"
+    # agent_filename = "es2.json"
+    # agent_filename = "child-in-hospital.json"
+    # agent_filename = "child-in-hospital-2.json"
+    # agent_filename = "system-intents.json"
+    agent_filename = "haru-test.json"
+    agent_name = os.path.splitext(agent_filename)[0]
+
     config = {
-        # "credential": os.path.abspath(os.path.join(agents_dir, "es.json")),
-        "credential": os.path.abspath(os.path.join(agents_dir, "haru-test.json")),
+        "credential": os.path.abspath(os.path.join(agents_dir, agent_filename)),
         "export_directory": exports_dir,
-        "export_filename": "ES_D2S2.xlsx",
+        "export_filename": "ES_D3S2.xlsx",
         "algorithm": "dfs",
         "mode": "text_rr",
-        "session_data": session_data,
+        "session_data": session_data[agent_name],
+        # "session_data": session_data['es'],
     }
 
     exporter = ESExporterWithParent(config)

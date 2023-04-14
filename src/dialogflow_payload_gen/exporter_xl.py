@@ -133,12 +133,11 @@ if __name__ == "__main__":
     exports_dir = os.path.abspath(os.path.join(root_dir, "exports"))
 
     config = {
-        "project_id": "empathetic-stimulator-owp9",
-        "credential": os.path.abspath(os.path.join(agents_dir, "es.json")),
+        "credential": os.path.abspath(os.path.join(agents_dir, "system-intents.json")),
         "export_directory": exports_dir,
-        "export_filename": "ES.xlsx",
+        "export_filename": "System-Intents.xlsx",
         "algorithm": "dfs",
-        "mode": "rich",
+        "mode": "text_rr",
     }
 
     exporter = ExporterXL(config)

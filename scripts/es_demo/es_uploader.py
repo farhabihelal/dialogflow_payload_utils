@@ -39,21 +39,27 @@ if __name__ == "__main__":
     root_dir = os.path.abspath(f"{os.path.dirname(__file__)}/../../")
     agents_dir = os.path.abspath(os.path.join(root_dir, ".temp/keys"))
     exports_dir = os.path.abspath(os.path.join(root_dir, "exports"))
+    data_dir = os.path.abspath(os.path.join(root_dir, "data"))
 
     from es_data import session_data
 
+    # agent_filename = "es.json"
+    # agent_filename = "es2.json"
+    # agent_filename = "child-in-hospital.json"
+    # agent_filename = "child-in-hospital-2.json"
+    # agent_filename = "system-intents.json"
+    agent_filename = "haru-test.json"
+    agent_name = os.path.splitext(agent_filename)[0]
+
     config = {
         "parser": {
-            "filepath": os.path.join(exports_dir, "ES_v1_Spanish.xlsx"),
-            "session_data": session_data,
+            "filepath": os.path.join(data_dir, "ES_GS_D2S2.xlsx"),
+            "session_data": session_data[agent_name],
+            # "session_data": session_data['es'],
         },
         "uploader": {
-            # "project_id": "empathetic-stimulator-owp9",
-            # "credential": os.path.join(agents_dir, "es.json"),
-            "credential": os.path.join(agents_dir, "child-in-hospital.json"),
-            # "project_id": "api-test-v99y",
-            # "credential": os.path.join(agents_dir, "haru-test.json"),
-            "language_code": "es",
+            "credential": os.path.join(agents_dir, agent_filename),
+            "language_code": "en",
         },
     }
 
