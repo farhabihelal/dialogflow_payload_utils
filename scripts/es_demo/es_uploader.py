@@ -43,23 +43,23 @@ if __name__ == "__main__":
 
     from es_data import session_data
 
-    # agent_filename = "es.json"
+    agent_filename = "es.json"
     # agent_filename = "es2.json"
     # agent_filename = "child-in-hospital.json"
     # agent_filename = "child-in-hospital-2.json"
     # agent_filename = "system-intents.json"
-    agent_filename = "haru-test.json"
+    # agent_filename = "haru-test.json"
     agent_name = os.path.splitext(agent_filename)[0]
 
     config = {
         "parser": {
-            "filepath": os.path.join(data_dir, "ES_GS_D2S2.xlsx"),
-            "session_data": session_data[agent_name],
-            # "session_data": session_data['es'],
+            "filepath": os.path.join(data_dir, "es_demo_v2_day_1_es.xlsx"),
+            # "session_data": session_data[agent_name],
+            "session_data": session_data['es'],
         },
         "uploader": {
             "credential": os.path.join(agents_dir, agent_filename),
-            "language_code": "en",
+            "language_code": "es",
         },
     }
 

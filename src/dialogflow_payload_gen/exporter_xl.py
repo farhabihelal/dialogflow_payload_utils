@@ -66,7 +66,8 @@ class ExporterXL(Exporter):
                 index=False,
             )
 
-        writer.save()
+        # .save() was deprecated in pandas > 1.5.0 (https://pandas.pydata.org/pandas-docs/version/1.5.0/reference/api/pandas.ExcelWriter.save.html) 
+        writer.close()
 
     def process_sheet_name(self, name: str):
         return name.replace("topic-", "").replace(" ", "-").lower().strip()

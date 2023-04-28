@@ -2,7 +2,7 @@ import logging
 import spacy
 import jellyfish
 
-NLP = spacy.load("en_core_web_sm")
+NLP = spacy.load("en_core_web_md")
 
 
 def substitute_parameters(sentence: str, parameters: dict) -> str:

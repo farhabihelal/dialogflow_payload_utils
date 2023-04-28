@@ -1,11 +1,10 @@
 import sys
 import os
-
-sys.path.append(os.path.abspath(os.path.dirname(__file__)))
-sys.path.append(os.path.abspath(f"{os.path.dirname(__file__)}/../../src"))
+file_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(file_dir)
+sys.path.append(os.path.abspath(f"{file_dir}/../../src"))
 
 from dialogflow_payload_gen.exporter_xl import ExporterXL
-
 
 class ESExporter(ExporterXL):
     def __init__(self, config: dict) -> None:
@@ -89,18 +88,18 @@ if __name__ == "__main__":
     #     "algorithm": "dfs",
     # }
 
-    root_dir = os.path.abspath(f"{os.path.dirname(__file__)}/../../")
+    root_dir = os.path.abspath(f"{file_dir}/../../")
     agents_dir = os.path.abspath(os.path.join(root_dir, ".temp/keys"))
     exports_dir = os.path.abspath(os.path.join(root_dir, "exports"))
 
     from es_data import session_data
 
-    # agent_filename = "es.json"
+    agent_filename = "es.json"
     # agent_filename = "es2.json"
     # agent_filename = "child-in-hospital.json"
     # agent_filename = "child-in-hospital-2.json"
     # agent_filename = "system-intents.json"
-    agent_filename = "haru-test.json"
+    # agent_filename = "haru-test.json"
     agent_name = os.path.splitext(agent_filename)[0]
 
     config = {
@@ -110,7 +109,7 @@ if __name__ == "__main__":
         "algorithm": "dfs",
         "mode": "text_rr",
         "session_data": session_data[agent_name],
-        # "session_data": session_data['es'],
+        "language_code": "es",
     }
 
     exporter = ESExporter(config)

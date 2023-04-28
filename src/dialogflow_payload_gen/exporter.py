@@ -42,7 +42,7 @@ class Exporter:
         self.algo = self.get_export_algorithm()
 
         # self.dialogflow.get_intents()
-        self._nlp = spacy.load("en_core_web_sm")
+        self._nlp = spacy.load("en_core_web_md")
 
         self.data: dict = {}
         self.rows: list = []
@@ -103,7 +103,7 @@ class Exporter:
         self.dump(lines=self.get_processed_data(), filename=export_filename)
 
     def load(self, mode=None):
-        self.dialogflow.get_intents()
+        self.dialogflow.get_intents(self._config.get("language_code", "en"))
         self.dialogflow.generate_tree()
 
         self.load_annotations()
