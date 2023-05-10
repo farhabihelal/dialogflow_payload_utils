@@ -51,8 +51,8 @@ class ExporterXLWithParent(ExporterXL):
 
         for ref in ref_intents:
             ref: Intent
-            node_type = ref.custom_payload["node_type"]
-            if node_type in ["QuestionNode", "AnswerQuestionNode"]:
+            node_type = ref.custom_payload.get("node_type")
+            if node_type and node_type in ["QuestionNode", "AnswerQuestionNode"]:
                 return ref
             else:
                 ref = self.get_question_intent(ref)
