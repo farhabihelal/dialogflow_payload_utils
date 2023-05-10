@@ -15,7 +15,7 @@ class RichResponseUploader:
         self.config = config
 
         self.dialogflow = Dialogflow(config)
-        self.dialogflow.get_intents()
+        self.dialogflow.get_intents(language_code=config.get("language_code"))
         self.dialogflow.generate_tree()
 
         self.old_intents = None
@@ -39,6 +39,12 @@ class RichResponseUploader:
             if rr:
                 intent.rich_responses = rr
 
+        print("Backing up...\t", end="")
+        self.dialogflow.create_version(
+            f"backup before updating metadata from api.".title()
+        )
+        print("done\n")
+
         self.dialogflow.batch_update_intents(
             [intents[intent_name].intent_obj for intent_name in intents],
             self.config.get("language_code"),
@@ -56,19 +62,11 @@ if __name__ == "__main__":
     import argparse
 
     default_config = {
-        "project_id": "",
         "credential": "",
     }
 
     parser = argparse.ArgumentParser()
 
-    parser.add_argument(
-        "--project_id",
-        dest="project_id",
-        type=str,
-        default=default_config.get("project_id", ""),
-        help="Google Cloud Project Id",
-    )
     parser.add_argument(
         "--credential",
         dest="credential",
@@ -80,7 +78,6 @@ if __name__ == "__main__":
     args, args_list = parser.parse_known_args()
 
     config = {
-        "project_id": args.project_id,
         "credential": args.credential,
     }
 

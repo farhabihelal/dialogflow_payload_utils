@@ -103,7 +103,7 @@ class Exporter:
         self.dump(lines=self.get_processed_data(), filename=export_filename)
 
     def load(self, mode=None):
-        self.dialogflow.get_intents()
+        self.dialogflow.get_intents(language_code=self._config.get("language_code"))
         self.dialogflow.generate_tree()
 
         self.load_annotations()
@@ -401,6 +401,7 @@ if __name__ == "__main__":
             "override_behavior": False,
             "profile": {},
         },
+        "language_code": "en",
     }
 
     exporter = Exporter(config)

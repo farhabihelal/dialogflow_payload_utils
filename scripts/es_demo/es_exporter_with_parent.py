@@ -106,11 +106,12 @@ if __name__ == "__main__":
     config = {
         "credential": os.path.abspath(os.path.join(agents_dir, agent_filename)),
         "export_directory": exports_dir,
-        "export_filename": "ES_D3S2.xlsx",
+        "export_filename": "es_day_2_es_export.xlsx",
         "algorithm": "dfs",
         "mode": "text_rr",
-        "session_data": session_data[agent_name],
-        # "session_data": session_data['es'],
+        # "session_data": session_data[agent_name],
+        "session_data": session_data["es"],
+        "language_code": "es",
     }
 
     exporter = ESExporterWithParent(config)

@@ -109,8 +109,9 @@ if __name__ == "__main__":
         "export_filename": f"{agent_name.title()}-.xlsx",
         "algorithm": "dfs",
         "mode": "text_rr",
-        "session_data": session_data[agent_name],
-        # "session_data": session_data['es'],
+        # "session_data": session_data[agent_name],
+        "session_data": session_data["es"],
+        "language_code": "es",
     }
 
     exporter = ESExporter(config)
