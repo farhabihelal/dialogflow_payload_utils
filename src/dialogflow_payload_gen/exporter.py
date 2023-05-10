@@ -42,7 +42,7 @@ class Exporter:
         self.algo = self.get_export_algorithm()
 
         # self.dialogflow.get_intents()
-        self._nlp = spacy.load("en_core_web_sm")
+        self._nlp = spacy.load("en_core_web_md")
 
         self.data: dict = {}
         self.rows: list = []
