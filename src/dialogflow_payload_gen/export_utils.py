@@ -68,7 +68,6 @@ class ExportBFS(ExportAlgorithm):
         super().__init__()
 
     def get_bfs_data(self, root_intents=None):
-
         data = {}
         for root in root_intents:
             children = bfs(root)
@@ -77,7 +76,7 @@ class ExportBFS(ExportAlgorithm):
         return {k: data[k] for k in sorted(data.keys())}
 
     def get_data(self, loaded_data=None, root_intents: list = None):
-        super().get_data(loaded_data)
+        # super().get_data(loaded_data)
 
         bfs_data = self.get_bfs_data(root_intents)
 
@@ -95,7 +94,6 @@ class ExportDFS(ExportAlgorithm):
         super().__init__()
 
     def get_dfs_data(self, root_intents=None):
-
         data = {}
         for root in root_intents:
             children = dfs(root)
@@ -104,7 +102,7 @@ class ExportDFS(ExportAlgorithm):
         return {k: data[k] for k in sorted(data.keys())}
 
     def get_data(self, loaded_data=None, root_intents: list = None):
-        super().get_data(loaded_data)
+        # super().get_data(loaded_data)
 
         dfs_data = self.get_dfs_data(root_intents)
 
