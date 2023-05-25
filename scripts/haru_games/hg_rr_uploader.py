@@ -44,6 +44,12 @@ class HaruGamesRichResponseUploader(RichResponseUploader):
                 rr = self.handle_special_intent(intent, rr)
                 intent.rich_responses = rr
 
+        print("Backing up...\t", end="")
+        self.dialogflow.create_version(
+            f"backup before updating metadata from api.".title()
+        )
+        print("done\n")
+
         self.dialogflow.batch_update_intents(
             [intents[intent_name].intent_obj for intent_name in intents],
             self.config.get("language_code"),
