@@ -42,11 +42,11 @@ if __name__ == "__main__":
 
     config = {
         "parser": {
-            "filepath": os.path.join(exports_dir, "Haru-Chat-Games.xlsx"),
+            "filepath": os.path.join(exports_dir, "Haru-Tiny-Habits.xlsx"),
         },
         "uploader": {
             # "project_id": "haru-smalltalk-all-topics-girm",
-            "credential": os.path.join(agents_dir, "haru-chat-games.json"),
+            "credential": os.path.join(agents_dir, "haru-tiny-habits.json"),
         },
     }
 

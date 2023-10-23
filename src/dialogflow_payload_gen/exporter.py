@@ -401,7 +401,7 @@ if __name__ == "__main__":
             "override_behavior": False,
             "profile": {},
         },
-        "language_code": "en",
+        "language_code": en-us,
     }
 
     exporter = Exporter(config)

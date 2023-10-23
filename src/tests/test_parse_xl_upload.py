@@ -29,24 +29,24 @@ class TestParseXLUpload:
 
 
 if __name__ == "__main__":
-    title = "parse xl uploader "
-    version = "0.1.0"
-    author = "Farhabi Helal"
-    email = "farhabi.helal@jp.honda-ri.com"
+    # title = "parse xl uploader "
+    # version = "0.1.0"
+    # author = "Farhabi Helal"
+    # email = "farhabi.helal@jp.honda-ri.com"
 
     root_dir = os.path.abspath(f"{os.path.dirname(__file__)}/../..")
-    data_dir = os.path.abspath(os.path.join(root_dir, "data"))
+    data_dir = os.path.abspath(os.path.join(root_dir, "exports"))
     agents_dir = os.path.abspath(os.path.join(root_dir, ".temp/keys"))
-    exports_dir = os.path.abspath(os.path.join(root_dir, "exports"))
+    # exports_dir = os.path.abspath(os.path.join(root_dir, "exports"))
 
-    args = {
-        "credential": os.path.abspath(os.path.join(agents_dir, "es.json")),
-        "export_directory": exports_dir,
-        "export_filename": "haru-games-annotated-after.tsv",
-        "parse_filepath": os.path.join(
-            exports_dir, "haru-games-annotated-modified.tsv"
-        ),
-    }
+    # args = {
+    #     "credential": os.path.abspath(os.path.join(agents_dir, "es.json")),
+    #     "export_directory": exports_dir,
+    #     "export_filename": "haru-games-annotated-after.tsv",
+    #     "parse_filepath": os.path.join(
+    #         exports_dir, "haru-games-annotated-modified.tsv"
+    #     ),
+    # }
 
     # agent_filename = "es.json"
     # agent_filename = "es2.json"
@@ -54,12 +54,14 @@ if __name__ == "__main__":
     # agent_filename = "child-in-hospital-2.json"
     # agent_filename = "system-intents.json"
     # agent_filename = "haru-test.json"
-    agent_filename = "haru-magic.json"
+    agent_filename = "tiny-tiny-habits-rvuq.json"
+    # agent_filename = "haru-smalltalk-all-topics-lithin.json"
+    
     agent_name = os.path.splitext(agent_filename)[0]
 
     config = {
         "parser": {
-            "filepath": os.path.join(data_dir, "HaruMagicPrinciplesV3.xlsx"),
+            "filepath": os.path.join(data_dir, "tiny-tiny-habits-rvuq.xlsx"),
         },
         "uploader": {
             "credential": os.path.join(agents_dir, agent_filename),

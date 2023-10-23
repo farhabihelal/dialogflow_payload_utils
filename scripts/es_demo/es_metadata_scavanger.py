@@ -108,7 +108,7 @@ if __name__ == "__main__":
         ),
         "session_data": session_data,
         "credential": os.path.join(agents_dir, agent_filename),
-        "language_code": "en",
+        "language_code": en-us,
     }
 
     scavanger = ESMetadataScavanger(config)

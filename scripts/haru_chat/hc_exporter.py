@@ -67,16 +67,19 @@ if __name__ == "__main__":
     #     "export_filename": args.export_filename,
     #     "algorithm": "dfs",
     # }
-
+    
+    # agent_filename = "eval-agent-1.json"
+    agent_filename = "tiny-tiny-habits-rvuq.json"
     root_dir = os.path.abspath(f"{os.path.dirname(__file__)}/../../")
     agents_dir = os.path.abspath(os.path.join(root_dir, ".temp/keys"))
     exports_dir = os.path.abspath(os.path.join(root_dir, "exports"))
+    agent_name = os.path.splitext(agent_filename)[0]
 
     config = {
         # "project_id": "haru-smalltalk-all-topics-girm",
-        "credential": os.path.abspath(os.path.join(agents_dir, "haru-chat-games.json")),
+        "credential": os.path.abspath(os.path.join(agents_dir, agent_filename)),
         "export_directory": exports_dir,
-        "export_filename": "Haru-Chat-Games.xlsx",
+        "export_filename": "tiny-tiny-habits-rvuq.xlsx",
         "algorithm": "dfs",
         "mode": "text_rr",
     }

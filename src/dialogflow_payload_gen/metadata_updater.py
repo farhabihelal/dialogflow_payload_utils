@@ -53,7 +53,7 @@ if __name__ == "__main__":
             # "credential": os.path.join(agents_dir, "child-in-hospital.json"),
             # "credential": os.path.join(agents_dir, "haru-test.json"),
             # "credential": os.path.join(agents_dir, "system-intents.json"),
-            "language_code": "en",
+            "language_code": en-us,
         },
     }
 

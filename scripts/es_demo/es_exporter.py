@@ -40,47 +40,47 @@ if __name__ == "__main__":
     author = "Farhabi Helal"
     email = "farhabi.helal@jp.honda-ri.com"
 
-    import argparse
+    # import argparse
 
-    default_config = {
-        "project_id": "",
-        "credential": "",
-        "export_directory": "",
-        "export_filename": "",
-    }
+    # default_config = {
+    #     "project_id": "",
+    #     "credential": "",
+    #     "export_directory": "",
+    #     "export_filename": "",
+    # }
 
-    parser = argparse.ArgumentParser()
+    # parser = argparse.ArgumentParser()
 
-    parser.add_argument(
-        "--project_id",
-        dest="project_id",
-        type=str,
-        default=default_config.get("project_id", ""),
-        help="Google Cloud Project Id",
-    )
-    parser.add_argument(
-        "--credential",
-        dest="credential",
-        type=str,
-        default=default_config.get("credential", ""),
-        help="Path to Google Cloud Project credential",
-    )
-    parser.add_argument(
-        "--export_directory",
-        dest="export_directory",
-        type=str,
-        default=default_config.get("export_directory", ""),
-        help="Absolute path to export directory",
-    )
-    parser.add_argument(
-        "--export_filename",
-        dest="export_filename",
-        type=str,
-        default=default_config.get("export_filename", ""),
-        help="Name of the exported file",
-    )
+    # parser.add_argument(
+    #     "--project_id",
+    #     dest="project_id",
+    #     type=str,
+    #     default=default_config.get("project_id", ""),
+    #     help="Google Cloud Project Id",
+    # )
+    # parser.add_argument(
+    #     "--credential",
+    #     dest="credential",
+    #     type=str,
+    #     default=default_config.get("credential", ""),
+    #     help="Path to Google Cloud Project credential",
+    # )
+    # parser.add_argument(
+    #     "--export_directory",
+    #     dest="export_directory",
+    #     type=str,
+    #     default=default_config.get("export_directory", ""),
+    #     help="Absolute path to export directory",
+    # )
+    # parser.add_argument(
+    #     "--export_filename",
+    #     dest="export_filename",
+    #     type=str,
+    #     default=default_config.get("export_filename", ""),
+    #     help="Name of the exported file",
+    # )
 
-    args, args_list = parser.parse_known_args()
+    # args, args_list = parser.parse_known_args()
 
     # config = {
     #     "project_id": args.project_id,
@@ -96,7 +96,7 @@ if __name__ == "__main__":
 
     from es_data import session_data
 
-    agent_filename = "es.json"
+    agent_filename = "eval-agent-1.json"
     # agent_filename = "es2.json"
     # agent_filename = "child-in-hospital.json"
     # agent_filename = "child-in-hospital-2.json"
