@@ -15,3 +15,4 @@ google-cloud-dialogflow
 torch
 transformers
 jellyfish
+en-core-web-md==3.7.0
